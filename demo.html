@@ -485,6 +485,14 @@
                 /* Анимации отключены по умолчанию - включаются только после нажатия кнопки "Начать" */
                 #image-slider .slider-image.animated:nth-of-type(even) { animation: zoomIn 35s ease-in-out infinite alternate; }
                 #image-slider .slider-image.animated:nth-of-type(odd) { animation: zoomOut 35s ease-in-out infinite alternate; }
+
+                /* Изображение gen-hero.png всегда в масштабе 130% */
+                #image-slider .slider-image.hero-image,
+                #image-slider .slider-image[src*="/assets/images/gen-hero.png"] {
+                  transform: scale(1.3) !important;
+                  opacity: 1 !important;
+                  animation: none !important; /* Отключаем анимацию для этого конкретного изображения */
+                }
               </style>
               <div id="image-slider" class="w-100 h-100" style="position: relative; overflow: hidden;">
                 <img src="/assets/images/photo_2025-10-28 02.57.15.jpeg" alt="Slide 1" class="slider-image active" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:1;transition:opacity 1.5s ease-in-out, filter 1.5s ease-in-out;">
@@ -496,7 +504,7 @@
                 <img src="/assets/images/photo_2025-10-28 02.57.33.jpeg" alt="Slide 7" class="slider-image" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.5s ease-in-out, filter 1.5s ease-in-out;">
                 <img src="/assets/images/photo_2025-10-28 02.57.35.jpeg" alt="Slide 8" class="slider-image" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.5s ease-in-out, filter 1.5s ease-in-out;">
                 <img src="/assets/images/photo_2025-10-28 02.57.38.jpeg" alt="Slide 9" class="slider-image" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.5s ease-in-out, filter 1.5s ease-in-out;">
-                <img src="/assets/images/gen-hero.png" alt="Slide 10" class="slider-image animated" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.5s ease-in-out, filter 1.5s ease-in-out;">
+                <img src="/assets/images/photo_2025-10-28 02.57.15.jpeg" alt="Slide 10" class="slider-image animated hero-image" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.5s ease-in-out, filter 1.5s ease-in-out;">
               </div>
             </div>
           </div>
@@ -839,6 +847,18 @@
       <!-- particle js -->
       <script src="assets/vendor/particle-js/particles.min.js"></script>
       <!-- ==== / js dependencies end ==== -->
+      <!-- performance manager js -->
+      <script src="assets/js/performance-manager.js"></script>
+      <!-- performance monitor js -->
+      <script src="assets/js/performance-monitor.js"></script>
+      <!-- smart slider manager js -->
+      <script src="assets/js/smart-slider-manager.js"></script>
+      <!-- gsap manager js -->
+      <script src="assets/js/gsap-manager.js"></script>
+      <!-- resource manager js -->
+      <script src="assets/js/resource-manager.js"></script>
+      <!-- adaptive manager js -->
+      <script src="assets/js/adaptive-manager.js"></script>
       <!-- plugins js -->
       <script src="assets/js/plugins.js"></script>
       <!-- main js -->
@@ -946,7 +966,7 @@ document.addEventListener('DOMContentLoaded', function() {
           try {
 
             // Отправляем запрос на генерацию изображения
-            const generateResponse = await fetch('http://localhost:8001/api/generate', {
+            const generateResponse = await fetch('https://neuroevent.ru/api/generate', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -970,7 +990,7 @@ document.addEventListener('DOMContentLoaded', function() {
               // Успешно получили изображение, сохраняем его
               updateGenerationStatus('Сохраняем изображение...');
 
-              const saveResponse = await fetch('http://localhost:8001/api/save_image', {
+              const saveResponse = await fetch('https://neuroevent.ru/api/save_image', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -1006,7 +1026,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (activeImage) {
                   // Создаем плавный переход между изображениями
-                  const newImageUrl = `http://localhost:8001/generated_images/${saveData.filename}`;
+                  const newImageUrl = `https://neuroevent.ru/generated_images/${saveData.filename}`;
 
                   // Предзагружаем новое изображение
                   const newImage = new Image();

@@ -132,10 +132,10 @@ python3 server.py
 ### 5. Открытие приложения
 
 Откройте браузер и перейдите по адресу:
-- **Основная страница**: http://localhost:8001
-- **Демо страница**: http://localhost:8001/demo
-- **Тест производительности**: http://localhost:8001/performance-test.html
-- **API endpoints**: http://localhost:8001/api/
+- **Основная страница**: https://neuroevent.ru/
+- **Демо страница**: https://neuroevent.ru/demo
+- **Тест производительности**: https://neuroevent.ru/performance-test.html
+- **API endpoints**: https://neuroevent.ru/api/
 
 ### 6. Проверка оптимизации
 
@@ -147,8 +147,8 @@ python3 server.py
 - **Выполнит автоматическую адаптацию при необходимости**
 
 #### Доступные страницы тестирования:
-- **Базовое тестирование**: `http://localhost:8001/performance-test.html`
-- **Главная страница**: `http://localhost:8001` (с полной системой оптимизации)
+- **Базовое тестирование**: `https://neuroevent.ru/performance-test.html`
+- **Главная страница**: `https://neuroevent.ru/` (с полной системой оптимизации)
 
 #### Возможности тестирования:
 - **Метрики в реальном времени**: FPS, память, сеть, батарея
@@ -222,7 +222,7 @@ echo "GEMINI_API_KEY=your_api_key" > .env
 ```nginx
 server {
     listen 80;
-    server_name your-domain.com;
+    server_name neuroevent.ru;
 
     # Проксирование на Python приложение
     location / {
