@@ -9502,4 +9502,44 @@ span {
   top: -16px;                                /* было -6px */
 }
 
-.section.video-s .fc-lead { margin-bottom: 3.67rem; } 
+.section.video-s .fc-lead { margin-bottom: 3.67rem; }
+
+/* ===== HOW IT WORKS SECTION ===== */
+.how-it-works {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 80px 0;
+}
+
+.how-it-works__content {
+  padding: 60px 20px;
+}
+
+.how-it-works__content .title {
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.how-it-works__description {
+  color: #ccc;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.how-it-works__description p {
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
+.how-it-works__description p:first-child {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #fff;
+} 
