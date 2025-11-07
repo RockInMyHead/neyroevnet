@@ -49,6 +49,11 @@ async def demo_html():
     """Демо страница (альтернативный маршрут для совместимости)"""
     return await demo()
 
+@app.get("/index.html", response_class=HTMLResponse)
+async def index_html():
+    """Главная страница (альтернативный маршрут для совместимости)"""
+    return await home()
+
 @app.get("/performance-test.html", response_class=HTMLResponse)
 async def performance_test():
     """Тест производительности"""
