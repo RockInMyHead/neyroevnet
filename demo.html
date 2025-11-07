@@ -522,7 +522,7 @@
         <div class="col-12 col-lg-5">
           <div class="footer-contactcard ne-sticky-right ne-framed-item">
            <p class="fc-lead">
- ИИ подхватит вашу мысль и превратит её в визуальный образ уже в следующем кадре. Готовы? Нажмите <span class="text-primary">«Начать»</span>. Хотите изменить сюжет — напишите пару фраз и жмите <span class="text-primary">«Отправить идеи»</span>.
+ ИИ подхватит вашу мысль и превратит её в визуальный образ уже в следующем кадре. Напишите пару фраз и нажмите <span class="text-primary">«Отправить идеи»</span>.
 </p>
 
             <div class="footer-contactcard__grid">
@@ -533,7 +533,6 @@
             </div>
 
             <div class="footer-contactcard__actions">
-              <a id="fcMail" href="" class="btn btn--outline btn--w">Начать</a>
               <a id="sendIdeasBtn" href="javascript:void(0)" rel="noopener" class="btn btn--outline btn--w">Отправить идеи</a>
             </div>
           </div>
@@ -1369,13 +1368,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Добавляем обработчик клика на кнопку "Начать"
-  if (startBtn) {
-    startBtn.addEventListener('click', function(e) {
-      e.preventDefault(); // Предотвращаем переход по ссылке
-      startExperience();
-    });
-  }
+  // Анимации запускаются автоматически при загрузке страницы
+  // Кнопка "Начать" была удалена
+
+  // Автоматически запускаем анимации через 2 секунды после загрузки
+  setTimeout(() => {
+    startExperience();
+    console.log('🎬 Animations started automatically after page load');
+  }, 2000);
 });
 </script>
 
