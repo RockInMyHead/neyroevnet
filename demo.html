@@ -29,15 +29,10 @@
       <!-- slick css -->
       <link rel="stylesheet" href="assets/vendor/slick/css/slick.css">
       <!-- odometer css -->
-      <link rel="stylesheet" href="assets/vendor/odometer/css/odometer.css">
+      <link rel="stylesheet" href="assets/vendor/odometer/css/odometer.min.css">
       <!-- ==== / css dependencies end ==== -->
       <!-- main css -->
       <link rel="stylesheet" href="assets/css/main.css">
-
-      <!-- Preload критических ресурсов -->
-      <link rel="preload" href="assets/audio/Вселенная Гарри Поттера.mp3" as="audio" type="audio/mpeg">
-      <link rel="dns-prefetch" href="//fonts.googleapis.com">
-      <link rel="dns-prefetch" href="//fonts.gstatic.com">
    </head>
    <body>
       <!--[if lte IE 9]>
@@ -109,15 +104,15 @@
                            <div class="navbar__menu">
                               <ul class="navbar__list">
                                  <li class="navbar__item nav-fade">
-                                    <a href="index.html#about">О НАС</a>
+                                    <a href="index.html#about">О НАС</a></li>
                                  <li class="navbar__item nav-fade">
-                                    <a href="index.html#product">ПРОДУКТ</a>
+                                    <a href="index.html#product">ПРОДУКТ</a></li>
                                  <li class="navbar__item nav-fade">
-                                    <a href="index.html#band">КОМАНДА</a>
+                                    <a href="index.html#band">КОМАНДА</a></li>
                                  <li class="navbar__item nav-fade">
-                                    <a href="index.html#demo">ДЕМО</a>       
+                                    <a href="index.html#demo">ДЕМО</a></li>       
                                  <li class="navbar__item nav-fade">
-                                    <a href="index.html#plan">НАШИ ПЛАНЫ</a>  
+                                    <a href="index.html#plan">НАШИ ПЛАНЫ</a></li>  
                                                              </ul>
                            </div>
                            <div class="navbar__options">
@@ -136,7 +131,6 @@
 <div class="navbar__item nav-fade d-none d-xl-block">
     <a href="#contact"><i class="bi bi-envelope"></i> КОНТАКТЫ</a>
   </div>
-</a>
                               </div>
                               <button class="open-mobile-menu d-flex d-xl-none" aria-label="toggle mobile menu" title="open mobile menu">
                               <i class="material-symbols-outlined">
@@ -162,40 +156,9 @@
                         </button>
                      </div>
                      <div class="mobile-menu__list"></div>
-                     <div class="mobile-menu__social social nav-fade">
-                        <a
-                           href="https://www.facebook.com/"
-                           target="_blank"
-                           aria-label="share us on facebook"
-                           title="facebook"
-                           >
-                        <i class="bi bi-facebook"></i>
-                        </a>
-                        <a
-                           href="https://www.twitter.com/"
-                           target="_blank"
-                           aria-label="share us on twitter"
-                           title="twitter"
-                           >
-                        <i class="bi bi-twitter"></i>
-                        </a>
-                        <a
-                           href="https://www.linkedin.com/"
-                           target="_blank"
-                           aria-label="share us on pinterest"
-                           title="linkedin"
-                           >
-                        <i class="bi bi-linkedin"></i>
-                        </a>
-                        <a
-                           href="https://www.instagram.com/"
-                           target="_blank"
-                           aria-label="share us on instagram"
-                           title="instagram"
-                           >
-                        <i class="bi bi-instagram"></i>
-                        </a>
-                     </div>
+<ul class="navbar__list">
+  <li class="navbar__item nav-fade"><a href="#contact">КОНТАКТЫ</a></li>
+</ul>
                   </nav>
                </div>
                <div class="mobile-menu__backdrop"></div>
@@ -345,94 +308,6 @@
             </form>
          </div>
          <!-- ==== / search popup end ==== -->
-         <!-- ==== offcanvas info start ==== -->
-         <div class="offcanvas-info">
-            <div class="offcanvas-info__inner">
-               <div class="offcanvas-info__intro">
-                  <div class="offcanvas-info__logo">
-                     <a href="index.html">
-                     <img src="assets/images/offcanvas-logo.png" alt="Image">
-                     </a>
-                  </div>
-                  <h4>Intelligent Conversations Made Simple</h4>
-               </div>
-               <div class="offcanvas-info__content">
-                  <h5>Contact Us</h5>
-                  <ul>
-                     <li>
-                        <a href="mailto:Aikeu@example.com">Aikeu@example.com</a>
-                     </li>
-                     <li>
-                        <a href="tel:1880-480-555-0103">+1 880 (480) 555-0103</a>
-                     </li>
-                     <li>
-                        <a href="https://www.google.com/maps/place/Kentucky,+USA/@37.8172108,-87.087054,8z/data=!3m1!4b1!4m6!3m5!1s0x8842734c8b1953c9:0x771f6f4ec5ccdffc!8m2!3d37.8393332!4d-84.2700179!16zL20vMDQ5OHk?entry=ttu" target="_blank">4517 Washington Ave. Manchester, Kentucky 39495</a>
-                     </li>
-                  </ul>
-               </div>
-               <div class="offcanvas-info__form">
-                  <h5>Subscribe to newsletter</h5>
-                  <form action="#" method="post" autocomplete="off">
-                     <div class="subscribe-form">
-                        <input
-                           type="email"
-                           name="subscribe-newsletter"
-                           id="subscribeNewsletter"
-                           placeholder="Email"
-                           required
-                           >
-                        <button type="submit" aria-label="subscribe newsletter" title="subscribe newsletter">
-                        <i class="material-symbols-outlined">
-                        send
-                        </i>
-                        </button>
-                     </div>
-                  </form>
-               </div>
-               <div class="offcanvas-info__footer">
-                  <p class="tertiary-text">Follow Us :</p>
-                  <div class="social">
-                     <a
-                        href="https://www.facebook.com/"
-                        target="_blank"
-                        aria-label="share us on facebook"
-                        title="facebook"
-                        >
-                     <i class="bi bi-facebook"></i>
-                     </a>
-                     <a
-                        href="https://www.twitter.com/"
-                        target="_blank"
-                        aria-label="share us on twitter"
-                        title="twitter"
-                        >
-                     <i class="bi bi-twitter"></i>
-                     </a>
-                     <a
-                        href="https://www.linkedin.com/"
-                        target="_blank"
-                        aria-label="share us on pinterest"
-                        title="linkedin"
-                        >
-                     <i class="bi bi-linkedin"></i>
-                     </a>
-                     <a
-                        href="https://www.instagram.com/"
-                        target="_blank"
-                        aria-label="share us on instagram"
-                        title="instagram"
-                        >
-                     <i class="bi bi-instagram"></i>
-                     </a>
-                  </div>
-               </div>
-            </div>
-            <button class="close-offcanvas-info" aria-label="close offcanvas info">
-            <i class="bi bi-x-lg"></i>
-            </button>
-         </div>
-         <div class="offcanvas-info-backdrop"></div>
-         <!-- ==== / offcanvas info end ==== -->
          <div id="particles-js"></div>
          <div id="smooth-wrapper">
             <div id="smooth-content">
@@ -477,48 +352,15 @@
 
       <!-- основной ряд: слева видео, справа ввод -->
       <div class="row align-items-start g-4 g-xl-5">
-        <!-- ЛЕВАЯ КОЛОНКА: слайдер изображений -->
+        <!-- ЛЕВАЯ КОЛОНКА: видео -->
         <div class="col-12 col-lg-7">
           <div class="video-s__content">
+            <!-- соотношение сторон и резиновая ширина -->
             <div class="ratio ne-ratio-4x3 ne-framed-item">
-              <style>
-                /* Первое изображение начинается с масштаба 100% */
-                #image-slider .slider-image:first-child { transform: scale(1.0); }
-                
-                /* Все остальные изображения по умолчанию в масштабе 130% */
-                #image-slider .slider-image:not(:first-child) { transform: scale(1.3); }
-
-                @keyframes zoomPulse { 0%, 100% { transform: scale(1.3); } 50% { transform: scale(1.35); } }
-                @keyframes firstImageZoom { 0% { transform: scale(1.0); } 50% { transform: scale(1.3); } 100% { transform: scale(1.35); } }
-
-                /* Анимации зума для всех изображений с классом animated */
-                #image-slider .slider-image.animated {
-                  animation: zoomPulse 30s ease-in-out infinite;
-                }
-
-                /* Специальная плавная анимация для первого изображения */
-                #image-slider .slider-image.animated:first-child {
-                  animation: firstImageZoom 60s ease-in-out infinite !important;
-                }
-
-                /* Изображения gen-hero.png всегда в масштабе 130% */
-                #image-slider .slider-image[src*="/assets/images/gen-hero.png"] {
-                  transform: scale(1.3) !important;
-                  opacity: 1 !important;
-                  animation: none !important; /* Отключаем анимацию для этого конкретного изображения */
-                }
-              </style>
-              <div id="image-slider" class="w-100 h-100" style="position: relative; overflow: hidden;">
-                <img src="/assets/images/photo_2025-10-28 02.57.15.jpeg" alt="Slide 1" class="slider-image active" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:1;transition:opacity 1.5s ease-in-out, filter 1.5s ease-in-out;">
-                <img src="/assets/images/photo_2025-10-28 02.57.19.jpeg" alt="Slide 2" class="slider-image" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.5s ease-in-out, filter 1.5s ease-in-out;" loading="lazy">
-                <img src="/assets/images/photo_2025-10-28 02.57.22.jpeg" alt="Slide 3" class="slider-image" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.5s ease-in-out, filter 1.5s ease-in-out;" loading="lazy">
-                <img src="/assets/images/photo_2025-10-28 02.57.25.jpeg" alt="Slide 4" class="slider-image" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.5s ease-in-out, filter 1.5s ease-in-out;">
-                <img src="/assets/images/photo_2025-10-28 02.57.27.jpeg" alt="Slide 5" class="slider-image" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.5s ease-in-out, filter 1.5s ease-in-out;">
-                <img src="/assets/images/photo_2025-10-28 02.57.30.jpeg" alt="Slide 6" class="slider-image" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.5s ease-in-out, filter 1.5s ease-in-out;">
-                <img src="/assets/images/photo_2025-10-28 02.57.33.jpeg" alt="Slide 7" class="slider-image" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.5s ease-in-out, filter 1.5s ease-in-out;">
-                <img src="/assets/images/photo_2025-10-28 02.57.35.jpeg" alt="Slide 8" class="slider-image" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.5s ease-in-out, filter 1.5s ease-in-out;">
-                <img src="/assets/images/photo_2025-10-28 02.57.38.jpeg" alt="Slide 9" class="slider-image" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.5s ease-in-out, filter 1.5s ease-in-out;">
-              </div>
+              <video autoplay loop muted controls class="w-100 h-100" style="object-fit:cover"
+playsinline webkit-playsinline x5-playsinline="true">
+                <source src="assets/images/video.mp4" type="video/mp4">
+              </video>
             </div>
           </div>
         </div>
@@ -538,7 +380,8 @@
             </div>
 
             <div class="footer-contactcard__actions">
-              <a id="sendIdeasBtn" href="javascript:void(0)" rel="noopener" class="btn btn--outline btn--w">Отправить идеи</a>
+              <a id="fcMail" href="" class="btn btn--outline btn--w">Начать</a>
+              <a href="" target="_blank" rel="noopener" class="btn btn--outline btn--w">Отправить идеи</a>
             </div>
           </div>
         </div>
@@ -589,158 +432,6 @@
                      </div>
                   </section>
                   <!-- ==== / text slider large end ==== -->
-
-                  <!-- ==== how it works section start ==== -->
-                  <section class="how-it-works section pb-100">
-                     <div class="container">
-                        <div class="row justify-content-center">
-                           <div class="col-12 col-md-10 col-lg-8">
-                              <div class="how-it-works__content text-center">
-                                 <h2 class="title title-animation mb-4">ИИ КАК МЕДИАТОР КУЛЬТУРЫ И ДОСУГА</h2>
-                                 <div class="how-it-works__description">
-                                    <p class="mb-4">Нейросеть не подменяет искусство, а становится проводником. Так рождаются визуальные интерпретации классики и истории. Совместно с Main Strings Orchestra мы готовим программу русских композиторов с AI-сопровождением. А для ваших задач мы разработаем кастомное решение — от концепции до пилота на площадке.</p>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </section>
-                  <!-- ==== / how it works section end ==== -->
-
-                  <!-- ==== advantages section start ==== -->
-                  <section class="advantages section pb-100">
-                     <div class="container">
-                        <div class="row g-4">
-                           <!-- Универсальность -->
-                           <div class="col-12 col-md-6 col-lg-3">
-                              <div class="advantage-card">
-                                 <h3 class="advantage-title">Универсальность</h3>
-                                 <p class="advantage-text">Возможность адаптации технологии под любой формат: концерты, выставки и корпоративы, конференции и edu-ивенты, фестивали и спортивные события, театр и иммерсив-шоу.</p>
-                                 <div class="advantage-image">
-                                    <span class="image-placeholder">Image</span>
-                                 </div>
-                              </div>
-                           </div>
-
-                           <!-- Масштабируемость -->
-                           <div class="col-12 col-md-6 col-lg-3">
-                              <div class="advantage-card">
-                                 <h3 class="advantage-title">Масштабируемость</h3>
-                                 <p class="advantage-text">От камерных залов до арен: модульная система, гибкая настройка под площадку и задачи, подключение к мультимедийному оборудованию без сложной интеграции.</p>
-                                 <div class="advantage-image">
-                                    <span class="image-placeholder">Image</span>
-                                 </div>
-                              </div>
-                           </div>
-
-                           <!-- Инновационность -->
-                           <div class="col-12 col-md-6 col-lg-3">
-                              <div class="advantage-card">
-                                 <h3 class="advantage-title">Инновационность</h3>
-                                 <p class="advantage-text">Мероприятия на базе real-time ИИ — формат без аналогов. Усиливает позиционирование, повышает вовлечённость и даёт дополнительную ценность бренду и мероприятию.</p>
-                                 <div class="advantage-image">
-                                    <span class="image-placeholder">Image</span>
-                                 </div>
-                              </div>
-                           </div>
-
-                           <!-- Инвестпотенциал -->
-                           <div class="col-12 col-md-6 col-lg-3">
-                              <div class="advantage-card">
-                                 <h3 class="advantage-title">Инвестпотенциал</h3>
-                                 <p class="advantage-text">Растущий рынок. Масштаб и развитие через серию событий и партнерства. Измеримый эффект — вовлечённость, UGC, PR. Обширные сценарии монетизации и роста.</p>
-                                 <div class="advantage-image">
-                                    <span class="image-placeholder">Image</span>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </section>
-                  <!-- ==== / advantages section end ==== -->
-
-                  <!-- ==== roadmap section start ==== -->
-                  <section class="roadmap section pb-100">
-                     <div class="container">
-                        <div class="row justify-content-center">
-                           <div class="col-12 col-lg-10">
-                              <div class="roadmap__content">
-                                 <h2 class="title title-animation text-center mb-5">РОУДМАП РАЗВИТИЯ</h2>
-
-                                 <div class="roadmap__timeline">
-                                    <!-- Разработка Q2 2025 -->
-                                    <div class="roadmap__phase">
-                                       <div class="roadmap__phase-header">
-                                          <h3 class="roadmap__phase-title">Разработка</h3>
-                                          <span class="roadmap__phase-date">Q2 2025</span>
-                                       </div>
-                                       <div class="roadmap__phase-content">
-                                          <div class="roadmap__item">
-                                             <span class="roadmap__icon">check_circle</span>
-                                             <span class="roadmap__text">Создание и обучение модели</span>
-                                          </div>
-                                          <div class="roadmap__item">
-                                             <span class="roadmap__icon">check_circle</span>
-                                             <span class="roadmap__text">Доработка алгоритмов</span>
-                                          </div>
-                                          <div class="roadmap__item">
-                                             <span class="roadmap__icon">check_circle</span>
-                                             <span class="roadmap__text">Тестирование и оптимизация</span>
-                                          </div>
-                                       </div>
-                                    </div>
-
-                                    <!-- Релиз и инвестиции Q4 2025 -->
-                                    <div class="roadmap__phase">
-                                       <div class="roadmap__phase-header">
-                                          <h3 class="roadmap__phase-title">Релиз и инвестиции</h3>
-                                          <span class="roadmap__phase-date">Q4 2025</span>
-                                       </div>
-                                       <div class="roadmap__phase-content">
-                                          <div class="roadmap__item">
-                                             <span class="roadmap__icon">check_circle</span>
-                                             <span class="roadmap__text">Пилотный запуск проекта</span>
-                                          </div>
-                                          <div class="roadmap__item">
-                                             <span class="roadmap__icon">check_circle</span>
-                                             <span class="roadmap__text">PR — компания и набор кейсов</span>
-                                          </div>
-                                          <div class="roadmap__item">
-                                             <span class="roadmap__icon">check_circle</span>
-                                             <span class="roadmap__text">Привлечение инвестиций</span>
-                                          </div>
-                                       </div>
-                                    </div>
-
-                                    <!-- Развитие и масштаб 2026 -->
-                                    <div class="roadmap__phase">
-                                       <div class="roadmap__phase-header">
-                                          <h3 class="roadmap__phase-title">Развитие и масштаб</h3>
-                                          <span class="roadmap__phase-date">2026</span>
-                                       </div>
-                                       <div class="roadmap__phase-content">
-                                          <div class="roadmap__item">
-                                             <span class="roadmap__icon">check_circle</span>
-                                             <span class="roadmap__text">Регулярные концерты</span>
-                                          </div>
-                                          <div class="roadmap__item">
-                                             <span class="roadmap__icon">check_circle</span>
-                                             <span class="roadmap__text">Выход на рынок частных ивентов</span>
-                                          </div>
-                                          <div class="roadmap__item">
-                                             <span class="roadmap__icon">check_circle</span>
-                                             <span class="roadmap__text">Кратный рост выручки</span>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </section>
-                  <!-- ==== / roadmap section end ==== -->
-
                                              </main>
                <!-- ==== / main end ==== -->
        <!-- ==== footer start ==== -->
@@ -981,50 +672,38 @@
       <!-- bootstrap five js -->
       <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       <!-- magnific popup js -->
-      <script src="assets/vendor/magnific-popup/js/jquery.magnific-popup.min.js" defer></script>
+      <script src="assets/vendor/magnific-popup/js/jquery.magnific-popup.min.js"></script>
       <!-- jquery ui js -->
-      <script src="assets/vendor/jquery-ui/js/jquery-ui.min.js" defer></script>
+      <script src="assets/vendor/jquery-ui/js/jquery-ui.min.js"></script>
       <!-- slick js -->
-      <script src="assets/vendor/slick/js/slick.min.js" defer></script>
+      <script src="assets/vendor/slick/js/slick.min.js"></script>
       <!-- odometer js -->
-      <script src="assets/vendor/odometer/js/odometer.min.js" defer></script>
+      <script src="assets/vendor/odometer/js/odometer.min.js"></script>
       <!-- image loaded js -->
-      <script src="assets/vendor/images-loaded/imagesloaded.pkgd.min.js" defer></script>
+      <script src="assets/vendor/images-loaded/imagesloaded.pkgd.min.js"></script>
       <!-- isotope js -->
-      <script src="assets/vendor/isotope/isotope.pkgd.min.js" defer></script>
+      <script src="assets/vendor/isotope/isotope.pkgd.min.js"></script>
       <!-- packery js -->
-      <script src="assets/vendor/isotope/packery.pkgd.min.js" defer></script>
+      <script src="assets/vendor/isotope/packery.pkgd.min.js"></script>
       <!-- splittext js -->
-      <script src="assets/vendor/gsap/SplitText.min.js" defer></script>
+      <script src="assets/vendor/gsap/SplitText.min.js"></script>
       <!-- scrollsmoother js -->
-      <script src="assets/vendor/gsap/ScrollSmoother.min.js" defer></script>
+      <script src="assets/vendor/gsap/ScrollSmoother.min.js"></script>
       <!-- scrollto js -->
-      <script src="assets/vendor/gsap/ScrollToPlugin.min.js" defer></script>
+      <script src="assets/vendor/gsap/ScrollToPlugin.min.js"></script>
       <!-- scrolltrigger js -->
-      <script src="assets/vendor/gsap/ScrollTrigger.min.js" defer></script>
+      <script src="assets/vendor/gsap/ScrollTrigger.min.js"></script>
       <!-- gsap js -->
-      <script src="assets/vendor/gsap/gsap.min.js" defer></script>
+      <script src="assets/vendor/gsap/gsap.min.js"></script>
       <!-- viewport js -->
-      <script src="assets/vendor/viewport/viewport.jquery.js" defer></script>
+      <script src="assets/vendor/viewport/viewport.jquery.js"></script>
       <!-- vanilla tilt js -->
-      <script src="assets/vendor/vanilla-tilt/tilt.jquery.js" defer></script>
+      <script src="assets/vendor/vanilla-tilt/tilt.jquery.js"></script>
       <!-- particle js -->
-      <script src="assets/vendor/particle-js/particles.min.js" defer></script>
+      <script src="assets/vendor/particle-js/particles.min.js"></script>
       <!-- ==== / js dependencies end ==== -->
-      <!-- performance manager js -->
-      <script src="assets/js/performance-manager.js" defer></script>
-      <!-- performance monitor js -->
-      <script src="assets/js/performance-monitor.js"></script>
-      <!-- smart slider manager js -->
-      <script src="assets/js/smart-slider-manager.js" defer></script>
-      <!-- gsap manager js -->
-      <script src="assets/js/gsap-manager.js" defer></script>
-      <!-- resource manager js -->
-      <script src="assets/js/resource-manager.js" defer></script>
-      <!-- adaptive manager js -->
-      <script src="assets/js/adaptive-manager.js" defer></script>
       <!-- plugins js -->
-      <script src="assets/js/plugins.js" defer></script>
+      <script src="assets/js/plugins.js"></script>
       <!-- main js -->
       <script src="assets/js/main.js"></script>
 <script>
@@ -1083,354 +762,6 @@
 })();
 </script>
 
-<!-- Инициализация слайдера (без автоматического запуска) -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Предзагружаем все изображения для плавной работы
-  const sliderImages = document.querySelectorAll('.slider-image');
-  sliderImages.forEach(img => {
-    const image = new Image();
-    image.src = img.src;
-  });
-});
-</script>
 
-<!-- Скрипт для отправки идей и получения сгенерированного изображения -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const sendIdeasBtn = document.getElementById('sendIdeasBtn');
-  
-  if (sendIdeasBtn) {
-    sendIdeasBtn.addEventListener('click', async function(e) {
-      e.preventDefault();
-      
-      const userMsg = document.getElementById('fcMsg').value.trim();
-      if (!userMsg) {
-        alert('Введите идею в поле.');
-        return;
-      }
-      
-      // Комбинируем пользовательское сообщение с базовым промптом
-      const combinedPrompt = `Кинореализм по миру «Гарри Поттера»: тёплый свет свечей; камень, латунь; туман и объёмный свет, искры магии; палитра изумруд/бордовый/янтарь; мягкие отражения, лёгкое плёночное зерно; без читаемых надписей, дальний план. ${userMsg}`;
-      
-      // Функция для обновления статуса генерации
-      function updateGenerationStatus(message) {
-        sendIdeasBtn.textContent = message;
-      }
-
-      try {
-        // Показываем индикатор загрузки
-        updateGenerationStatus('Создаю магию...');
-        sendIdeasBtn.disabled = true;
-
-        let attemptNumber = 1;
-        const maxAttempts = 3;
-
-        while (attemptNumber <= maxAttempts) {
-          try {
-
-            // Отправляем запрос на генерацию изображения
-            const generateResponse = await fetch('http://localhost:8002/api/generate', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                prompt: combinedPrompt,
-                width: 512,
-                height: 512,
-                steps: 20
-              }),
-              mode: 'cors'
-            });
-
-            if (!generateResponse.ok) {
-              throw new Error(`HTTP error! status: ${generateResponse.status}`);
-            }
-
-            const generateData = await generateResponse.json();
-
-            if (generateData.image_b64) {
-              // Успешно получили изображение, сохраняем его
-              updateGenerationStatus('Сохраняем изображение...');
-
-              const saveResponse = await fetch('http://localhost:8002/api/save_image', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  image_b64: generateData.image_b64.replace(/^data:image\/[a-z]+;base64,/, ''),
-                  prompt: combinedPrompt,
-                  filename: `generated_${Date.now()}.png`,
-                  width: 512,
-                  height: 512
-                }),
-                mode: 'cors'
-              });
-
-              if (saveResponse.ok) {
-                const saveData = await saveResponse.json();
-                console.log('Изображение сохранено:', saveData);
-
-                // Останавливаем автоматическую смену изображений на время генерации
-                if (sliderInterval) {
-                  clearInterval(sliderInterval);
-                  console.log('⏸️ Stopped automatic slider during image generation');
-                }
-
-                // Заменяем текущее активное изображение в слайдере
-                const sliderImages = document.querySelectorAll('.slider-image');
-                // Ищем изображение, которое либо активно (active класс), либо видимо (opacity > 0)
-                let activeImage = Array.from(sliderImages).find(img => img.classList.contains('active'));
-                console.log('🔍 Looking for active image...');
-
-                // Если не нашли по классу, ищем по opacity или просто берем первое изображение
-                if (!activeImage) {
-                  activeImage = Array.from(sliderImages).find(img => img.style.opacity === '1' || parseFloat(img.style.opacity) > 0);
-                  console.log('🔍 Found by opacity:', activeImage ? activeImage.src : 'none');
-                }
-
-                // Если все еще не нашли, берем первое изображение
-                if (!activeImage) {
-                  activeImage = sliderImages[0];
-                  console.log('🔍 Using first image as fallback:', activeImage.src);
-                }
-
-                console.log('🎯 Active image found:', activeImage ? activeImage.src : 'none');
-
-                if (activeImage) {
-                  // Создаем плавный переход между изображениями
-                  const newImageUrl = `http://localhost:8002/generated_images/${saveData.filename}`;
-
-                  console.log('🚀 Immediately inserting generated image into slider:', newImageUrl);
-
-                  // НЕМедленно заменяем изображение без предварительной загрузки
-                  const oldSrc = activeImage.src;
-                  activeImage.src = newImageUrl;
-                  console.log('🔄 Immediately replaced image src:', oldSrc, '->', newImageUrl);
-
-                  // Добавляем обработчик успешной загрузки
-                  activeImage.onload = function() {
-                    console.log('✅ Generated image loaded and displayed:', newImageUrl);
-                    activeImage.onload = null; // Убираем обработчик
-
-                    // Добавляем зум анимацию для сгенерированного изображения
-                    activeImage.style.animation = 'zoomIn 35s ease-in-out infinite alternate';
-
-                    // Перезапускаем автоматическую смену изображений через 15 секунд
-                    setTimeout(() => {
-                      sliderInterval = setInterval(showNextImage, 35000);
-                      console.log('▶️ Restarted automatic slider after showing generated image');
-                    }, 15000); // Даем 15 секунд на просмотр сгенерированного изображения
-                  };
-
-                  activeImage.onerror = function() {
-                    console.error('❌ Failed to load generated image:', newImageUrl);
-                    alert('Ошибка загрузки сгенерированного изображения. Попробуйте еще раз.');
-                    updateGenerationStatus('Ошибка загрузки');
-
-                    // Возвращаем предыдущее изображение
-                    activeImage.src = oldSrc;
-                    activeImage.onerror = null; // Убираем обработчик
-
-                    // Перезапускаем слайдер сразу
-                    sliderInterval = setInterval(showNextImage, 35000);
-                    setTimeout(() => {
-                      updateGenerationStatus('Отправить идеи');
-                    }, 3000);
-                  };
-
-                  // Начинаем загрузку нового изображения
-                  newImage.src = newImageUrl;
-                }
-
-                // Успешно завершили генерацию
-                updateGenerationStatus('Готово!');
-                setTimeout(() => {
-                  updateGenerationStatus('Отправить идеи');
-                }, 2000);
-                return; // Выходим из функции
-
-              } else {
-                throw new Error('Ошибка при сохранении изображения');
-              }
-            } else {
-              // Нет изображения в ответе, пробуем снова
-              if (attemptNumber < maxAttempts) {
-                console.log(`Попытка ${attemptNumber} не удалась, пробуем снова...`);
-                await new Promise(resolve => setTimeout(resolve, 2000)); // Ждем 2 секунды перед повтором
-                attemptNumber++;
-                continue;
-              } else {
-                throw new Error('Ошибка генерации изображения: API не вернул изображение');
-              }
-            }
-
-          } catch (attemptError) {
-            if (attemptNumber >= maxAttempts) {
-              throw attemptError; // Все попытки исчерпаны
-            }
-            // Продолжаем цикл для следующей попытки
-            attemptNumber++;
-          }
-        }
-
-      } catch (error) {
-        console.error('Ошибка:', error);
-        alert('Ошибка при генерации изображения: ' + error.message);
-        updateGenerationStatus('Ошибка');
-        setTimeout(() => {
-          updateGenerationStatus('Отправить идеи');
-        }, 3000);
-      } finally {
-        // Восстанавливаем кнопку
-        sendIdeasBtn.disabled = false;
-      }
-    });
-  }
-});
-</script>
-
-<!-- Глобальные переменные для слайдера -->
-<script>
-let sliderInterval = null; // Глобальная переменная для управления слайдером
-
-document.addEventListener('DOMContentLoaded', function() {
-  const bgMusic = document.getElementById('bg-music');
-  const sliderImages = document.querySelectorAll('.slider-image');
-
-  let isStarted = false;
-
-  // Функция для запуска музыки и слайдера
-  function startExperience() {
-    if (isStarted) return;
-
-    isStarted = true;
-
-    // Включаем CSS анимации для всех изображений
-    sliderImages.forEach((img, index) => {
-      img.classList.add('animated');
-      console.log(`🎬 Added 'animated' class to image ${index + 1}:`, img.src);
-      console.log(`🎬 Image ${index + 1} classes:`, img.className);
-    });
-
-    // Принудительно включаем анимации через inline стили
-    sliderImages.forEach((img, index) => {
-      if (index === 0) {
-        // Первое изображение
-        img.style.animation = 'firstImageZoom 60s ease-in-out infinite';
-        console.log('🎬 Applied firstImageZoom animation to first image');
-      } else {
-        // Остальные изображения
-        img.style.animation = 'zoomPulse 30s ease-in-out infinite';
-        console.log(`🎬 Applied zoomPulse animation to image ${index + 1}`);
-      }
-    });
-
-    console.log('🎬 All animations should be active now');
-
-    // Принудительно включаем анимации через некоторое время, чтобы переопределить возможные правила производительности
-    setTimeout(() => {
-      console.log('🎬 Force-enabling animations after delay');
-      sliderImages.forEach((img, index) => {
-        if (index === 0) {
-          img.style.animation = 'firstImageZoom 60s ease-in-out infinite !important';
-          img.style.transform = 'scale(1.0)';
-          console.log('🎬 Force-applied firstImageZoom to first image');
-        } else {
-          img.style.animation = 'zoomPulse 30s ease-in-out infinite !important';
-          img.style.transform = 'scale(1.3)';
-          console.log(`🎬 Force-applied zoomPulse to image ${index + 1}`);
-        }
-      });
-    }, 1000);
-
-    // Дополнительная проверка анимаций через 5 секунд (после возможной работы системы производительности)
-    setTimeout(() => {
-      console.log('🎬 Checking animations after 5 seconds');
-      sliderImages.forEach((img, index) => {
-        const computedStyle = window.getComputedStyle(img);
-        console.log(`🎬 Image ${index + 1} animation:`, computedStyle.animation);
-        console.log(`🎬 Image ${index + 1} transform:`, computedStyle.transform);
-
-        // Если анимация не работает, принудительно включаем её снова
-        if (!computedStyle.animation || computedStyle.animation === 'none') {
-          console.log(`🎬 Re-enabling animation for image ${index + 1}`);
-          if (index === 0) {
-            img.style.animation = 'firstImageZoom 60s ease-in-out infinite !important';
-          } else {
-            img.style.animation = 'zoomPulse 30s ease-in-out infinite !important';
-          }
-        }
-      });
-    }, 5000);
-
-    // Запускаем музыку
-    if (bgMusic) {
-      bgMusic.play().catch(e => {
-        console.log('Не удалось автоматически запустить музыку:', e);
-        // Показываем подсказку пользователю
-        alert('Нажмите на страницу, чтобы запустить музыку');
-      });
-    }
-
-    // Запускаем автоматическую смену изображений
-    startImageSlider();
-
-    // Опыт запущен автоматически
-  }
-
-  // Функция для запуска слайдера изображений
-  function startImageSlider() {
-    if (sliderInterval) return; // Уже запущен
-
-    let currentIndex = 0;
-
-    function showImage(index) {
-      // Добавляем плавные переходы для всех изображений с эффектом размытия
-      sliderImages.forEach(img => {
-        img.style.transition = 'opacity 1.5s ease-in-out, filter 1.5s ease-in-out';
-      });
-
-      // Скрываем текущее изображение с эффектом размытия
-      sliderImages[currentIndex].style.filter = 'blur(2px)';
-      sliderImages[currentIndex].style.opacity = '0';
-
-      // Переходим к указанному изображению
-      currentIndex = index;
-
-      // Показываем новое изображение с эффектом размытия
-      sliderImages[currentIndex].style.filter = 'blur(2px)';
-      sliderImages[currentIndex].style.opacity = '1';
-
-      // Убираем размытие через небольшую задержку
-      setTimeout(() => {
-        sliderImages[currentIndex].style.filter = 'blur(0px)';
-      }, 200);
-    }
-
-    function showNextImage() {
-      const nextIndex = (currentIndex + 1) % sliderImages.length;
-      showImage(nextIndex);
-    }
-
-    // Запускаем автоматическую смену каждые 35 секунд
-    sliderInterval = setInterval(showNextImage, 35000);
-
-    // Предзагружаем все изображения для плавной работы
-    sliderImages.forEach(img => {
-      const image = new Image();
-      image.src = img.src;
-    });
-  }
-
-  // Автоматически запускаем опыт при загрузке страницы
-  startExperience();
-});
-</script>
-
-<!-- Слушаемая мелодия Вселенная Гарри Поттера -->
-<audio id="bg-music" src="/assets/audio/Вселенная Гарри Поттера.mp3" preload="auto"></audio>
    </body>
 </html>
