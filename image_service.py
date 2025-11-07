@@ -121,13 +121,14 @@ async def generate_image_with_retry(prompt: str, max_retries: int = 3) -> str:
             logger.info(f"Generating image with DALL-E 3 (attempt {attempt + 1}/{max_retries})")
 
             # Формируем тело запроса для DALL-E 3
+            # Сначала пробуем получить изображение в base64 формате
             payload = {
                 "model": "dall-e-3",
                 "prompt": prompt,
                 "n": 1,
                 "size": "1024x1024",
                 "quality": "standard",
-                "response_format": "url"
+                "response_format": "b64_json"
             }
 
             headers = {
@@ -158,23 +159,37 @@ async def generate_image_with_retry(prompt: str, max_retries: int = 3) -> str:
             resp.raise_for_status()
             resp_json = resp.json()
 
-            # Извлекаем URL изображения
+            # Извлекаем изображение из ответа
             if "data" in resp_json and len(resp_json["data"]) > 0:
-                image_url = resp_json["data"][0]["url"]
+                image_data = resp_json["data"][0]
 
-                # Скачиваем изображение по URL
-                async with httpx.AsyncClient(timeout=60) as client:
-                    img_resp = await client.get(image_url)
-                    img_resp.raise_for_status()
+                # Если получили b64_json, используем его напрямую
+                if "b64_json" in image_data:
+                    image_b64 = image_data["b64_json"]
+                    logger.info("Image generated successfully with DALL-E 3 (b64_json)")
+                    return image_b64
 
-                # Конвертируем в base64
-                image_data = img_resp.content
-                image_b64 = base64.b64encode(image_data).decode()
+                # Если получили URL, скачиваем изображение
+                elif "url" in image_data:
+                    image_url = image_data["url"]
+                    logger.info(f"Received image URL, downloading: {image_url}")
 
-                logger.info("Image generated successfully with DALL-E 3")
-                return image_b64
+                    # Скачиваем изображение по URL с аутентификацией
+                    headers = {
+                        "Authorization": f"Bearer {OPENAI_API_KEY}"
+                    }
+                    async with httpx.AsyncClient(timeout=60, headers=headers) as client:
+                        img_resp = await client.get(image_url)
+                        img_resp.raise_for_status()
 
-            raise Exception("No image URL in response")
+                    # Конвертируем в base64
+                    image_data_bytes = img_resp.content
+                    image_b64 = base64.b64encode(image_data_bytes).decode()
+
+                    logger.info("Image generated successfully with DALL-E 3 (url)")
+                    return image_b64
+
+            raise Exception("No image data in response")
 
         except httpx.HTTPStatusError as e:
             if e.response.status_code == 429:
