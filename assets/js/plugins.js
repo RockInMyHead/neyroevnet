@@ -1620,7 +1620,8 @@
      * Resource preloading for sections
      * ======================================
      */
-    // Предзагрузка ресурсов для баннерной секции
+    // Предзагрузка ресурсов для баннерной секции (временно отключена для диагностики)
+    /*
     if ($("#top").length > 0) {
       window.ResourceManager.preloadSection('banner', [
         'assets/images/banner/banner-one-bg.webp?v=1',
@@ -1654,6 +1655,7 @@
         'assets/images/gen-thumb.webp?v=1'
       ]);
     }
+    */
 
     console.log('🎯 All managers initialized and resources preloaded');
   });
