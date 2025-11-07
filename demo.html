@@ -1017,20 +1017,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 const saveData = await saveResponse.json();
                 console.log('Изображение сохранено:', saveData);
 
+                // Останавливаем автоматическую смену изображений на время генерации
+                if (sliderInterval) {
+                  clearInterval(sliderInterval);
+                  console.log('⏸️ Stopped automatic slider during image generation');
+                }
+
                 // Заменяем текущее активное изображение в слайдере
                 const sliderImages = document.querySelectorAll('.slider-image');
                 // Ищем изображение, которое либо активно (active класс), либо видимо (opacity > 0)
                 let activeImage = Array.from(sliderImages).find(img => img.classList.contains('active'));
+                console.log('🔍 Looking for active image...');
 
                 // Если не нашли по классу, ищем по opacity или просто берем первое изображение
                 if (!activeImage) {
                   activeImage = Array.from(sliderImages).find(img => img.style.opacity === '1' || parseFloat(img.style.opacity) > 0);
+                  console.log('🔍 Found by opacity:', activeImage ? activeImage.src : 'none');
                 }
 
                 // Если все еще не нашли, берем первое изображение
                 if (!activeImage) {
                   activeImage = sliderImages[0];
+                  console.log('🔍 Using first image as fallback:', activeImage.src);
                 }
+
+                console.log('🎯 Active image found:', activeImage ? activeImage.src : 'none');
 
                 if (activeImage) {
                   // Создаем плавный переход между изображениями
@@ -1047,15 +1058,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     setTimeout(() => {
                       // Заменяем изображение
+                      const oldSrc = activeImage.src;
                       activeImage.src = newImageUrl;
+                      console.log('🔄 Replaced image src:', oldSrc, '->', newImageUrl);
+
+                      // Добавляем обработчик загрузки нового изображения
+                      activeImage.onload = function() {
+                        console.log('✅ New image loaded and displayed:', newImageUrl);
+                        activeImage.onload = null; // Убираем обработчик
+                      };
+
+                      activeImage.onerror = function() {
+                        console.error('❌ Failed to load new image:', newImageUrl);
+                        activeImage.onerror = null; // Убираем обработчик
+                      };
 
                       // Плавно возвращаем opacity и убираем размытие
                       setTimeout(() => {
                         activeImage.style.opacity = '1';
                         activeImage.style.filter = 'blur(0px)';
+                        console.log('✨ Image transition completed, image should be visible');
 
                         // Добавляем зум анимацию для сгенерированного изображения
                         activeImage.style.animation = 'zoomIn 35s ease-in-out infinite alternate';
+
+                        // Перезапускаем автоматическую смену изображений через 10 секунд
+                        setTimeout(() => {
+                          sliderInterval = setInterval(showNextImage, 35000);
+                          console.log('▶️ Restarted automatic slider after image generation');
+                        }, 10000); // Даем 10 секунд на просмотр сгенерированного изображения
                       }, 100);
                     }, 750); // Половина времени перехода
                   };
