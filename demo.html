@@ -481,9 +481,16 @@
                 #image-slider .slider-image { transform: scale(1.3); }
 
                 @keyframes zoomPulse { 0%, 100% { transform: scale(1.3); } 50% { transform: scale(1.35); } }
+                @keyframes initialZoom { from { transform: scale(1.0); } to { transform: scale(1.3); } }
+
                 /* Анимации зума для всех изображений с классом animated */
                 #image-slider .slider-image.animated:not(.hero-image) {
                   animation: zoomPulse 30s ease-in-out infinite;
+                }
+
+                /* Специальная анимация для начального зума первого изображения */
+                #image-slider .slider-image.initial-zoom {
+                  animation: initialZoom 2s ease-in-out forwards !important;
                 }
 
                 /* Изображение gen-hero.png и hero-image всегда в масштабе 130% */
@@ -1137,18 +1144,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Специальная начальная анимация для первого изображения: от 100% до 130%
     const firstImage = sliderImages[0];
     if (firstImage) {
-      firstImage.style.transform = 'scale(1.0)'; // Начинаем с 100%
+      console.log('🎬 Starting first image zoom animation from 100% to 130%');
 
+      // Устанавливаем начальный масштаб и добавляем класс для анимации
+      firstImage.style.transform = 'scale(1.0)';
+      firstImage.classList.add('initial-zoom');
+
+      // После завершения анимации убираем класс и inline стили
       setTimeout(() => {
-        firstImage.style.transition = 'transform 2s ease-in-out';
-        firstImage.style.transform = 'scale(1.3)'; // Анимируем до 130%
-
-        // После завершения анимации убираем inline стиль для нормальной работы CSS анимаций
-        setTimeout(() => {
-          firstImage.style.transform = '';
-          firstImage.style.transition = '';
-        }, 2100);
-      }, 100);
+        console.log('🎬 Animation completed, removing styles');
+        firstImage.classList.remove('initial-zoom');
+        firstImage.style.transform = '';
+      }, 2100);
     }
 
     // Запускаем музыку
