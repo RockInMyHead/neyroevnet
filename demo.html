@@ -1146,16 +1146,22 @@ document.addEventListener('DOMContentLoaded', function() {
     if (firstImage) {
       console.log('🎬 Starting first image zoom animation from 100% to 130%');
 
-      // Устанавливаем начальный масштаб и добавляем класс для анимации
+      // Устанавливаем начальный масштаб
       firstImage.style.transform = 'scale(1.0)';
-      firstImage.classList.add('initial-zoom');
+      firstImage.style.transition = 'transform 1s ease-in-out';
 
-      // После завершения анимации убираем класс и inline стили
+      // Принудительно запускаем анимацию через небольшой таймаут
       setTimeout(() => {
-        console.log('🎬 Animation completed, removing styles');
-        firstImage.classList.remove('initial-zoom');
-        firstImage.style.transform = '';
-      }, 1100);
+        console.log('🎬 Applying scale(1.3) to start animation');
+        firstImage.style.transform = 'scale(1.3)';
+
+        // После завершения анимации убираем transition и оставляем финальный масштаб
+        setTimeout(() => {
+          console.log('🎬 Animation completed, finalizing styles');
+          firstImage.style.transition = '';
+          // Оставляем scale(1.3) как финальное состояние
+        }, 1100);
+      }, 50);
     }
 
     // Запускаем музыку
