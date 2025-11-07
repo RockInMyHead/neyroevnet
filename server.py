@@ -45,6 +45,15 @@ async def demo_html():
     """Демо страница (альтернативный маршрут для совместимости)"""
     return await demo()
 
+@app.get("/performance-test.html", response_class=HTMLResponse)
+async def performance_test():
+    """Тест производительности"""
+    try:
+        with open("performance-test.html", "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        return HTMLResponse("<h1>Performance Test</h1><p>Страница теста производительности не найдена</p>")
+
 @app.get("/api/test")
 async def api_test():
     """Тестовый API endpoint"""
