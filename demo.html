@@ -968,7 +968,7 @@ document.addEventListener('DOMContentLoaded', function() {
           try {
 
             // Отправляем запрос на генерацию изображения
-            const generateResponse = await fetch('https://neuroevent.ru/api/generate', {
+            const generateResponse = await fetch('http://localhost:8002/api/generate', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -992,7 +992,7 @@ document.addEventListener('DOMContentLoaded', function() {
               // Успешно получили изображение, сохраняем его
               updateGenerationStatus('Сохраняем изображение...');
 
-              const saveResponse = await fetch('https://neuroevent.ru/api/save_image', {
+              const saveResponse = await fetch('http://localhost:8002/api/save_image', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -1028,7 +1028,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (activeImage) {
                   // Создаем плавный переход между изображениями
-                  const newImageUrl = `https://neuroevent.ru/generated_images/${saveData.filename}`;
+                  const newImageUrl = `http://localhost:8002/generated_images/${saveData.filename}`;
 
                   // Предзагружаем новое изображение
                   const newImage = new Image();
