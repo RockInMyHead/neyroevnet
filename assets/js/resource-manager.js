@@ -66,10 +66,10 @@ class ResourceManager {
   preloadCritical() {
     const criticalResources = [
       // Логотипы и важные изображения
-      'assets/images/logo.webp',
-      'assets/images/banner/banner-one-bg.webp',
-      'assets/images/craft-thumb.webp',
-      'assets/images/gen-hero.webp',
+      'assets/images/logo.webp?v=1',
+      'assets/images/banner/banner-one-bg.webp?v=1',
+      'assets/images/craft-thumb.webp?v=1',
+      'assets/images/gen-hero.webp?v=1',
 
       // Шрифты (если используются)
       // 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'
