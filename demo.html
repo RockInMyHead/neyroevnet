@@ -538,7 +538,6 @@
             </div>
 
             <div class="footer-contactcard__actions">
-              <a id="fcMail" href="" class="btn btn--outline btn--w">Начать</a>
               <a id="sendIdeasBtn" href="javascript:void(0)" rel="noopener" class="btn btn--outline btn--w">Отправить идеи</a>
             </div>
           </div>
@@ -1146,7 +1145,6 @@ document.addEventListener('DOMContentLoaded', function() {
 let sliderInterval = null; // Глобальная переменная для управления слайдером
 
 document.addEventListener('DOMContentLoaded', function() {
-  const startBtn = document.getElementById('fcMail');
   const bgMusic = document.getElementById('bg-music');
   const sliderImages = document.querySelectorAll('.slider-image');
 
@@ -1228,11 +1226,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Запускаем автоматическую смену изображений
     startImageSlider();
 
-    // Меняем текст кнопки
-    if (startBtn) {
-      startBtn.textContent = 'Играет...';
-      startBtn.style.opacity = '0.7';
-    }
+    // Опыт запущен автоматически
   }
 
   // Функция для запуска слайдера изображений
@@ -1279,13 +1273,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Добавляем обработчик клика на кнопку "Начать"
-  if (startBtn) {
-    startBtn.addEventListener('click', function(e) {
-      e.preventDefault(); // Предотвращаем переход по ссылке
-      startExperience();
-    });
-  }
+  // Автоматически запускаем опыт при загрузке страницы
+  startExperience();
 });
 </script>
 
