@@ -256,7 +256,9 @@ class ResourceManager {
    * Определение типа ресурса по URL
    */
   getResourceType(src) {
-    const extension = src.split('.').pop().toLowerCase();
+    // Убираем query параметры перед определением расширения
+    const cleanSrc = src.split('?')[0];
+    const extension = cleanSrc.split('.').pop().toLowerCase();
 
     if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(extension)) {
       return 'image';
