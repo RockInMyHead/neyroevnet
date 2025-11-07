@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuroevent — React Demo</title>
+
+    <!-- React from CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Styled JSX for component styles -->
+    <script src="https://unpkg.com/styled-jsx@5.1.6/dist/index.js"></script>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .content {
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 Neuroevent React Demo</h1>
+            <p>Современная реализация с React для лучшей производительности</p>
+        </div>
+
+        <div class="content">
+            <div id="neuro-demo-root"></div>
+        </div>
+    </div>
+
+    <!-- React Components (simplified for CDN usage) -->
+    <script type="text/babel">
+        // Image Slider Component
+        const ImageSlider = ({ images, onImageGenerated }) => {
+            const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+            const [isAnimating, setIsAnimating] = React.useState(false);
+
+            React.useEffect(() => {
+                const interval = setInterval(() => {
+                    setCurrentImageIndex(prev => (prev + 1) % images.length);
+                }, 35000);
+
+                return () => clearInterval(interval);
+            }, [images.length]);
+
+            const replaceWithGeneratedImage = React.useCallback((imageUrl) => {
+                console.log('🚀 Replacing with generated image:', imageUrl);
+                setIsAnimating(true);
+
+                // Simple replacement - in real React we'd use state
+                const sliderImages = document.querySelectorAll('.slider-image');
+                if (sliderImages[0]) {
+                    sliderImages[0].src = imageUrl;
+                    sliderImages[0].style.animation = 'none';
+                    setTimeout(() => {
+                        sliderImages[0].style.animation = 'firstImageZoom 60s ease-in-out infinite';
+                        setIsAnimating(false);
+                    }, 2000);
+                }
+
+                if (onImageGenerated) onImageGenerated(imageUrl);
+            }, [onImageGenerated]);
+
+            // Expose function globally for compatibility
+            window.sliderAPI = { replaceWithGeneratedImage };
+
+            return (
+                <div className="image-slider-container" style={{
+                    position: 'relative',
+                    width: '100%',
+                    height: '400px',
+                    borderRadius: '8px',
+                    overflow: 'hidden',
+                    background: '#f0f0f0'
+                }}>
+                    {images.map((image, index) => (
+                        <img
+                            key={image}
+                            src={image}
+                            alt={`Slide ${index + 1}`}
+                            className="slider-image"
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                opacity: index === currentImageIndex ? 1 : 0,
+                                transition: 'opacity 1.5s ease-in-out',
+                                transform: index === 0 ? 'scale(1.0)' : 'scale(1.3)',
+                                animation: index === 0
+                                    ? 'firstImageZoom 60s ease-in-out infinite'
+                                    : 'zoomPulse 30s ease-in-out infinite'
+                            }}
+                        />
+                    ))}
+
+                    <style jsx>{`
+                        @keyframes zoomPulse {
+                            0%, 100% { transform: scale(1.3); }
+                            50% { transform: scale(1.35); }
+                        }
+
+                        @keyframes firstImageZoom {
+                            0% { transform: scale(1.0); }
+                            50% { transform: scale(1.3); }
+                            100% { transform: scale(1.35); }
+                        }
+                    `}</style>
+                </div>
+            );
+        };
+
+        // Image Generator Component
+        const ImageGenerator = ({ onImageGenerated, onStatusChange }) => {
+            const [prompt, setPrompt] = React.useState('');
+            const [isGenerating, setIsGenerating] = React.useState(false);
+
+            const generateImage = async () => {
+                if (!prompt.trim()) {
+                    alert('Пожалуйста, введите описание изображения');
+                    return;
+                }
+
+                setIsGenerating(true);
+                onStatusChange('Генерация изображения...');
+
+                try {
+                    const response = await fetch('http://localhost:8002/api/generate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ prompt: prompt.trim() })
+                    });
+
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                    const data = await response.json();
+
+                    if (data.success && data.image_b64) {
+                        onStatusChange('Сохранение изображения...');
+
+                        const saveResponse = await fetch('http://localhost:8002/api/save_image', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                image_b64: data.image_b64,
+                                filename: data.filename || `generated_${Date.now()}.png`
+                            })
+                        });
+
+                        if (!saveResponse.ok) throw new Error('Save failed');
+
+                        const saveData = await saveResponse.json();
+                        const imageUrl = `http://localhost:8002/generated_images/${saveData.filename}`;
+
+                        onImageGenerated(imageUrl);
+                        onStatusChange('Изображение готово!');
+                        setPrompt('');
+                    } else {
+                        throw new Error(data.error || 'Generation failed');
+                    }
+                } catch (error) {
+                    console.error('Ошибка:', error);
+                    onStatusChange('Ошибка генерации');
+                    alert(`Ошибка: ${error.message}`);
+                } finally {
+                    setIsGenerating(false);
+                }
+            };
+
+            return (
+                <div className="image-generator">
+                    <form onSubmit={(e) => { e.preventDefault(); generateImage(); }}>
+                        <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+                            <input
+                                type="text"
+                                value={prompt}
+                                onChange={(e) => setPrompt(e.target.value)}
+                                placeholder="Опишите желаемое изображение..."
+                                disabled={isGenerating}
+                                style={{
+                                    flex: 1,
+                                    padding: '12px 16px',
+                                    border: '2px solid #e0e0e0',
+                                    borderRadius: '8px',
+                                    fontSize: '16px'
+                                }}
+                            />
+                            <button
+                                type="submit"
+                                disabled={isGenerating || !prompt.trim()}
+                                style={{
+                                    padding: '12px 24px',
+                                    background: isGenerating ? '#ccc' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '8px',
+                                    fontSize: '16px',
+                                    cursor: isGenerating ? 'not-allowed' : 'pointer'
+                                }}
+                            >
+                                {isGenerating ? 'Генерация...' : 'Отправить идеи'}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            );
+        };
+
+        // Main Demo Component
+        const NeuroDemo = () => {
+            const [generationStatus, setGenerationStatus] = React.useState('Отправить идеи');
+            const [images] = React.useState([
+                '/assets/images/photo_2025-10-28 02.57.15.jpeg',
+                '/assets/images/photo_2025-10-28 02.57.19.jpeg',
+                '/assets/images/photo_2025-10-28 02.57.22.jpeg',
+                '/assets/images/photo_2025-10-28 02.57.25.jpeg',
+                '/assets/images/photo_2025-10-28 02.57.27.jpeg',
+                '/assets/images/photo_2025-10-28 02.57.30.jpeg',
+                '/assets/images/photo_2025-10-28 02.57.33.jpeg',
+                '/assets/images/photo_2025-10-28 02.57.35.jpeg',
+                '/assets/images/photo_2025-10-28 02.57.38.jpeg'
+            ]);
+
+            const handleImageGenerated = (imageUrl) => {
+                console.log('🎯 Image generated:', imageUrl);
+                setGenerationStatus('Изображение готово!');
+            };
+
+            return (
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    gap: '2rem',
+                    alignItems: 'start'
+                }}>
+                    {/* Левый блок - слайдер */}
+                    <div>
+                        <h3 style={{ marginBottom: '1rem', color: '#333' }}>🎨 Слайдер изображений</h3>
+                        <ImageSlider
+                            images={images}
+                            onImageGenerated={handleImageGenerated}
+                        />
+                    </div>
+
+                    {/* Правый блок - генератор */}
+                    <div>
+                        <h3 style={{ marginBottom: '1rem', color: '#333' }}>🤖 Генератор изображений</h3>
+                        <p style={{ marginBottom: '1.5rem', color: '#666', lineHeight: 1.6 }}>
+                            ИИ подхватит вашу мысль и превратит её в визуальный образ. Напишите описание и нажмите "Отправить идеи".
+                        </p>
+
+                        <ImageGenerator
+                            onImageGenerated={handleImageGenerated}
+                            onStatusChange={setGenerationStatus}
+                        />
+
+                        <div style={{
+                            textAlign: 'center',
+                            marginTop: '20px',
+                            padding: '10px',
+                            background: 'rgba(102, 126, 234, 0.1)',
+                            borderRadius: '8px'
+                        }}>
+                            <p style={{
+                                color: '#667eea',
+                                fontWeight: '500',
+                                margin: 0
+                            }}>
+                                {generationStatus}
+                            </p>
+                        </div>
+                    </div>
+
+                    <style jsx>{`
+                        @media (max-width: 768px) {
+                            div[style*="grid-template-columns"] {
+                                grid-template-columns: 1fr !important;
+                            }
+                        }
+                    `}</style>
+                </div>
+            );
+        };
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('neuro-demo-root'));
+        root.render(<NeuroDemo />);
+    </script>
+</body>
+</html>

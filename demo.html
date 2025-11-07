@@ -1018,9 +1018,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Изображение сохранено:', saveData);
 
                 // Останавливаем автоматическую смену изображений на время генерации
-                if (sliderInterval) {
-                  clearInterval(sliderInterval);
+                if (window.sliderInterval) {
+                  clearInterval(window.sliderInterval);
+                  window.sliderInterval = null;
                   console.log('⏸️ Stopped automatic slider during image generation');
+                } else if (typeof sliderInterval !== 'undefined' && sliderInterval) {
+                  // Резервный вариант для локальной переменной
+                  clearInterval(sliderInterval);
+                  sliderInterval = null;
+                  console.log('⏸️ Stopped automatic slider (fallback)');
                 }
 
                 // Заменяем текущее активное изображение в слайдере
@@ -1062,11 +1068,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Добавляем зум анимацию для сгенерированного изображения
                     activeImage.style.animation = 'zoomIn 35s ease-in-out infinite alternate';
 
-                    // Перезапускаем автоматическую смену изображений через 15 секунд
-                    setTimeout(() => {
-                      sliderInterval = setInterval(showNextImage, 35000);
-                      console.log('▶️ Restarted automatic slider after showing generated image');
-                    }, 15000); // Даем 15 секунд на просмотр сгенерированного изображения
+                        // Перезапускаем автоматическую смену изображений через 15 секунд
+                        setTimeout(() => {
+                          window.sliderInterval = setInterval(showNextImage, 35000);
+                          console.log('▶️ Restarted automatic slider after showing generated image');
+                        }, 15000); // Даем 15 секунд на просмотр сгенерированного изображения
                   };
 
                   activeImage.onerror = function() {
@@ -1079,7 +1085,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     activeImage.onerror = null; // Убираем обработчик
 
                     // Перезапускаем слайдер сразу
-                    sliderInterval = setInterval(showNextImage, 35000);
+                    window.sliderInterval = setInterval(showNextImage, 35000);
                     setTimeout(() => {
                       updateGenerationStatus('Отправить идеи');
                     }, 3000);
@@ -1147,69 +1153,158 @@ document.addEventListener('DOMContentLoaded', function() {
 
   let isStarted = false;
 
+  // Оптимизированная система анимаций
+  function initializeOptimizedAnimations() {
+    console.log('🚀 Initializing optimized animation system');
+
+    // Определяем уровень производительности устройства
+    const performanceLevel = detectDevicePerformance();
+
+    // Применяем оптимизированные настройки анимаций
+    applyOptimizedAnimations(performanceLevel);
+
+    // Запускаем мониторинг производительности
+    startPerformanceMonitoring();
+  }
+
+  // Определение производительности устройства
+  function detectDevicePerformance() {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+
+    let score = 0;
+
+    // Проверяем количество ядер процессора (примерно)
+    if (navigator.hardwareConcurrency) {
+      score += Math.min(navigator.hardwareConcurrency * 10, 80);
+    }
+
+    // Проверяем память устройства
+    if ('deviceMemory' in navigator) {
+      score += navigator.deviceMemory * 15;
+    }
+
+    // Проверяем WebGL
+    if (gl) {
+      score += 20;
+    }
+
+    // Определяем уровень
+    if (score >= 70) return 'high';
+    if (score >= 40) return 'medium';
+    return 'low';
+  }
+
+  // Применение оптимизированных анимаций
+  function applyOptimizedAnimations(performanceLevel) {
+    console.log(`🎯 Applying ${performanceLevel} performance animations`);
+
+    // Настройки для разных уровней производительности
+    const animationConfigs = {
+      high: {
+        firstImageDuration: '60s',
+        otherImagesDuration: '30s',
+        useHardwareAcceleration: true,
+        reduceMotion: false
+      },
+      medium: {
+        firstImageDuration: '90s', // Замедляем для экономии ресурсов
+        otherImagesDuration: '45s',
+        useHardwareAcceleration: true,
+        reduceMotion: false
+      },
+      low: {
+        firstImageDuration: '120s', // Еще медленнее
+        otherImagesDuration: '60s',
+        useHardwareAcceleration: false,
+        reduceMotion: true // Уменьшаем движение
+      }
+    };
+
+    const config = animationConfigs[performanceLevel];
+
+    // Применяем CSS анимации
+    sliderImages.forEach((img, index) => {
+      img.classList.add('animated');
+
+      if (index === 0) {
+        // Первое изображение - специальная анимация
+        img.style.animation = `firstImageZoom ${config.firstImageDuration} ease-in-out infinite`;
+        img.style.transform = 'scale(1.0)';
+      } else {
+        // Остальные изображения - пульсирующая анимация
+        if (config.reduceMotion) {
+          // Для слабых устройств - статичный масштаб
+          img.style.transform = 'scale(1.3)';
+          img.style.animation = 'none';
+        } else {
+          img.style.animation = `zoomPulse ${config.otherImagesDuration} ease-in-out infinite`;
+          img.style.transform = 'scale(1.3)';
+        }
+      }
+
+      // Аппаратное ускорение для лучших устройств
+      if (config.useHardwareAcceleration) {
+        img.style.willChange = 'transform';
+        img.style.backfaceVisibility = 'hidden';
+        img.style.perspective = '1000px';
+      }
+    });
+
+    console.log(`✅ Applied optimized animations for ${performanceLevel} performance`);
+  }
+
+  // Мониторинг производительности в реальном времени
+  function startPerformanceMonitoring() {
+    let frameCount = 0;
+    let lastTime = performance.now();
+
+    function checkPerformance() {
+      frameCount++;
+      const currentTime = performance.now();
+
+      // Каждые 60 кадров (примерно 1 секунда при 60fps)
+      if (frameCount >= 60) {
+        const fps = (frameCount * 1000) / (currentTime - lastTime);
+
+        // Если FPS низкий - оптимизируем анимации
+        if (fps < 30) {
+          console.log(`🐌 Low FPS detected (${fps.toFixed(1)}), optimizing animations`);
+          optimizeAnimationsForLowFPS();
+        }
+
+        frameCount = 0;
+        lastTime = currentTime;
+      }
+
+      requestAnimationFrame(checkPerformance);
+    }
+
+    requestAnimationFrame(checkPerformance);
+  }
+
+  // Оптимизация при низком FPS
+  function optimizeAnimationsForLowFPS() {
+    sliderImages.forEach((img, index) => {
+      if (index !== 0) { // Не трогаем первое изображение
+        // Уменьшаем интенсивность анимации
+        const currentAnimation = img.style.animation;
+        if (currentAnimation && currentAnimation.includes('30s')) {
+          img.style.animation = currentAnimation.replace('30s', '60s');
+          console.log(`🐌 Slowed down animation for image ${index + 1}`);
+        }
+      }
+    });
+  }
+
   // Функция для запуска музыки и слайдера
   function startExperience() {
     if (isStarted) return;
 
     isStarted = true;
 
-    // Включаем CSS анимации для всех изображений
-    sliderImages.forEach((img, index) => {
-      img.classList.add('animated');
-      console.log(`🎬 Added 'animated' class to image ${index + 1}:`, img.src);
-      console.log(`🎬 Image ${index + 1} classes:`, img.className);
-    });
-
-    // Принудительно включаем анимации через inline стили
-    sliderImages.forEach((img, index) => {
-      if (index === 0) {
-        // Первое изображение
-        img.style.animation = 'firstImageZoom 60s ease-in-out infinite';
-        console.log('🎬 Applied firstImageZoom animation to first image');
-      } else {
-        // Остальные изображения
-        img.style.animation = 'zoomPulse 30s ease-in-out infinite';
-        console.log(`🎬 Applied zoomPulse animation to image ${index + 1}`);
-      }
-    });
-
-    console.log('🎬 All animations should be active now');
-
-    // Принудительно включаем анимации через некоторое время, чтобы переопределить возможные правила производительности
-    setTimeout(() => {
-      console.log('🎬 Force-enabling animations after delay');
-      sliderImages.forEach((img, index) => {
-        if (index === 0) {
-          img.style.animation = 'firstImageZoom 60s ease-in-out infinite !important';
-          img.style.transform = 'scale(1.0)';
-          console.log('🎬 Force-applied firstImageZoom to first image');
-        } else {
-          img.style.animation = 'zoomPulse 30s ease-in-out infinite !important';
-          img.style.transform = 'scale(1.3)';
-          console.log(`🎬 Force-applied zoomPulse to image ${index + 1}`);
-        }
-      });
-    }, 1000);
-
-    // Дополнительная проверка анимаций через 5 секунд (после возможной работы системы производительности)
-    setTimeout(() => {
-      console.log('🎬 Checking animations after 5 seconds');
-      sliderImages.forEach((img, index) => {
-        const computedStyle = window.getComputedStyle(img);
-        console.log(`🎬 Image ${index + 1} animation:`, computedStyle.animation);
-        console.log(`🎬 Image ${index + 1} transform:`, computedStyle.transform);
-
-        // Если анимация не работает, принудительно включаем её снова
-        if (!computedStyle.animation || computedStyle.animation === 'none') {
-          console.log(`🎬 Re-enabling animation for image ${index + 1}`);
-          if (index === 0) {
-            img.style.animation = 'firstImageZoom 60s ease-in-out infinite !important';
-          } else {
-            img.style.animation = 'zoomPulse 30s ease-in-out infinite !important';
-          }
-        }
-      });
-    }, 5000);
+    // Оптимизированная система анимаций с учетом производительности
+    initializeOptimizedAnimations();
 
     // Запускаем музыку
     if (bgMusic) {
@@ -1265,7 +1360,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Запускаем автоматическую смену каждые 35 секунд
-    sliderInterval = setInterval(showNextImage, 35000);
+    window.sliderInterval = setInterval(showNextImage, 35000);
 
     // Предзагружаем все изображения для плавной работы
     sliderImages.forEach(img => {

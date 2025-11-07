@@ -296,18 +296,25 @@ class AdaptiveManager {
 
     const config = window.PerformanceManager.getConfig();
 
+    // Вместо отключения - оптимизируем анимации
     if (severity === 'high' || severity === 'critical') {
-      // Отключение сложных анимаций
+      // Уменьшаем интенсивность вместо отключения
       config.animations.splitText = false;
-      config.animations.fadeIn = false;
+      config.animations.fadeIn = true; // Оставляем fadeIn
       config.gsap.scrub = false;
+      config.gsap.duration *= 2; // Удваиваем длительность
     } else {
-      // Уменьшение скорости анимаций
-      config.gsap.duration *= 1.5;
-      config.gsap.stagger *= 2;
+      // Плавная оптимизация
+      config.gsap.duration *= 1.2;
+      config.gsap.stagger *= 1.5;
     }
 
-    window.GSAPManager.updatePerformanceConfig();
+    // Не отключаем полностью анимации, только оптимизируем
+    console.log(`🎭 Optimized animations for ${severity} performance (not disabled)`);
+
+    if (window.GSAPManager) {
+      window.GSAPManager.updatePerformanceConfig();
+    }
   }
 
   /**
@@ -418,15 +425,18 @@ class AdaptiveManager {
   async pauseAnimations() {
     if (!window.GSAPManager) return;
 
-    // Пауза всех GSAP анимаций
-    window.GSAPManager.pauseAll();
+    // Вместо полной паузы - замедляем анимации
+    const config = window.PerformanceManager.getConfig();
+    config.gsap.duration *= 3; // Замедляем в 3 раза
 
-    // Пауза слайдеров
+    window.GSAPManager.updatePerformanceConfig();
+
+    // Пауза слайдеров (оставляем как есть, так как это критично)
     if (window.SmartSliderManager) {
       window.SmartSliderManager.pauseAllSliders();
     }
 
-    console.log('⏸️ All animations paused due to system overload');
+    console.log('🐌 Animations slowed down due to system overload (not paused)');
   }
 
   /**

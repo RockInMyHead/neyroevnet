@@ -1,0 +1,32 @@
+{
+  "name": "neuroevent",
+  "version": "2.0.0",
+  "description": "Neuroevent - AI-powered interactive experiences",
+  "main": "server.py",
+  "scripts": {
+    "dev": "python server.py",
+    "build": "echo 'Build process for future React/Next.js migration'",
+    "start": "python server.py",
+    "react-demo": "cd demo-react.html && python -m http.server 3000"
+  },
+  "keywords": ["ai", "neural-network", "interactive", "demos"],
+  "author": "Neuroevent Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0",
+    "python": ">=3.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "next": "^14.0.0"
+  },
+  "optionalDependencies": {
+    "framer-motion": "^11.0.0"
+  }
+}
