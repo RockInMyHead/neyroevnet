@@ -14,7 +14,7 @@ class ResourceManager {
     // Настройки кеширования
     this.settings = {
       maxCacheSize: 50, // Максимум ресурсов в кеше
-      maxConcurrentLoads: 6, // Максимум одновременных загрузок
+      maxConcurrentLoads: 3, // Максимум одновременных загрузок (уменьшено для стабильности)
       cleanupInterval: 60000, // Очистка каждые 60 секунд
       memoryThreshold: 100 * 1024 * 1024, // 100MB порог очистки
       preloadDelay: 100, // Задержка перед preload
@@ -41,6 +41,9 @@ class ResourceManager {
    */
   async init() {
     if (this.initialized) return;
+
+    // Очищаем кеш неудачных загрузок при инициализации
+    this.clearFailedCache();
 
     // Ждем инициализации PerformanceManager
     if (window.PerformanceManager) {
@@ -193,12 +196,12 @@ class ResourceManager {
         reject(new Error(`Failed to load image: ${src}`));
       };
 
-      // Таймаут для загрузки
+      // Таймаут для загрузки (увеличен для стабильности)
       setTimeout(() => {
         if (!img.complete) {
           reject(new Error(`Image load timeout: ${src}`));
         }
-      }, 10000);
+      }, 15000);
 
       // Начинаем загрузку
       img.src = src;
@@ -250,6 +253,14 @@ class ResourceManager {
 
       document.head.appendChild(script);
     });
+  }
+
+  /**
+   * Очистка кеша неудачных загрузок для повторных попыток
+   */
+  clearFailedCache() {
+    this.failed.clear();
+    console.log('🧹 Cleared failed resource cache for retry');
   }
 
   /**
