@@ -2442,7 +2442,7 @@ span {
 /* Базовые стили для анимированного текста */
 .banner .title-animation {
   opacity: 0;
-  animation: fadeInUp 1s ease-out 0.5s forwards;
+  animation: fadeInUp 0.3s ease-out 0.05s forwards;
 }
 
 /* Альтернативная версия с data-атрибутами для лучшего контроля */
@@ -2452,83 +2452,83 @@ span {
 
 .banner [data-word="нейросеть"] {
   opacity: 0;
-  animation: fadeInUp 0.8s ease-out 0.5s forwards;
+  animation: fadeInUp 0.4s ease-out 0.1s forwards;
 }
 
 .banner [data-word="навашем"] {
   opacity: 0;
-  animation: slideInRight 0.8s ease-out 1s forwards;
+  animation: slideInRight 0.4s ease-out 0.3s forwards;
   display: inline-block;
 }
 
 .banner [data-word="мероприятии"] {
   opacity: 0;
   animation:
-    slideInLeft 1s ease-out 1.5s forwards,
-    bannerGlow 2s ease-in-out 2.2s infinite;
+    slideInLeft 0.5s ease-out 0.5s forwards,
+    bannerGlow 1.5s ease-in-out 0.8s infinite;
 }
 
 /* Fallback для старого селектора (если нет data-атрибутов) */
 .banner .title-animation:not([data-animate="true"])::first-letter {
-  animation: slideInLeft 0.8s ease-out 0.7s forwards;
+  animation: slideInLeft 0.4s ease-out 0.1s forwards;
   opacity: 0;
 }
 
 .banner .title-animation:not([data-animate="true"]) span:first-of-type {
   opacity: 0;
-  animation: slideInRight 0.8s ease-out 1.2s forwards;
+  animation: slideInRight 0.4s ease-out 0.3s forwards;
   display: inline-block;
 }
 
 .banner .title-animation:not([data-animate="true"]) .banner-anime {
   opacity: 0;
   animation:
-    slideInLeft 1s ease-out 1.8s forwards,
-    bannerGlow 2s ease-in-out 2.5s infinite;
+    slideInLeft 0.5s ease-out 0.5s forwards,
+    bannerGlow 1.5s ease-in-out 0.8s infinite;
 }
 
 /* Эффект для подчеркивания */
 .banner .banner-anime::before {
-  animation: fadeInUp 0.6s ease-out 2.2s forwards;
+  animation: fadeInUp 0.4s ease-out 1s forwards;
   opacity: 0;
 }
 
 /* Responsive анимации для мобильных */
 @media (max-width: 768px) {
   .banner [data-word="нейросеть"] {
-    animation-duration: 0.6s;
-    animation-delay: 0.3s;
+    animation-duration: 0.3s;
+    animation-delay: 0.05s;
   }
 
   .banner [data-word="навашем"] {
-    animation-duration: 0.6s;
-    animation-delay: 0.7s;
+    animation-duration: 0.3s;
+    animation-delay: 0.2s;
   }
 
   .banner [data-word="мероприятии"] {
-    animation-duration: 0.7s;
-    animation-delay: 1.1s;
+    animation-duration: 0.4s;
+    animation-delay: 0.35s;
   }
 
   /* Fallback для старых селекторов */
   .banner .title-animation:not([data-animate="true"]) {
-    animation-duration: 0.8s;
-    animation-delay: 0.3s;
+    animation-duration: 0.4s;
+    animation-delay: 0.05s;
   }
 
   .banner .title-animation:not([data-animate="true"])::first-letter {
-    animation-duration: 0.6s;
-    animation-delay: 0.5s;
+    animation-duration: 0.3s;
+    animation-delay: 0.05s;
   }
 
   .banner .title-animation:not([data-animate="true"]) span:first-of-type {
-    animation-duration: 0.6s;
-    animation-delay: 0.9s;
+    animation-duration: 0.3s;
+    animation-delay: 0.2s;
   }
 
   .banner .title-animation:not([data-animate="true"]) .banner-anime {
-    animation-duration: 0.8s;
-    animation-delay: 1.3s;
+    animation-duration: 0.4s;
+    animation-delay: 0.35s;
   }
 }
 

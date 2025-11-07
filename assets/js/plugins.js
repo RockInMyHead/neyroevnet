@@ -1480,42 +1480,14 @@
 
     /**
      * ======================================
-     * 40. title animation
+     * 40. title animation - DISABLED (using CSS animations instead)
      * ======================================
      */
-    if ($(".title-animation").length > 0 && performanceConfig.animations.splitText) {
-      let char_come = gsap.utils.toArray(".title-animation");
-      char_come.forEach((char_come) => {
-        if (!window.GSAPManager.shouldAnimate(char_come)) return;
-
-        let split_char = new SplitText(char_come, {
-          type: "chars, words",
-          lineThreshold: 0.5,
-        });
-
-        // Используем GSAPManager для создания оптимизированного таймлайна
-        const { timeline } = window.GSAPManager.createOptimizedTimeline(char_come, {
-          start: "top 90%",
-          end: "bottom 60%",
-          scrub: performanceConfig.gsap.scrub,
-          markers: false,
-          toggleActions: performanceTier === 'low' ? "play none none none" : "play none none reverse",
-        });
-
-        timeline.from(split_char.chars, {
-          duration: performanceConfig.gsap.duration * 0.2,
-          x: 10,
-          autoAlpha: 0,
-          stagger: performanceConfig.gsap.stagger * 2,
-          ease: performanceConfig.gsap.ease,
-        });
-      });
-    } else if ($(".title-animation").length > 0 && !performanceConfig.animations.splitText) {
-      // Для низкой производительности просто показываем текст без анимации
-      $(".title-animation").css({
-        opacity: 1,
-        transform: 'none'
-      });
+    // Отключаем JavaScript анимации title-animation, так как теперь используем CSS анимации
+    // которые работают независимо от производительности и не конфликтуют
+    if ($(".title-animation[data-animate='true']").length > 0) {
+      // CSS анимации уже работают, не вмешиваемся
+      console.log('🎬 Using CSS animations for banner text');
     }
 
     /**
