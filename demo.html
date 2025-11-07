@@ -1129,24 +1129,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
     isStarted = true;
 
-    // Специальная анимация для первого изображения: от 100% до 130%
-    const firstImage = sliderImages[0]; // Первое изображение (Slide 1)
+    // Устанавливаем начальный масштаб для первого изображения (100%)
+    const firstImage = sliderImages[0];
     if (firstImage) {
       firstImage.style.transform = 'scale(1.0)'; // Начинаем с 100%
-      firstImage.style.transition = 'transform 2s ease-in-out'; // Плавная анимация 2 секунды
-
-      // Через небольшую задержку запускаем анимацию до 130%
-      setTimeout(() => {
-        firstImage.style.transform = 'scale(1.3)';
-      }, 100);
     }
 
-    // Включаем CSS анимации для изображений (начиная со второго)
-    sliderImages.forEach((img, index) => {
-      if (index > 0) { // Пропускаем первое изображение
-        img.classList.add('animated');
-      }
+    // Включаем CSS анимации для всех изображений
+    sliderImages.forEach(img => {
+      img.classList.add('animated');
     });
+
+    // Специальная начальная анимация для первого изображения: от 100% до 130%
+    setTimeout(() => {
+      if (firstImage) {
+        firstImage.style.transition = 'transform 2s ease-in-out';
+        firstImage.style.transform = 'scale(1.3)'; // Анимируем до 130%
+
+        // После завершения анимации убираем inline стиль, чтобы CSS анимации работали
+        setTimeout(() => {
+          firstImage.style.transform = ''; // Убираем inline transform
+          firstImage.style.transition = ''; // Убираем transition
+        }, 2100); // После 2.1 секунды (немного больше 2 секунд анимации)
+      }
+    }, 100);
 
     // Запускаем музыку
     if (bgMusic) {
