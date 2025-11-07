@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  nanabanana:
+    build: ./NanaBanana
+    ports:
+      - "8083:8083"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    volumes:
+      - ./NanaBanana/images:/app/images
+    restart: unless-stopped
+
+  web:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - .:/usr/share/nginx/html
+    depends_on:
+      - nanabanana
+    restart: unless-stopped
+
+
+
+
+
+

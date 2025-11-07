@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест системы производительности Neuroevent</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #030015;
+            color: #ffffff;
+        }
+        .performance-card {
+            background: rgba(25, 189, 253, 0.1);
+            border: 1px solid #199bfd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .metric:last-child { border-bottom: none; }
+        .tier-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+        .tier-high { background: #28a745; color: white; }
+        .tier-medium { background: #ffc107; color: black; }
+        .tier-low { background: #dc3545; color: white; }
+        .config-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .config-section h3 {
+            margin-top: 0;
+            color: #199bfd;
+        }
+        pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Тест системы производительности Neuroevent</h1>
+
+    <div class="performance-card">
+        <h2>Результаты детекции производительности</h2>
+        <div id="performance-results">
+            <p>Загрузка системы детекции...</p>
+        </div>
+    </div>
+
+    <div class="performance-card">
+        <h2>Метрики устройства</h2>
+        <div id="metrics-display">
+            <p>Сбор метрик...</p>
+        </div>
+    </div>
+
+    <div class="performance-card">
+        <h2>Конфигурация анимаций</h2>
+        <div id="config-display">
+            <p>Загрузка настроек...</p>
+        </div>
+    </div>
+
+    <div class="performance-card">
+        <h2>Статистика менеджеров</h2>
+        <div id="managers-stats">
+            <p>Загрузка статистики...</p>
+        </div>
+    </div>
+
+    <div class="performance-card">
+        <h2>Мониторинг в реальном времени</h2>
+        <div id="realtime-metrics">
+            <p>Запуск мониторинга...</p>
+        </div>
+    </div>
+
+    <div class="performance-card">
+        <h2>Адаптация системы</h2>
+        <div id="adaptation-info">
+            <p>Загрузка информации...</p>
+        </div>
+    </div>
+
+    <script src="assets/js/performance-manager.js"></script>
+<script src="assets/js/smart-slider-manager.js"></script>
+<script src="assets/js/gsap-manager.js"></script>
+<script src="assets/js/resource-manager.js"></script>
+<script src="assets/js/adaptive-manager.js"></script>
+    <script>
+        async function runPerformanceTest() {
+            try {
+                // Инициализируем все менеджеры
+                const tier = await window.PerformanceManager.init();
+                await window.SmartSliderManager.init();
+                await window.GSAPManager.init();
+                await window.ResourceManager.init();
+                await window.AdaptiveManager.init();
+
+                const config = window.PerformanceManager.getConfig();
+                const metrics = window.PerformanceManager.exportMetrics();
+
+                // Получаем статистику всех менеджеров
+                const sliderStats = window.SmartSliderManager.getStatistics();
+                const gsapStats = window.GSAPManager.getStatistics();
+                const resourceStats = window.ResourceManager.getStatistics();
+                const adaptiveStats = window.AdaptiveManager.getAdaptationStatistics();
+
+                // Отображаем результаты
+                displayResults(tier, metrics, config, { sliderStats, gsapStats, resourceStats, adaptiveStats });
+
+                // Отображаем информацию об адаптации
+                displayAdaptationInfo(adaptiveStats);
+
+                // Запускаем мониторинг в реальном времени
+                startRealTimeMonitoring();
+
+                console.log('🎯 Performance Test Results:', {
+                    tier,
+                    metrics,
+                    config,
+                    sliderStats,
+                    gsapStats,
+                    resourceStats,
+                    adaptiveStats
+                });
+
+            } catch (error) {
+                console.error('❌ Performance test failed:', error);
+                document.getElementById('performance-results').innerHTML =
+                    '<p style="color: #dc3545;">Ошибка тестирования: ' + error.message + '</p>';
+            }
+        }
+
+        function displayResults(tier, metrics, config, stats) {
+            // Результаты детекции
+            const resultsDiv = document.getElementById('performance-results');
+            resultsDiv.innerHTML = `
+                <div class="metric">
+                    <span>Уровень производительности:</span>
+                    <span class="tier-badge tier-${tier}">${tier}</span>
+                </div>
+                <div class="metric">
+                    <span>Общий балл:</span>
+                    <span>${metrics.metrics ? calculateScore(metrics.metrics) : 'N/A'}</span>
+                </div>
+            `;
+
+            // Метрики устройства
+            const metricsDiv = document.getElementById('metrics-display');
+            if (metrics.metrics) {
+                metricsDiv.innerHTML = `
+                    <div class="metric">
+                        <span>CPU ядер:</span>
+                        <span>${metrics.metrics.cores}</span>
+                    </div>
+                    <div class="metric">
+                        <span>Оперативная память:</span>
+                        <span>${metrics.metrics.memory} GB</span>
+                    </div>
+                    <div class="metric">
+                        <span>Интернет:</span>
+                        <span>${metrics.metrics.connection}</span>
+                    </div>
+                    <div class="metric">
+                        <span>WebGL:</span>
+                        <span>${metrics.metrics.webgl ? '✓' : '✗'}</span>
+                    </div>
+                    <div class="metric">
+                        <span>GPU Tier:</span>
+                        <span>${metrics.metrics.gpuTier}</span>
+                    </div>
+                    <div class="metric">
+                        <span>Экран:</span>
+                        <span>${metrics.metrics.screenWidth}x${metrics.metrics.screenHeight}</span>
+                    </div>
+                    <div class="metric">
+                        <span>Устройство:</span>
+                        <span>${metrics.metrics.touchEnabled ? 'Touch' : 'Desktop'}</span>
+                    </div>
+                `;
+            }
+
+            // Конфигурация
+            const configDiv = document.getElementById('config-display');
+            configDiv.innerHTML = `
+                <div class="config-section">
+                    <h3>🎭 GSAP настройки</h3>
+                    <pre>${JSON.stringify(config.gsap, null, 2)}</pre>
+                </div>
+                <div class="config-section">
+                    <h3>🎠 Slick слайдеры</h3>
+                    <pre>${JSON.stringify(config.slick, null, 2)}</pre>
+                </div>
+                <div class="config-section">
+                    <h3>✨ Particles.js</h3>
+                    <pre>${JSON.stringify(config.particles, null, 2)}</pre>
+                </div>
+                <div class="config-section">
+                    <h3>🎯 Курсор</h3>
+                    <pre>${JSON.stringify(config.cursor, null, 2)}</pre>
+                </div>
+                <div class="config-section">
+                    <h3>🎨 Анимации</h3>
+                    <pre>${JSON.stringify(config.animations, null, 2)}</pre>
+                </div>
+            `;
+
+            // Статистика менеджеров
+            const managersDiv = document.getElementById('managers-stats');
+            managersDiv.innerHTML = `
+                <div class="config-section">
+                    <h3>🎠 Smart Slider Manager</h3>
+                    <pre>${JSON.stringify(stats.sliderStats, null, 2)}</pre>
+                </div>
+                <div class="config-section">
+                    <h3>🎭 GSAP Manager</h3>
+                    <pre>${JSON.stringify(stats.gsapStats, null, 2)}</pre>
+                </div>
+                <div class="config-section">
+                    <h3>📦 Resource Manager</h3>
+                    <pre>${JSON.stringify(stats.resourceStats, null, 2)}</pre>
+                </div>
+                <div class="config-section">
+                    <h3>🔄 Adaptive Manager</h3>
+                    <pre>${JSON.stringify(stats.adaptiveStats, null, 2)}</pre>
+                </div>
+            `;
+        }
+
+        function displayAdaptationInfo(adaptiveStats) {
+            const adaptationDiv = document.getElementById('adaptation-info');
+            adaptationDiv.innerHTML = `
+                <div class="metric">
+                    <span>Всего адаптаций:</span>
+                    <span>${adaptiveStats.totalAdaptations}</span>
+                </div>
+                <div class="metric">
+                    <span>Адаптаций за час:</span>
+                    <span>${adaptiveStats.recentAdaptations}</span>
+                </div>
+                <div class="metric">
+                    <span>Cooldown активен:</span>
+                    <span>${adaptiveStats.isCoolingDown ? 'Да' : 'Нет'}</span>
+                </div>
+                <div class="config-section">
+                    <h3>Причины адаптаций</h3>
+                    <pre>${JSON.stringify(adaptiveStats.adaptationsByReason, null, 2)}</pre>
+                </div>
+                <div class="config-section">
+                    <h3>Уровни серьезности</h3>
+                    <pre>${JSON.stringify(adaptiveStats.adaptationsBySeverity, null, 2)}</pre>
+                </div>
+            `;
+        }
+
+        function startRealTimeMonitoring() {
+            const realtimeDiv = document.getElementById('realtime-metrics');
+
+            // Подписываемся на обновления PerformanceMonitor
+            window.PerformanceMonitor.addObserver((event, data) => {
+                if (event === 'update' || event === 'alert') {
+                    updateRealtimeDisplay();
+                }
+            });
+
+            function updateRealtimeDisplay() {
+                const metrics = window.PerformanceMonitor.getMetrics();
+                const summary = window.PerformanceMonitor.getPerformanceSummary();
+
+                realtimeDiv.innerHTML = `
+                    <div class="metric">
+                        <span>FPS:</span>
+                        <span>${metrics.fps.current.toFixed(1)} (${summary.fps})</span>
+                    </div>
+                    <div class="metric">
+                        <span>Память:</span>
+                        <span>${(metrics.memory.percentage * 100).toFixed(1)}% (${summary.memory})</span>
+                    </div>
+                    <div class="metric">
+                        <span>Общий балл:</span>
+                        <span>${summary.overall}/100</span>
+                    </div>
+                    <div class="metric">
+                        <span>Сеть:</span>
+                        <span>${metrics.network.latency}ms (${summary.network})</span>
+                    </div>
+                    <div class="metric">
+                        <span>Батарея:</span>
+                        <span>${(metrics.battery.level * 100).toFixed(0)}% (${summary.battery})</span>
+                    </div>
+                    <div class="config-section">
+                        <h3>Рекомендации</h3>
+                        <ul>
+                            ${summary.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            // Первоначальное обновление
+            updateRealtimeDisplay();
+        }
+
+        function calculateScore(metrics) {
+            // Простой расчет балла на основе метрик
+            let score = 0;
+            score += metrics.cores * 5;
+            score += metrics.memory * 3;
+            score += metrics.gpuTier * 10;
+            return score;
+        }
+
+        // Запускаем тест при загрузке страницы
+        window.addEventListener('load', runPerformanceTest);
+    </script>
+</body>
+</html>
