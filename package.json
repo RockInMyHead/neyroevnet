@@ -1,32 +1,26 @@
 {
   "name": "neuroevent",
-  "version": "2.0.0",
-  "description": "Neuroevent - AI-powered interactive experiences",
-  "main": "server.py",
+  "version": "1.0.0",
+  "description": "Проект Neuroevent представляет собой веб-приложение с интегрированной системой генерации изображений на основе ИИ, плавными анимациями и интерактивным слайдером изображений.",
+  "main": "index.js",
   "scripts": {
-    "dev": "python server.py",
-    "build": "echo 'Build process for future React/Next.js migration'",
-    "start": "python server.py",
-    "react-demo": "cd demo-react.html && python -m http.server 3000"
+    "optimize-images": "node scripts/optimize-images.js",
+    "minify-css": "cleancss -o assets/css/main.min.css assets/css/main.css",
+    "minify-js": "mkdir -p assets/js/minified && uglifyjs assets/js/*.js --compress --mangle --output assets/js/minified/bundle.min.js",
+    "minify-html": "html-minifier-terser --input-dir . --output-dir . --file-ext html --collapse-whitespace --remove-comments --minify-js --minify-css",
+    "optimize": "npm run optimize-images && npm run minify-css && npm run minify-js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["ai", "neural-network", "interactive", "demos"],
-  "author": "Neuroevent Team",
-  "license": "MIT",
-  "engines": {
-    "node": ">=16.0.0",
-    "python": ">=3.8.0"
-  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "next": "^14.0.0"
-  },
-  "optionalDependencies": {
-    "framer-motion": "^11.0.0"
+    "clean-css-cli": "^5.6.3",
+    "html-minifier-terser": "^7.2.0",
+    "imagemin": "^9.0.1",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^10.0.0",
+    "imagemin-webp": "^8.0.0",
+    "uglify-js": "^3.19.3"
   }
 }

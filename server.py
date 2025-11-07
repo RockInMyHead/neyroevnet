@@ -2,12 +2,16 @@ from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import JSONResponse, HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 import os
 import time
 import uvicorn
 from image_service import generate_image_async, save_image, list_images
 
 app = FastAPI(title="Neuroevent AI Image Generator")
+
+# Добавляем сжатие GZip для всех ответов
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 # Добавляем CORS middleware
 app.add_middleware(
