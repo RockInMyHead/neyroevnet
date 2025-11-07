@@ -486,9 +486,10 @@
                 #image-slider .slider-image.animated:nth-of-type(even) { animation: zoomIn 35s ease-in-out infinite alternate; }
                 #image-slider .slider-image.animated:nth-of-type(odd) { animation: zoomOut 35s ease-in-out infinite alternate; }
 
-                /* Изображение gen-hero.png всегда в масштабе 130% */
+                /* Изображение gen-hero.png и hero-image всегда в масштабе 130% */
                 #image-slider .slider-image.hero-image,
-                #image-slider .slider-image[src*="/assets/images/gen-hero.png"] {
+                #image-slider .slider-image[src*="/assets/images/gen-hero.png"],
+                #image-slider .slider-image[src*="/assets/images/photo_2025-10-28 02.57.15.jpeg"] {
                   transform: scale(1.3) !important;
                   opacity: 1 !important;
                   animation: none !important; /* Отключаем анимацию для этого конкретного изображения */
