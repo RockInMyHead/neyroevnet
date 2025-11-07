@@ -103,6 +103,7 @@
         </div>
     </div>
 
+    <script src="assets/js/performance-monitor.js"></script>
     <script src="assets/js/performance-manager.js"></script>
 <script src="assets/js/smart-slider-manager.js"></script>
 <script src="assets/js/gsap-manager.js"></script>
@@ -111,6 +112,11 @@
     <script>
         async function runPerformanceTest() {
             try {
+                // Проверяем готовность PerformanceMonitor
+                if (!window.PerformanceMonitor) {
+                    throw new Error('PerformanceMonitor is not loaded yet. Please refresh the page.');
+                }
+
                 // Инициализируем все менеджеры
                 const tier = await window.PerformanceManager.init();
                 await window.SmartSliderManager.init();
@@ -279,6 +285,10 @@
             const realtimeDiv = document.getElementById('realtime-metrics');
 
             // Подписываемся на обновления PerformanceMonitor
+            if (!window.PerformanceMonitor || !window.PerformanceMonitor.addObserver) {
+                console.error('PerformanceMonitor not ready for observer subscription');
+                return;
+            }
             window.PerformanceMonitor.addObserver((event, data) => {
                 if (event === 'update' || event === 'alert') {
                     updateRealtimeDisplay();
