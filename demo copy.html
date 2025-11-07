@@ -706,6 +706,21 @@ playsinline webkit-playsinline x5-playsinline="true">
       <script src="assets/js/plugins.js"></script>
       <!-- main js -->
       <script src="assets/js/main.js"></script>
+      <script>
+        // Принудительная установка background изображений
+        $(document).ready(function() {
+          $("[data-background]").each(function () {
+            var backgroundImages = $(this).attr("data-background").split(",");
+            var cssValue = backgroundImages
+              .map(function (image) {
+                return 'url("' + image.trim() + '")';
+              })
+              .join(",");
+
+            $(this).css("background-image", cssValue);
+          });
+        });
+      </script>
 <script>
 /* Фикс бегущей строки в .text-slider-large:
    1) возвращаем ссылкам href (но безопасный)
