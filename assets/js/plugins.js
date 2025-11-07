@@ -1623,35 +1623,35 @@
     // Предзагрузка ресурсов для баннерной секции
     if ($("#top").length > 0) {
       window.ResourceManager.preloadSection('banner', [
-        'assets/images/banner/banner-one-bg.png',
-        'assets/images/banner/large-slider/one.png',
-        'assets/images/banner/large-slider/two.png',
-        'assets/images/banner/large-slider/three.png',
-        'assets/images/banner/large-slider/four.png',
-        'assets/images/banner/large-slider/five.png',
-        'assets/images/banner/large-slider/six.png'
+        'assets/images/banner/banner-one-bg.webp',
+        'assets/images/banner/large-slider/one.webp',
+        'assets/images/banner/large-slider/two.webp',
+        'assets/images/banner/large-slider/three.webp',
+        'assets/images/banner/large-slider/four.webp',
+        'assets/images/banner/large-slider/five.webp',
+        'assets/images/banner/large-slider/six.webp'
       ]);
     }
 
     // Предзагрузка ресурсов для секции "О НАС"
     if ($("#about").length > 0) {
       window.ResourceManager.preloadSection('about', [
-        'assets/images/craft-thumb.png'
+        'assets/images/craft-thumb.webp'
       ]);
     }
 
     // Предзагрузка ресурсов для секции "ЧТО МЫ ДЕЛАЕМ"
     if ($("#product").length > 0) {
       window.ResourceManager.preloadSection('product', [
-        'assets/images/tools-thumb.png'
+        'assets/images/tools-thumb.webp'
       ]);
     }
 
     // Предзагрузка ресурсов для секции "КАК ЭТО РАБОТАЕТ"
     if ($(".gen").length > 0) {
       window.ResourceManager.preloadSection('gen', [
-        'assets/images/gen-hero.png',
-        'assets/images/gen-thumb.png'
+        'assets/images/gen-hero.webp',
+        'assets/images/gen-thumb.webp'
       ]);
     }
 
