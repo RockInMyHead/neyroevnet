@@ -1136,15 +1136,16 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- Обработчик для кнопки "Начать" -->
+<!-- Глобальные переменные для слайдера -->
 <script>
+let sliderInterval = null; // Глобальная переменная для управления слайдером
+
 document.addEventListener('DOMContentLoaded', function() {
   const startBtn = document.getElementById('fcMail');
   const bgMusic = document.getElementById('bg-music');
   const sliderImages = document.querySelectorAll('.slider-image');
 
   let isStarted = false;
-  let sliderInterval = null;
 
   // Функция для запуска музыки и слайдера
   function startExperience() {
