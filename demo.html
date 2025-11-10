@@ -61,6 +61,44 @@
           filter: brightness(1.05) contrast(1.05) !important;
         }
 
+        /* Анимация движения текста слева направо */
+        @keyframes slideLeftToRight {
+          0% {
+            transform: translateX(-100%);
+            opacity: 0;
+          }
+          10% {
+            opacity: 1;
+          }
+          90% {
+            opacity: 1;
+          }
+          100% {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+        }
+
+        /* Применяем анимацию к тексту в text-slider-large */
+        .text-slider-large .large-title {
+          animation: slideLeftToRight 8s linear infinite;
+          white-space: nowrap;
+        }
+
+        /* Задержка для разных слайдов */
+        .text-slider-large .text-slider__single:nth-child(1) .large-title {
+          animation-delay: 0s;
+        }
+        .text-slider-large .text-slider__single:nth-child(2) .large-title {
+          animation-delay: 2s;
+        }
+        .text-slider-large .text-slider__single:nth-child(3) .large-title {
+          animation-delay: 4s;
+        }
+        .text-slider-large .text-slider__single:nth-child(4) .large-title {
+          animation-delay: 6s;
+        }
+
         /* Модуль генерации над particles */
         .footer-contactcard {
           position: relative !important;
