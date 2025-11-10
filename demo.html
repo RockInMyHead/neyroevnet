@@ -1360,7 +1360,8 @@ document.addEventListener("DOMContentLoaded", function() {
       
       // Берем базовый промпт текущего изображения или дефолтный
       const basePrompt = basePrompts[currentImageIndex] || defaultBasePrompt;
-      const enhancedPrompt = basePrompt + userPrompt;
+      // Пользовательский промпт вставляется в начало объединенного промпта
+      const enhancedPrompt = userPrompt + " " + basePrompt;
       
       console.log(`🔮 Базовый промпт текущего изображения (${currentImageIndex}.png):`, basePrompt.substring(0, 100) + '...');
 
