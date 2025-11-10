@@ -23,13 +23,13 @@ app.add_middleware(
 )
 
 # Монтируем статические файлы
-app.mount("/assets", StaticFiles(directory="Neuroevent 3/assets"), name="assets")
+app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 app.mount("/generated_images", StaticFiles(directory="generated_images"), name="generated_images")
 
 def get_demo_page():
     """Вспомогательная функция для получения demo.html"""
     try:
-        with open("Neuroevent 3/demo.html", "r", encoding="utf-8") as f:
+        with open("demo.html", "r", encoding="utf-8") as f:
             return f.read()
     except FileNotFoundError:
         return "<h1>Demo</h1><p>Демо страница не найдена</p>"
