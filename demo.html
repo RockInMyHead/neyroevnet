@@ -394,7 +394,7 @@
           <div class="video-s__content">
             <!-- соотношение сторон и резиновая ширина -->
             <div class="ratio ne-ratio-4x3 ne-framed-item" style="position: relative; overflow: hidden; z-index: 10;">
-              <img id="imageElement1" src="assets/images/1.png" alt="AI Image Generation Preview" class="slideshow-image w-100 h-100" style="object-fit:cover; position: absolute; top: 0; left: 0; opacity: 1; z-index: 10;">
+              <img id="imageElement1" src="assets/images/1.png" alt="AI Image Generation Preview" class="slideshow-image w-100 h-100 zoom-active" style="object-fit:cover; position: absolute; top: 0; left: 0; opacity: 1; z-index: 10;">
               <img id="imageElement2" src="assets/images/2.png" alt="AI Image Generation Preview" class="slideshow-image w-100 h-100" style="object-fit:cover; position: absolute; top: 0; left: 0; opacity: 0; z-index: 10;">
             </div>
           </div>
@@ -1713,9 +1713,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Инициализируем состояния изображений для кроссфейда
     imageElement1.style.opacity = '1';
-    imageElement1.classList.add('zoom-active'); // Активируем зум через CSS класс
+    // zoom-active класс уже добавлен в HTML для первого изображения
     imageElement2.style.opacity = '0';
-    imageElement2.classList.remove('zoom-active'); // Убираем зум
+    imageElement2.classList.remove('zoom-active'); // Убираем зум у второго
     currentActiveImage = 1;
 
     // Запускаем автоматическую смену изображений
