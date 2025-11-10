@@ -81,6 +81,7 @@ async def api_generate(request: Request):
             print(f"🖼️ Получен запрос с референсным изображением. Timestamp: {timestamp}")
             print(f"📝 Промпт: {prompt[:100] if prompt else 'None'}...")
             print(f"📐 Размер: {width}x{height}")
+            print(f"📦 Тип reference_image_raw: {type(reference_image_raw)}")
             
             # Обрабатываем референсное изображение
             reference_image = None
@@ -88,16 +89,23 @@ async def api_generate(request: Request):
                 # Если это UploadFile, читаем содержимое
                 from fastapi import UploadFile
                 if isinstance(reference_image_raw, UploadFile):
-                    image_bytes = await reference_image_raw.read()
-                    import base64
-                    reference_image = base64.b64encode(image_bytes).decode('utf-8')
-                    print(f"📸 Референсное изображение получено как UploadFile, размер: {len(image_bytes)} байт")
+                    try:
+                        image_bytes = await reference_image_raw.read()
+                        import base64
+                        reference_image = base64.b64encode(image_bytes).decode('utf-8')
+                        print(f"📸 Референсное изображение получено как UploadFile, размер: {len(image_bytes)} байт")
+                    except Exception as e:
+                        print(f"❌ Ошибка при чтении UploadFile: {e}")
+                        return JSONResponse({"error": f"Error reading reference image: {str(e)}"}, status_code=400)
                 elif isinstance(reference_image_raw, str):
                     # Если это уже строка base64
                     reference_image = reference_image_raw
                     print(f"📸 Референсное изображение получено как строка base64, длина: {len(reference_image)} символов")
                 else:
                     print(f"⚠️ Неизвестный тип референсного изображения: {type(reference_image_raw)}")
+                    print(f"⚠️ Значение: {str(reference_image_raw)[:100] if reference_image_raw else 'None'}...")
+            else:
+                print(f"ℹ️ Референсное изображение не предоставлено")
 
         elif 'application/json' in content_type:
             # Обработка JSON (старый формат)
@@ -111,13 +119,23 @@ async def api_generate(request: Request):
             return JSONResponse({"error": "Unsupported content type"}, status_code=400)
 
         if not prompt:
+            print(f"❌ Промпт не предоставлен")
             return JSONResponse({"error": "Prompt is required"}, status_code=400)
 
-        if len(prompt.strip()) < 3:
+        if not isinstance(prompt, str):
+            print(f"❌ Промпт имеет неправильный тип: {type(prompt)}")
+            return JSONResponse({"error": f"Prompt must be a string, got {type(prompt).__name__}"}, status_code=400)
+
+        prompt = prompt.strip()
+        if len(prompt) < 3:
+            print(f"❌ Промпт слишком короткий: {len(prompt)} символов")
             return JSONResponse({"error": "Prompt must be at least 3 characters long"}, status_code=400)
 
-        if len(prompt.strip()) > 4000:
+        if len(prompt) > 4000:
+            print(f"❌ Промпт слишком длинный: {len(prompt)} символов")
             return JSONResponse({"error": "Prompt must be less than 4000 characters"}, status_code=400)
+        
+        print(f"✅ Промпт валиден: {len(prompt)} символов")
 
         # Если есть референсное изображение, улучшаем промпт
         if reference_image:
@@ -149,7 +167,9 @@ async def api_generate(request: Request):
         return JSONResponse(response_data)
 
     except Exception as e:
+        import traceback
         print(f"❌ Error in API generate: {e}")
+        print(f"❌ Traceback: {traceback.format_exc()}")
         return JSONResponse({"error": f"Internal server error: {str(e)}"}, status_code=500)
 
 @app.post("/api/save_image")

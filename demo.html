@@ -1548,11 +1548,18 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log('🖼️ Генерируем новое изображение без референсного');
       }
 
+      // Проверяем, что промпт не пустой
+      if (!enhancedPrompt || enhancedPrompt.trim().length < 3) {
+        throw new Error('Промпт должен содержать хотя бы 3 символа');
+      }
+
       // Создаем FormData для отправки запроса
         const formData = new FormData();
-        formData.append('prompt', enhancedPrompt);
+        formData.append('prompt', enhancedPrompt.trim());
         formData.append('width', '1024');
         formData.append('height', '1024');
+        
+        console.log('📝 Промпт для отправки:', enhancedPrompt.trim().substring(0, 100) + '...');
         
         // Если есть референсное изображение, добавляем его
         if (referenceImageBase64) {
