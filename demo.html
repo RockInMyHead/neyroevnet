@@ -51,12 +51,13 @@
           width: 100% !important;
           height: 100% !important;
           z-index: 10 !important;
-          transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1), transform 30s ease-in-out !important;
+          transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1), transform 30s ease-in-out, filter 30s ease-in-out !important;
         }
 
-        /* Автозум: изображения начинают с scale(1) и анимируются до scale(1.3) */
+        /* Автозум: изображения начинают с scale(1) и анимируются до scale(1.1) */
         .slideshow-image.zoom-active {
-          transform: scale(1.3) !important;
+          transform: scale(1.1) !important;
+          filter: brightness(1.05) contrast(1.05) !important;
         }
 
         /* Модуль генерации над particles */
@@ -1577,7 +1578,6 @@ document.addEventListener("DOMContentLoaded", function() {
           inactiveElement.style.transition = 'none';
           inactiveElement.style.opacity = '0';
           inactiveElement.classList.remove('zoom-active'); // Убираем зум класс
-          inactiveElement.style.filter = 'none';
 
           console.log(`✅ Кроссфейд завершен. Активный элемент: ${currentActiveImage}`);
 
