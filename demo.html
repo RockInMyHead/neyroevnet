@@ -1498,7 +1498,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let isChangingImage = false;
 
     // Функция для плавной замены изображения с кроссфейдом
-    function replaceImageWithZoom(newImageSrc, isUserGenerated = false) {
+    function replaceImageWithZoom(newImageSrc, isUserGenerated = false, onComplete = null) {
       if (isChangingImage) {
         console.log('⚠️ Смена изображения уже идет, пропускаем');
         return;
@@ -1550,6 +1550,11 @@ document.addEventListener("DOMContentLoaded", function() {
           isChangingImage = false;
           console.log('✅ Плавная замена изображения с кроссфейдом завершена');
 
+          // Вызываем callback после завершения кроссфейда
+          if (onComplete && typeof onComplete === 'function') {
+            onComplete();
+          }
+
         }, 2000); // Длительность кроссфейда
       };
 
@@ -1580,21 +1585,22 @@ document.addEventListener("DOMContentLoaded", function() {
       console.log(`📸 Показываем изображение ${currentImageIndex + 1}/${imageQueue.length}: ${currentImage.src.substring(0, 50)}...`);
       console.log(`⏱️ Время показа: ${displayTime / 1000} секунд (${isUserGenerated ? 'сгенерированное' : 'дефолтное'})`);
 
-      // Заменяем изображение
-      replaceImageWithZoom(currentImage.src, isUserGenerated);
+      // Заменяем изображение и устанавливаем таймер только после завершения кроссфейда
+      replaceImageWithZoom(currentImage.src, isUserGenerated, () => {
+        // Callback вызывается после завершения кроссфейда (через 2 секунды)
+        // Теперь устанавливаем таймер для следующей смены
+        if (imageChangeTimer) {
+          clearTimeout(imageChangeTimer);
+        }
 
-      // Устанавливаем таймер для следующей смены (используем displayTime текущего изображения)
-      if (imageChangeTimer) {
-        clearTimeout(imageChangeTimer);
-      }
-
-      imageChangeTimer = setTimeout(() => {
-        // Переходим к следующему изображению в очереди
-        currentImageIndex = (currentImageIndex + 1) % imageQueue.length;
-        // Обновляем глобальную переменную для определения базового промпта
-        window.currentImageIndex = currentImageIndex + 1; // +1 потому что массив начинается с 0, а промпты с 1
-        showNextImage();
-      }, displayTime);
+        imageChangeTimer = setTimeout(() => {
+          // Переходим к следующему изображению в очереди
+          currentImageIndex = (currentImageIndex + 1) % imageQueue.length;
+          // Обновляем глобальную переменную для определения базового промпта
+          window.currentImageIndex = currentImageIndex + 1; // +1 потому что массив начинается с 0, а промпты с 1
+          showNextImage();
+        }, displayTime);
+      });
     }
 
     // Функция для замены текущего изображения сгенерированным
