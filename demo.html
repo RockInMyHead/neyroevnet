@@ -1356,6 +1356,29 @@ document.addEventListener("DOMContentLoaded", function() {
       }, 5000);
   }
 
+  // Функция для конвертации изображения в base64
+  function imageToBase64(imageElement) {
+    return new Promise((resolve, reject) => {
+      try {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Устанавливаем размеры canvas равными размерам изображения
+        canvas.width = imageElement.naturalWidth || imageElement.width || 1024;
+        canvas.height = imageElement.naturalHeight || imageElement.height || 1024;
+        
+        // Рисуем изображение на canvas
+        ctx.drawImage(imageElement, 0, 0, canvas.width, canvas.height);
+        
+        // Конвертируем в base64 (убираем префикс data:image/png;base64,)
+        const base64 = canvas.toDataURL('image/png').split(',')[1];
+        resolve(base64);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
   // Общая функция для генерации изображения
   async function generateImage(useCurrentBasePrompt = true) {
     if (!demoTextarea || !imageElement1 || !imageElement2) {
@@ -1379,18 +1402,32 @@ document.addEventListener("DOMContentLoaded", function() {
     const defaultBasePrompt = "Кинореализм по миру «Гарри Поттера»: тёплый свет свечей; камень, латунь; туман и объёмный свет, искры магии; палитра изумруд/бордовый/янтарь; мягкие отражения, лёгкое плёночное зерно; без читаемых надписей, дальний план. ";
 
     let enhancedPrompt;
+    let referenceImageBase64 = null;
     
     if (useCurrentBasePrompt) {
-      // "Добавить в текущую сцену" - используем базовый промпт текущего изображения
-      const currentImageIndex = window.currentImageIndex || 1;
-      console.log(`📸 Текущее изображение для генерации: ${currentImageIndex}.png`);
-      
-      const basePrompt = basePrompts[currentImageIndex] || defaultBasePrompt;
-      enhancedPrompt = userPrompt + " " + basePrompt;
-      
-      console.log(`🔮 Базовый промпт текущего изображения (${currentImageIndex}.png):`, basePrompt.substring(0, 100) + '...');
-            } else {
-      // "Создать новую сцену" - используем только дефолтный базовый промпт
+      // "Добавить в текущую сцену" - используем алгоритм дорисовки с референсным изображением
+      const currentImage = getCurrentImageElement();
+      if (currentImage) {
+        try {
+          console.log('📸 Конвертируем текущее изображение в base64 для дорисовки');
+          referenceImageBase64 = await imageToBase64(currentImage);
+          console.log('✅ Текущее изображение конвертировано в base64');
+          
+          // Для дорисовки используем только пользовательский промпт
+          // Сервер сам добавит инструкции для дорисовки
+          enhancedPrompt = userPrompt;
+          console.log('🎨 Используем алгоритм дорисовки с референсным изображением');
+        } catch (error) {
+          console.error('❌ Ошибка конвертации изображения:', error);
+          alert('Ошибка при обработке текущего изображения. Попробуйте еще раз.');
+          return;
+        }
+      } else {
+        console.warn('⚠️ Текущее изображение не найдено, используем генерацию без референса');
+        enhancedPrompt = userPrompt + " " + defaultBasePrompt;
+      }
+    } else {
+      // "Создать новую сцену" - используем только дефолтный базовый промпт (без референсного изображения)
       enhancedPrompt = userPrompt + " " + defaultBasePrompt;
       console.log(`🆕 Создаем новую сцену с дефолтным базовым промптом`);
     }
@@ -1428,13 +1465,25 @@ document.addEventListener("DOMContentLoaded", function() {
           : '/api/generate';
 
         console.log('📡 Отправляем запрос на:', apiUrl);
-      console.log('🖼️ Генерируем новое изображение без референсного');
+      
+      if (referenceImageBase64) {
+        console.log('🖼️ Используем алгоритм дорисовки с референсным изображением');
+      } else {
+        console.log('🖼️ Генерируем новое изображение без референсного');
+      }
 
-      // Создаем FormData для отправки запроса (без референсного изображения)
+      // Создаем FormData для отправки запроса
         const formData = new FormData();
         formData.append('prompt', enhancedPrompt);
         formData.append('width', '1024');
         formData.append('height', '1024');
+        
+        // Если есть референсное изображение, добавляем его
+        if (referenceImageBase64) {
+          formData.append('reference_image', referenceImageBase64);
+          formData.append('timestamp', new Date().toISOString());
+          console.log('📸 Референсное изображение добавлено в запрос');
+        }
 
         // Генерируем изображение через API
         const response = await fetch(apiUrl, {
