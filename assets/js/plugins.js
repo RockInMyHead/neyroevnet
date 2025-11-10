@@ -525,48 +525,15 @@
      * 10. particles background
      * ======================================
      */
-    if ($("#particles-js").length && performanceConfig.particles?.enabled) {
-      const particlesConfig = performanceConfig.particles || {};
-      particlesJS("particles-js", {
-        particles: {
-          number: particlesConfig.number || 80,
-          color: {
-            value: "#0a1968",
-          },
-          shape: {
-            type: "circle",
-            stroke: {
-              width: 0,
-              color: "#0a1968",
-            },
-            shadow: {
-              enable: false,
-            },
-          },
-          opacity: particlesConfig.opacity || { value: 0.5 },
-          size: particlesConfig.size || { value: 3 },
-          line_linked: {
-            enable: false,
-          },
-          move: particlesConfig.move || { speed: 2 },
-        },
-        interactivity: {
-          detect_on: "canvas",
-          events: {
-            onhover: {
-              enable: false,
-            },
-            onclick: {
-              enable: false,
-            },
-            resize: true,
-          },
-        },
-        retina_detect: true,
-      });
-    } else if ($("#particles-js").length && !performanceConfig.particles?.enabled) {
-      // Для низкой производительности скрываем частицы
-      $("#particles-js").hide();
+    // Particles инициализируются в demo.html, здесь только управление видимостью
+    if ($("#particles-js").length) {
+      if (performanceConfig.particles?.enabled) {
+        console.log('✅ Particles включены, производительность:', performanceTier);
+        $("#particles-js").show();
+      } else {
+        console.log('⚠️ Particles отключены из-за низкой производительности');
+        $("#particles-js").hide();
+      }
     }
 
     /**
