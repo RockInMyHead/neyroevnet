@@ -52,6 +52,12 @@
           width: 100% !important;
           height: 100% !important;
         }
+
+        /* Модуль генерации над particles */
+        .footer-contactcard {
+          position: relative !important;
+          z-index: 1000001 !important;
+        }
       </style>
    </head>
    <body>
@@ -328,7 +334,7 @@
             </form>
          </div>
          <!-- ==== / search popup end ==== -->
-                <div id="particles-js" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"></div>
+                <div id="particles-js" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999999;"></div>
          <div id="smooth-wrapper">
             <div id="smooth-content">
                <!-- ==== main start ==== -->
