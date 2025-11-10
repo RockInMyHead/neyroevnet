@@ -50,6 +50,7 @@
           object-fit: cover !important;
           width: 100% !important;
           height: 100% !important;
+          z-index: 10 !important;
           transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1), transform 30s ease-in-out !important;
         }
 
@@ -387,9 +388,9 @@
         <div class="col-12 col-lg-7">
           <div class="video-s__content">
             <!-- соотношение сторон и резиновая ширина -->
-            <div class="ratio ne-ratio-4x3 ne-framed-item" style="position: relative; overflow: hidden;">
-              <img id="imageElement1" src="assets/images/1.png" alt="AI Image Generation Preview" class="slideshow-image w-100 h-100" style="object-fit:cover; position: absolute; top: 0; left: 0; opacity: 1;">
-              <img id="imageElement2" src="assets/images/2.png" alt="AI Image Generation Preview" class="slideshow-image w-100 h-100" style="object-fit:cover; position: absolute; top: 0; left: 0; opacity: 0;">
+            <div class="ratio ne-ratio-4x3 ne-framed-item" style="position: relative; overflow: hidden; z-index: 10;">
+              <img id="imageElement1" src="assets/images/1.png" alt="AI Image Generation Preview" class="slideshow-image w-100 h-100" style="object-fit:cover; position: absolute; top: 0; left: 0; opacity: 1; z-index: 10;">
+              <img id="imageElement2" src="assets/images/2.png" alt="AI Image Generation Preview" class="slideshow-image w-100 h-100" style="object-fit:cover; position: absolute; top: 0; left: 0; opacity: 0; z-index: 10;">
             </div>
           </div>
         </div>
@@ -1057,6 +1058,13 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
       }
 
+      // Останавливаем автоматическое переключение слайдшоу
+      if (imageChangeTimer) {
+        clearTimeout(imageChangeTimer);
+        imageChangeTimer = null;
+        console.log('🛑 Слайдшоу остановлено для анимации зума');
+      }
+
       // Анимируем зум изображения от 130% до 100% за 30 секунд
       const currentImage = getCurrentImageElement();
       if (currentImage) {
@@ -1085,7 +1093,16 @@ document.addEventListener("DOMContentLoaded", function() {
           ease: "power2.out",
           force3D: true,
           onStart: () => console.log('▶️ Анимация GSAP началась'),
-          onComplete: () => console.log('✅ Анимация GSAP завершена - зум 100% достигнут'),
+          onComplete: () => {
+            console.log('✅ Анимация GSAP завершена - зум 100% достигнут');
+            // Возобновляем слайдшоу после завершения анимации зума
+            if (!imageChangeTimer) {
+              imageChangeTimer = setTimeout(() => {
+                showNextImage();
+              }, 30000);
+              console.log('▶️ Слайдшоу возобновлено после анимации зума');
+            }
+          },
           onUpdate: () => {
             const currentScale = gsap.getProperty(currentImage, 'scale');
             console.log('📊 Текущий масштаб:', (currentScale * 100).toFixed(1) + '%');
