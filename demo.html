@@ -55,9 +55,9 @@
           transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1), transform 30s ease-in-out, filter 30s ease-in-out !important;
         }
 
-        /* Автозум: изображения начинают с scale(1) и анимируются до scale(1.15) */
+        /* Автозум: изображения начинают с scale(1) и анимируются до scale(1.3) */
         .slideshow-image.zoom-active {
-          transform: scale(1.15) !important;
+          transform: scale(1.3) !important;
           filter: brightness(1.05) contrast(1.05) !important;
         }
 
@@ -1112,7 +1112,7 @@ document.addEventListener("DOMContentLoaded", function() {
         imageChangeTimer = null;
       }
 
-      // Анимируем зум изображения от 130% до 100% за 30 секунд
+      // Анимируем зум изображения от 100% до 130% за 30 секунд
       const currentImage = getCurrentImageElement();
       if (currentImage) {
 
@@ -1124,14 +1124,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Устанавливаем начальный масштаб напрямую
         gsap.set(currentImage, {
-          scale: 1.3,
+          scale: 1.0,
           transformOrigin: 'center center',
           force3D: true
         });
 
         // Анимируем scale напрямую
         gsap.to(currentImage, {
-          scale: 1.0, // от 1.3 до 1.0
+          scale: 1.3, // от 1.0 до 1.3
           duration: 30,
           ease: "power2.out",
           force3D: true,
@@ -1362,12 +1362,12 @@ document.addEventListener("DOMContentLoaded", function() {
       return;
     }
 
-    const userPrompt = demoTextarea.value.trim();
+      const userPrompt = demoTextarea.value.trim();
 
-    if (!userPrompt) {
-      alert('Пожалуйста, введите ваш промпт перед отправкой идей.');
-      return;
-    }
+      if (!userPrompt) {
+        alert('Пожалуйста, введите ваш промпт перед отправкой идей.');
+        return;
+      }
 
     // Базовые промпты для разных изображений
     const basePrompts = {
@@ -1389,7 +1389,7 @@ document.addEventListener("DOMContentLoaded", function() {
       enhancedPrompt = userPrompt + " " + basePrompt;
       
       console.log(`🔮 Базовый промпт текущего изображения (${currentImageIndex}.png):`, basePrompt.substring(0, 100) + '...');
-    } else {
+            } else {
       // "Создать новую сцену" - используем только дефолтный базовый промпт
       enhancedPrompt = userPrompt + " " + defaultBasePrompt;
       console.log(`🆕 Создаем новую сцену с дефолтным базовым промптом`);
@@ -1422,69 +1422,69 @@ document.addEventListener("DOMContentLoaded", function() {
       console.log('🎨 Начинаем генерацию изображения для пользовательского промпта:', userPrompt);
       console.log('✨ Объединенный промпт для генерации:', enhancedPrompt);
 
-      // Определяем URL API сервера
-      const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://localhost:8002/api/generate'
-        : '/api/generate';
+        // Определяем URL API сервера
+        const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+          ? 'http://localhost:8002/api/generate'
+          : '/api/generate';
 
-      console.log('📡 Отправляем запрос на:', apiUrl);
+        console.log('📡 Отправляем запрос на:', apiUrl);
       console.log('🖼️ Генерируем новое изображение без референсного');
 
       // Создаем FormData для отправки запроса (без референсного изображения)
-      const formData = new FormData();
-      formData.append('prompt', enhancedPrompt);
-      formData.append('width', '1024');
-      formData.append('height', '1024');
+        const formData = new FormData();
+        formData.append('prompt', enhancedPrompt);
+        formData.append('width', '1024');
+        formData.append('height', '1024');
 
-      // Генерируем изображение через API
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        body: formData
-      });
+        // Генерируем изображение через API
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          body: formData
+        });
 
-      if (!response.ok) {
-        let errorMessage = `HTTP error! status: ${response.status}`;
-        try {
-          const errorData = await response.json();
-          errorMessage = errorData.error || errorMessage;
-        } catch (e) {
+        if (!response.ok) {
+          let errorMessage = `HTTP error! status: ${response.status}`;
+          try {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } catch (e) {
           const responseText = await response.text();
           errorMessage = responseText || errorMessage;
+          }
+          throw new Error(errorMessage);
         }
-        throw new Error(errorMessage);
-      }
 
-      let data;
-      try {
-        data = await response.json();
-      } catch (e) {
-        const responseText = await response.text();
-        throw new Error(`Не удалось распарсить ответ сервера: ${responseText.substring(0, 100)}`);
-      }
+        let data;
+        try {
+          data = await response.json();
+        } catch (e) {
+          const responseText = await response.text();
+          throw new Error(`Не удалось распарсить ответ сервера: ${responseText.substring(0, 100)}`);
+        }
 
-      if (data.success && data.image_b64) {
-        console.log('✅ Изображение сгенерировано успешно');
+        if (data.success && data.image_b64) {
+          console.log('✅ Изображение сгенерировано успешно');
 
-        // Добавляем сгенерированное изображение в очередь
-        const imageData = 'data:image/png;base64,' + data.image_b64;
-        
-        // Добавляем сгенерированное изображение в очередь после текущего
-        if (window.addUserGeneratedImage) {
-          window.addUserGeneratedImage(imageData);
-          console.log('📋 Сгенерированное изображение добавлено в очередь');
+          // Добавляем сгенерированное изображение в очередь
+          const imageData = 'data:image/png;base64,' + data.image_b64;
+          
+          // Добавляем сгенерированное изображение в очередь после текущего
+          if (window.addUserGeneratedImage) {
+            window.addUserGeneratedImage(imageData);
+            console.log('📋 Сгенерированное изображение добавлено в очередь');
+          } else {
+            console.warn('⚠️ Функция addUserGeneratedImage не найдена, изображение не добавлено в очередь');
+          }
+
+          console.log('🖼️ Изображение обновлено на странице');
         } else {
-          console.warn('⚠️ Функция addUserGeneratedImage не найдена, изображение не добавлено в очередь');
+          throw new Error(data.error || 'Не удалось получить изображение');
         }
 
-        console.log('🖼️ Изображение обновлено на странице');
-      } else {
-        throw new Error(data.error || 'Не удалось получить изображение');
-      }
-
-    } catch (error) {
-      console.error('❌ Ошибка генерации изображения:', error);
-      showNotification('❌ Ошибка: ' + error.message, 'error');
-    } finally {
+      } catch (error) {
+        console.error('❌ Ошибка генерации изображения:', error);
+        showNotification('❌ Ошибка: ' + error.message, 'error');
+      } finally {
       // Восстанавливаем кнопки
       if (addToCurrentSceneButton) {
         addToCurrentSceneButton.textContent = 'Добавить в текущую сцену';
