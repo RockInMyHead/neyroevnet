@@ -61,42 +61,61 @@
           filter: brightness(1.05) contrast(1.05) !important;
         }
 
-        /* Анимация движения текста слева направо */
-        @keyframes slideLeftToRight {
+        /* Контейнер для текста должен иметь position: relative */
+        .text-slider-large {
+          position: relative;
+          overflow: visible;
+          height: 100px; /* Высота для размещения текста */
+        }
+
+        /* Все элементы текста должны быть position: absolute */
+        .text-slider-large .text-slider__single {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+
+        /* Анимация движения текста паровозиком */
+        @keyframes trainMovement {
           0% {
-            transform: translateX(-100%);
+            transform: translateX(-120%);
             opacity: 0;
           }
           10% {
             opacity: 1;
           }
-          90% {
+          85% {
             opacity: 1;
           }
           100% {
-            transform: translateX(100%);
+            transform: translateX(120%);
             opacity: 0;
           }
         }
 
-        /* Применяем анимацию к тексту в text-slider-large */
+        /* Применяем анимацию к тексту */
         .text-slider-large .large-title {
-          animation: slideLeftToRight 8s linear infinite;
+          animation: trainMovement 12s linear infinite;
           white-space: nowrap;
+          position: relative;
+          display: inline-block;
+          width: auto;
         }
 
-        /* Задержка для разных слайдов */
+        /* Задержки для создания эффекта паровозика */
         .text-slider-large .text-slider__single:nth-child(1) .large-title {
           animation-delay: 0s;
         }
         .text-slider-large .text-slider__single:nth-child(2) .large-title {
-          animation-delay: 2s;
+          animation-delay: 3s;
         }
         .text-slider-large .text-slider__single:nth-child(3) .large-title {
-          animation-delay: 4s;
+          animation-delay: 6s;
         }
         .text-slider-large .text-slider__single:nth-child(4) .large-title {
-          animation-delay: 6s;
+          animation-delay: 9s;
         }
 
         /* Модуль генерации над particles */
