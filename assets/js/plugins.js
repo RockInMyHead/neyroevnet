@@ -259,7 +259,7 @@
      */
     // Инициализация большого баннерного слайдера через SmartSliderManager
     if ($(".banner__large-slider").length > 0) {
-      const largeSliderConfig = performanceConfig.slick.autoplay ? {
+      const largeSliderConfig = performanceConfig.slick?.autoplay ? {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: performanceConfig.slick.autoplay,
@@ -295,7 +295,7 @@
      */
     // Инициализация малого баннерного слайдера через SmartSliderManager
     if ($(".banner__small-slider").length > 0) {
-      const smallSliderConfig = performanceConfig.slick.autoplay ? {
+      const smallSliderConfig = performanceConfig.slick?.autoplay ? {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: performanceConfig.slick.autoplay,
@@ -332,16 +332,20 @@
      * 05. text slider
      * ======================================
      */
+    // Безопасная инициализация text-slider с проверками
+    const slickConfig = performanceConfig.slick || {};
+    const autoplayEnabled = slickConfig.autoplay || false;
+
     $(".text-slider").not(".slick-initialized").slick({
       slidesToShow: 1,
       slidesToScroll: 1,
-      autoplay: performanceConfig.slick.autoplay,
-      autoplaySpeed: performanceConfig.slick.autoplaySpeed,
-      speed: performanceConfig.slick.autoplay ? 12000 : 0,
+      autoplay: autoplayEnabled,
+      autoplaySpeed: slickConfig.autoplaySpeed || 3000,
+      speed: autoplayEnabled ? 12000 : 0,
       arrows: false,
       dots: false,
-      pauseOnHover: performanceConfig.slick.pauseOnHover,
-      draggable: performanceConfig.slick.draggable,
+      pauseOnHover: slickConfig.pauseOnHover !== false,
+      draggable: slickConfig.draggable !== false,
       variableWidth: true,
       cssEase: "linear",
     });
@@ -354,13 +358,13 @@
     $(".text-slider-large").not(".slick-initialized").slick({
       slidesToShow: 2,
       slidesToScroll: 1,
-      autoplay: performanceConfig.slick.autoplay,
-      autoplaySpeed: performanceConfig.slick.autoplaySpeed,
-      speed: performanceConfig.slick.autoplay ? 8000 : 0,
+      autoplay: autoplayEnabled,
+      autoplaySpeed: slickConfig.autoplaySpeed || 3000,
+      speed: autoplayEnabled ? 8000 : 0,
       arrows: false,
       dots: false,
       pauseOnHover: false,
-      draggable: performanceConfig.slick.draggable,
+      draggable: slickConfig.draggable !== false,
       variableWidth: true,
       cssEase: "linear",
     });
@@ -368,13 +372,13 @@
     $(".text-slider-large-rtl").not(".slick-initialized").slick({
       slidesToShow: 2,
       slidesToScroll: 1,
-      autoplay: performanceConfig.slick.autoplay,
-      autoplaySpeed: performanceConfig.slick.autoplaySpeed,
-      speed: performanceConfig.slick.autoplay ? 12000 : 0,
+      autoplay: autoplayEnabled,
+      autoplaySpeed: slickConfig.autoplaySpeed || 3000,
+      speed: autoplayEnabled ? 12000 : 0,
       arrows: false,
       dots: false,
       pauseOnHover: false,
-      draggable: performanceConfig.slick.draggable,
+      draggable: slickConfig.draggable !== false,
       variableWidth: true,
       cssEase: "linear",
       rtl: true,
@@ -521,10 +525,11 @@
      * 10. particles background
      * ======================================
      */
-    if ($("#particles-js").length && performanceConfig.particles.enabled) {
+    if ($("#particles-js").length && performanceConfig.particles?.enabled) {
+      const particlesConfig = performanceConfig.particles || {};
       particlesJS("particles-js", {
         particles: {
-          number: performanceConfig.particles.number,
+          number: particlesConfig.number || 80,
           color: {
             value: "#0a1968",
           },
@@ -538,12 +543,12 @@
               enable: false,
             },
           },
-          opacity: performanceConfig.particles.opacity,
-          size: performanceConfig.particles.size,
+          opacity: particlesConfig.opacity || { value: 0.5 },
+          size: particlesConfig.size || { value: 3 },
           line_linked: {
             enable: false,
           },
-          move: performanceConfig.particles.move,
+          move: particlesConfig.move || { speed: 2 },
         },
         interactivity: {
           detect_on: "canvas",
@@ -915,10 +920,11 @@
      * 21. gsap null config
      * ======================================
      */
+    const gsapConfig = performanceConfig.gsap || {};
     gsap.config({
       nullTargetWarn: false,
       debug: false,
-      force3D: performanceConfig.gsap.force3D,
+      force3D: gsapConfig.force3D !== false,
       autoSleep: performanceTier === 'low' ? 30 : 60, // Более агрессивный сон для слабых устройств
     });
 
@@ -1487,7 +1493,10 @@
      * 40. title animation
      * ======================================
      */
-    if ($(".title-animation").length > 0 && performanceConfig.animations.splitText) {
+    const animationsConfig = performanceConfig.animations || {};
+    const localGsapConfig = performanceConfig.gsap || {};
+
+    if ($(".title-animation").length > 0 && animationsConfig.splitText) {
       let char_come = gsap.utils.toArray(".title-animation");
       char_come.forEach((char_come) => {
         if (!window.GSAPManager.shouldAnimate(char_come)) return;
@@ -1501,20 +1510,20 @@
         const { timeline } = window.GSAPManager.createOptimizedTimeline(char_come, {
           start: "top 90%",
           end: "bottom 60%",
-          scrub: performanceConfig.gsap.scrub,
+          scrub: localGsapConfig.scrub || false,
           markers: false,
           toggleActions: performanceTier === 'low' ? "play none none none" : "play none none reverse",
         });
 
         timeline.from(split_char.chars, {
-          duration: performanceConfig.gsap.duration * 0.2,
+          duration: (localGsapConfig.duration || 1) * 0.2,
           x: 10,
           autoAlpha: 0,
-          stagger: performanceConfig.gsap.stagger * 2,
-          ease: performanceConfig.gsap.ease,
+          stagger: (localGsapConfig.stagger || 0.1) * 2,
+          ease: localGsapConfig.ease || "power2.out",
         });
       });
-    } else if ($(".title-animation").length > 0 && !performanceConfig.animations.splitText) {
+    } else if ($(".title-animation").length > 0 && !animationsConfig.splitText) {
       // Для низкой производительности просто показываем текст без анимации
       $(".title-animation").css({
         opacity: 1,
@@ -1527,7 +1536,7 @@
      * 41. fade top gsap animation
      * ======================================
      */
-    if ($(".fade-wrapper").length > 0 && performanceConfig.animations.fadeIn) {
+    if ($(".fade-wrapper").length > 0 && animationsConfig.fadeIn) {
       $(".fade-wrapper").each(function () {
         var section = $(this);
         var fadeItems = section.find(".fade-top");
@@ -1535,28 +1544,28 @@
         fadeItems.each(function (index, element) {
           if (!window.GSAPManager.shouldAnimate(element)) return;
 
-          var delay = index * performanceConfig.gsap.stagger;
+          var delay = index * (localGsapConfig.stagger || 0.1);
 
           // Используем GSAPManager для создания оптимизированного ScrollTrigger
           window.GSAPManager.setScrollTrigger(element, {
             start: "top 90%",
             end: "bottom 20%",
-            scrub: performanceConfig.gsap.scrub,
+            scrub: localGsapConfig.scrub || false,
             onEnter: function () {
               window.GSAPManager.animate(element, {
                 opacity: 1,
                 y: 0
               }, {
-                duration: performanceConfig.gsap.duration,
+                duration: localGsapConfig.duration || 1,
                 delay: delay,
-                ease: performanceConfig.gsap.ease,
+                ease: localGsapConfig.ease || "power2.out",
               });
             },
             once: performanceTier === 'low', // Одноразовые анимации для слабых устройств
           });
         });
       });
-    } else if ($(".fade-wrapper").length > 0 && !performanceConfig.animations.fadeIn) {
+    } else if ($(".fade-wrapper").length > 0 && !animationsConfig.fadeIn) {
       // Для низкой производительности просто показываем элементы
       $(".fade-top").css({
         opacity: 1,
@@ -1637,11 +1646,12 @@
      */
     let topylotilt = document.querySelectorAll(".topy-tilt");
 
-    if (topylotilt && performanceConfig.tilt.enabled) {
+    if (topylotilt && performanceConfig.tilt?.enabled) {
+      const tiltConfig = performanceConfig.tilt || {};
       VanillaTilt.init(document.querySelectorAll(".topy-tilt"), {
-        max: performanceConfig.tilt.max,
-        speed: performanceConfig.tilt.speed,
-        scale: performanceConfig.tilt.scale,
+        max: tiltConfig.max || 25,
+        speed: tiltConfig.speed || 400,
+        scale: tiltConfig.scale || 1.05,
       });
     }
 
