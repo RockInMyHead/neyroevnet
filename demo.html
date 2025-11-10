@@ -45,12 +45,13 @@
           overflow: hidden !important;
           border-radius: 10px !important;
         }
-        .video-s .ratio img {
+        #imageElement {
           transform: scale(1.3) !important;
           transform-origin: center center !important;
           object-fit: cover !important;
           width: 100% !important;
           height: 100% !important;
+          transition: transform 0.3s ease !important;
         }
 
         /* Модуль генерации над particles */
@@ -959,12 +960,8 @@ document.addEventListener("DOMContentLoaded", function() {
     button: !!startButton
   });
 
-  // Предварительно сбрасываем зум при загрузке страницы
-  if (imageElement) {
-    imageElement.style.transform = 'scale(1.3)';
-    imageElement.style.transformOrigin = 'center center';
-    console.log('🎯 Начальный зум 130% установлен при загрузке страницы');
-  }
+  // CSS уже применяет зум 130% к изображению
+  console.log('🎯 Зум 130% применяется через CSS для #imageElement');
 
   // Используем предварительно загруженный аудио элемент
   const audioElement = document.getElementById('backgroundAudio');
@@ -1532,8 +1529,8 @@ document.addEventListener("DOMContentLoaded", function() {
               console.log('🎨 Запускаем анимацию зума для изображения (100% -> 130%)');
 
               // Создаем эффект "оживления" - плавное приближение от 100% до 130%
-              imageElement.style.transition = 'transform 30s ease-in-out';
-              imageElement.style.transform = 'scale(1.3)';
+              imageElement.style.setProperty('transition', 'transform 30s ease-in-out', 'important');
+              imageElement.style.setProperty('transform', 'scale(1.3)', 'important');
 
               // Добавляем легкое свечение
               imageElement.style.filter = 'brightness(1.1) contrast(1.1)';
@@ -1679,28 +1676,8 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log(`📋 Загружено ${defaultImages.length} изображений: 1.png - 15.png`);
   }
 
-  // Принудительное применение зума 130% для изображения
-  function applyImageZoom() {
-    const imageElement = document.getElementById('imageElement');
-    if (imageElement) {
-      imageElement.style.setProperty('transform', 'scale(1.3)', 'important');
-      imageElement.style.setProperty('transform-origin', 'center center', 'important');
-      imageElement.style.setProperty('object-fit', 'cover', 'important');
-      console.log('✅ Зум 130% применен к изображению');
-    }
-  }
-
-  // Применяем зум при загрузке страницы
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', applyImageZoom);
-  } else {
-    applyImageZoom();
-  }
-
-  // Применяем зум после полной загрузки изображения
-  window.addEventListener('load', function() {
-    setTimeout(applyImageZoom, 100);
-  });
+  // Зум применяется через CSS #imageElement правило
+  console.log('🎯 Зум 130% управляется CSS');
 });
 </script>
    </body>
