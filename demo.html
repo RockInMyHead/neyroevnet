@@ -388,7 +388,7 @@
           <div class="video-s__content">
             <!-- соотношение сторон и резиновая ширина -->
             <div class="ratio ne-ratio-4x3 ne-framed-item">
-              <img src="assets/images/photo_2025-10-28 02.57.15.jpeg" alt="AI Image Generation Preview" class="w-100 h-100" style="object-fit:cover">
+              <img id="imageElement" src="assets/images/1.png" alt="AI Image Generation Preview" class="w-100 h-100" style="object-fit:cover">
             </div>
           </div>
         </div>
@@ -949,7 +949,7 @@ document.addEventListener("DOMContentLoaded", function() {
   initParticles();
 
   // Алгоритм обработки изображений и генерации для демо секции
-  const imageElement = document.querySelector('.video-s img');
+  const imageElement = document.getElementById('imageElement');
   const demoTextarea = document.querySelector('.video-s .fc-textarea');
   const startButton = document.querySelector('.video-s .footer-contactcard__actions a:first-child');
 
@@ -1681,7 +1681,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Принудительное применение зума 130% для изображения
   function applyImageZoom() {
-    const imageElement = document.querySelector('.video-s .ratio img');
+    const imageElement = document.getElementById('imageElement');
     if (imageElement) {
       imageElement.style.setProperty('transform', 'scale(1.3)', 'important');
       imageElement.style.setProperty('transform-origin', 'center center', 'important');
