@@ -1362,90 +1362,19 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log('🔮 Базовый промпт:', basePrompt);
         console.log('✨ Объединенный промпт для генерации:', enhancedPrompt);
 
-        // Функция для конвертации изображения в base64
-        function imageToBase64(img) {
-          return new Promise((resolve, reject) => {
-            // Проверяем, что изображение загружено
-            if (!img.complete) {
-              img.onload = () => {
-                try {
-                  const canvas = document.createElement('canvas');
-                  const ctx = canvas.getContext('2d');
-                  
-                  // Устанавливаем размеры canvas равными размерам изображения
-                  canvas.width = img.naturalWidth || img.width || 1024;
-                  canvas.height = img.naturalHeight || img.height || 1024;
-                  
-                  // Рисуем изображение на canvas
-                  ctx.drawImage(img, 0, 0);
-                  
-                  // Конвертируем в base64
-                  const base64 = canvas.toDataURL('image/png').split(',')[1]; // Убираем префикс data:image/png;base64,
-                  resolve(base64);
-                } catch (error) {
-                  reject(error);
-                }
-              };
-              img.onerror = () => reject(new Error('Ошибка загрузки изображения'));
-            } else {
-              try {
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                
-                // Устанавливаем размеры canvas равными размерам изображения
-                canvas.width = img.naturalWidth || img.width || 1024;
-                canvas.height = img.naturalHeight || img.height || 1024;
-                
-                // Рисуем изображение на canvas
-                ctx.drawImage(img, 0, 0);
-                
-                // Конвертируем в base64
-                const base64 = canvas.toDataURL('image/png').split(',')[1]; // Убираем префикс data:image/png;base64,
-                resolve(base64);
-              } catch (error) {
-                reject(error);
-              }
-            }
-          });
-        }
-
-        // Получаем текущее изображение в base64
-        let referenceImageBase64 = null;
-        const currentImageElement = getCurrentImageElement();
-        if (currentImageElement && currentImageElement.src) {
-          if (currentImageElement.src.startsWith('data:image/png;base64,')) {
-            // Если изображение уже в base64, извлекаем его
-            referenceImageBase64 = currentImageElement.src.split(',')[1];
-            console.log('📸 Текущее изображение уже в base64, извлекаем его');
-          } else {
-            // Если изображение загружено из файла, конвертируем его
-            try {
-              referenceImageBase64 = await imageToBase64(currentImageElement);
-              console.log('📸 Текущее изображение конвертировано в base64');
-            } catch (error) {
-              console.warn('⚠️ Не удалось конвертировать текущее изображение:', error);
-              console.log('📸 Продолжаем без референсного изображения');
-            }
-          }
-        }
-
         // Определяем URL API сервера
         const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
           ? 'http://localhost:8002/api/generate'
           : '/api/generate';
 
         console.log('📡 Отправляем запрос на:', apiUrl);
-        console.log('🖼️ Референсное изображение:', referenceImageBase64 ? 'отправляется' : 'не используется');
+        console.log('🖼️ Генерируем новое изображение без референсного');
 
-        // Создаем FormData для отправки изображения
+        // Создаем FormData для отправки запроса (без референсного изображения)
         const formData = new FormData();
         formData.append('prompt', enhancedPrompt);
         formData.append('width', '1024');
         formData.append('height', '1024');
-        if (referenceImageBase64) {
-          formData.append('reference_image', referenceImageBase64);
-          formData.append('timestamp', Date.now().toString());
-        }
 
         // Генерируем изображение через API
         const response = await fetch(apiUrl, {
