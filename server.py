@@ -26,6 +26,14 @@ app.add_middleware(
 app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 app.mount("/generated_images", StaticFiles(directory="generated_images"), name="generated_images")
 
+def get_home_page():
+    """Вспомогательная функция для получения index.html (главная страница)"""
+    try:
+        with open("index.html", "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        return "<h1>Neuroevent</h1><p>Главная страница не найдена</p>"
+
 def get_demo_page():
     """Вспомогательная функция для получения demo.html"""
     try:
@@ -36,12 +44,17 @@ def get_demo_page():
 
 @app.get("/", response_class=HTMLResponse)
 async def home():
-    """Главная страница - перенаправление на demo.html"""
+    """Главная страница"""
+    return HTMLResponse(get_home_page())
+
+@app.get("/demo-page", response_class=HTMLResponse)
+async def demo():
+    """Демо страница"""
     return HTMLResponse(get_demo_page())
 
 @app.get("/demo.html", response_class=HTMLResponse)
 async def demo_html():
-    """Демо страница"""
+    """Демо страница (для обратной совместимости)"""
     return HTMLResponse(get_demo_page())
 
 @app.get("/api/test")
