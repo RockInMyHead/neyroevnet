@@ -977,7 +977,6 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // CSS уже применяет зум 130% к изображениям
-  console.log('🎯 Зум 130% применяется через CSS для .slideshow-image');
 
   // Используем предварительно загруженный аудио элемент
   const audioElement = document.getElementById('backgroundAudio');
@@ -1072,14 +1071,11 @@ document.addEventListener("DOMContentLoaded", function() {
       if (imageChangeTimer) {
         clearTimeout(imageChangeTimer);
         imageChangeTimer = null;
-        console.log('🛑 Слайдшоу остановлено для анимации зума');
       }
 
       // Анимируем зум изображения от 130% до 100% за 30 секунд
       const currentImage = getCurrentImageElement();
       if (currentImage) {
-        console.log('🎬 Начинаем анимацию зума от 130% до 100%');
-        console.log('📏 Текущий масштаб изображения:', currentImage.style.transform);
 
         // Проверяем, загружен ли GSAP
         if (typeof gsap === 'undefined') {
@@ -1094,32 +1090,21 @@ document.addEventListener("DOMContentLoaded", function() {
           force3D: true
         });
 
-        console.log('🎯 Начальный масштаб 130% установлен через GSAP');
-
         // Анимируем scale напрямую
         gsap.to(currentImage, {
           scale: 1.0, // от 1.3 до 1.0
           duration: 30,
           ease: "power2.out",
           force3D: true,
-          onStart: () => console.log('▶️ Анимация GSAP началась'),
           onComplete: () => {
-            console.log('✅ Анимация GSAP завершена - зум 100% достигнут');
             // Возобновляем слайдшоу после завершения анимации зума
             if (!imageChangeTimer) {
               imageChangeTimer = setTimeout(() => {
                 showNextImage();
               }, 30000);
-              console.log('▶️ Слайдшоу возобновлено после анимации зума');
             }
-          },
-          onUpdate: () => {
-            const currentScale = gsap.getProperty(currentImage, 'scale');
-            console.log('📊 Текущий масштаб:', (currentScale * 100).toFixed(1) + '%');
           }
         });
-
-        console.log('🚀 GSAP анимация scale запущена');
   } else {
         console.error('❌ Изображение не найдено для анимации');
       }
@@ -1596,7 +1581,6 @@ document.addEventListener("DOMContentLoaded", function() {
           // Активируем автозум для нового активного изображения
           const activeElement = getCurrentImageElement();
           activeElement.classList.add('zoom-active');
-          console.log('🎨 Автозум активирован для активного изображения');
 
           // Завершаем смену изображения
           isChangingImage = false;
@@ -1744,7 +1728,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // чтобы анимация от scale(1) до scale(1.15) была видна
       setTimeout(() => {
       imageElement1.classList.add('zoom-active');
-      console.log('🎨 Автозум запущен для первого изображения');
     }, 100);
 
     // Запускаем автоматическую смену изображений
@@ -1758,7 +1741,6 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Зум применяется через CSS #imageElement правило
-  console.log('🎯 Зум 130% управляется CSS');
 });
 </script>
    </body>
