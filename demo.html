@@ -1485,9 +1485,18 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // Если есть референсное изображение, добавляем его
         if (referenceImageBase64) {
-          formData.append('reference_image', referenceImageBase64);
+          // Конвертируем base64 строку в Blob и отправляем как файл
+          const byteCharacters = atob(referenceImageBase64);
+          const byteNumbers = new Array(byteCharacters.length);
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          const blob = new Blob([byteArray], { type: 'image/png' });
+          
+          formData.append('reference_image', blob, 'reference.png');
           formData.append('timestamp', new Date().toISOString());
-          console.log('📸 Референсное изображение добавлено в запрос');
+          console.log('📸 Референсное изображение добавлено в запрос как Blob файл');
         }
 
         // Генерируем изображение через API

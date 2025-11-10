@@ -75,12 +75,29 @@ async def api_generate(request: Request):
             prompt = form.get("prompt")
             width = int(form.get("width", 1024)) if form.get("width") else 1024
             height = int(form.get("height", 1024)) if form.get("height") else 1024
-            reference_image = form.get("reference_image")  # base64 референсное изображение
+            reference_image_raw = form.get("reference_image")  # base64 референсное изображение
             timestamp = form.get("timestamp")
 
             print(f"🖼️ Получен запрос с референсным изображением. Timestamp: {timestamp}")
-            print(f"📝 Промпт: {prompt[:100]}...")
+            print(f"📝 Промпт: {prompt[:100] if prompt else 'None'}...")
             print(f"📐 Размер: {width}x{height}")
+            
+            # Обрабатываем референсное изображение
+            reference_image = None
+            if reference_image_raw:
+                # Если это UploadFile, читаем содержимое
+                from fastapi import UploadFile
+                if isinstance(reference_image_raw, UploadFile):
+                    image_bytes = await reference_image_raw.read()
+                    import base64
+                    reference_image = base64.b64encode(image_bytes).decode('utf-8')
+                    print(f"📸 Референсное изображение получено как UploadFile, размер: {len(image_bytes)} байт")
+                elif isinstance(reference_image_raw, str):
+                    # Если это уже строка base64
+                    reference_image = reference_image_raw
+                    print(f"📸 Референсное изображение получено как строка base64, длина: {len(reference_image)} символов")
+                else:
+                    print(f"⚠️ Неизвестный тип референсного изображения: {type(reference_image_raw)}")
 
         elif 'application/json' in content_type:
             # Обработка JSON (старый формат)
