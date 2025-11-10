@@ -564,7 +564,7 @@
         },
         retina_detect: true,
       });
-    } else if ($("#particles-js").length && !performanceConfig.particles.enabled) {
+    } else if ($("#particles-js").length && !performanceConfig.particles?.enabled) {
       // Для низкой производительности скрываем частицы
       $("#particles-js").hide();
     }
