@@ -456,7 +456,8 @@
 
             <div class="footer-contactcard__actions">
               <a id="fcMail" href="" class="btn btn--outline btn--w">Начать</a>
-              <a id="sendIdeasButton" href="" class="btn btn--outline btn--w">Отправить идеи</a>
+              <a id="addToCurrentSceneButton" href="" class="btn btn--outline btn--w">Добавить в текущую сцену</a>
+              <a id="createNewSceneButton" href="" class="btn btn--outline btn--w">Создать новую сцену</a>
             </div>
           </div>
         </div>
@@ -1355,123 +1356,169 @@ document.addEventListener("DOMContentLoaded", function() {
       }, 5000);
   }
 
-  // Обработчик для кнопки "Отправить идеи" - генерация изображения
-  const sendIdeasButton = document.getElementById('sendIdeasButton');
-  if (sendIdeasButton && demoTextarea && imageElement1 && imageElement2) {
-    sendIdeasButton.addEventListener('click', async function(e) {
-      e.preventDefault();
+  // Общая функция для генерации изображения
+  async function generateImage(useCurrentBasePrompt = true) {
+    if (!demoTextarea || !imageElement1 || !imageElement2) {
+      return;
+    }
 
-      const userPrompt = demoTextarea.value.trim();
+    const userPrompt = demoTextarea.value.trim();
 
-      if (!userPrompt) {
-        alert('Пожалуйста, введите ваш промпт перед отправкой идей.');
-        return;
-      }
+    if (!userPrompt) {
+      alert('Пожалуйста, введите ваш промпт перед отправкой идей.');
+      return;
+    }
 
-      // Базовые промпты для разных изображений
-      const basePrompts = {
-        1: "Красный поезд мчиться в хогвардц в дыму ночью под ним акведук и река Кинореализм по миру «Гарри Поттера»: тёплый свет свечей; камень, латунь; туман и объёмный свет, искры магии; палитра изумруд/бордовый/янтарь; мягкие отражения, лёгкое плёночное зерно; без читаемых надписей, дальний план. ",
-        2: "Хогвардц ночью туман искры луна облака в окнах хогвордца виден мягкий свет Кинореализм по миру «Гарри Поттера»: тёплый свет свечей; камень, латунь; туман и объёмный свет, искры магии; палитра изумруд/бордовый/янтарь; мягкие отражения, лёгкое плёночное зерно; без читаемых надписей, дальний план. "
-      };
+    // Базовые промпты для разных изображений
+    const basePrompts = {
+      1: "Красный поезд мчиться в хогвардц в дыму ночью под ним акведук и река Кинореализм по миру «Гарри Поттера»: тёплый свет свечей; камень, латунь; туман и объёмный свет, искры магии; палитра изумруд/бордовый/янтарь; мягкие отражения, лёгкое плёночное зерно; без читаемых надписей, дальний план. ",
+      2: "Хогвардц ночью туман искры луна облака в окнах хогвордца виден мягкий свет Кинореализм по миру «Гарри Поттера»: тёплый свет свечей; камень, латунь; туман и объёмный свет, искры магии; палитра изумруд/бордовый/янтарь; мягкие отражения, лёгкое плёночное зерно; без читаемых надписей, дальний план. "
+    };
 
-      // Дефолтный промпт для изображений без специфичного промпта
-      const defaultBasePrompt = "Кинореализм по миру «Гарри Поттера»: тёплый свет свечей; камень, латунь; туман и объёмный свет, искры магии; палитра изумруд/бордовый/янтарь; мягкие отражения, лёгкое плёночное зерно; без читаемых надписей, дальний план. ";
+    // Дефолтный промпт для изображений без специфичного промпта
+    const defaultBasePrompt = "Кинореализм по миру «Гарри Поттера»: тёплый свет свечей; камень, латунь; туман и объёмный свет, искры магии; палитра изумруд/бордовый/янтарь; мягкие отражения, лёгкое плёночное зерно; без читаемых надписей, дальний план. ";
 
-      // Получаем текущий индекс изображения (1-15) - это изображение которое сейчас визуализируется
+    let enhancedPrompt;
+    
+    if (useCurrentBasePrompt) {
+      // "Добавить в текущую сцену" - используем базовый промпт текущего изображения
       const currentImageIndex = window.currentImageIndex || 1;
       console.log(`📸 Текущее изображение для генерации: ${currentImageIndex}.png`);
       
-      // Берем базовый промпт текущего изображения или дефолтный
       const basePrompt = basePrompts[currentImageIndex] || defaultBasePrompt;
-      // Пользовательский промпт вставляется в начало объединенного промпта
-      const enhancedPrompt = userPrompt + " " + basePrompt;
+      enhancedPrompt = userPrompt + " " + basePrompt;
       
       console.log(`🔮 Базовый промпт текущего изображения (${currentImageIndex}.png):`, basePrompt.substring(0, 100) + '...');
+    } else {
+      // "Создать новую сцену" - используем только дефолтный базовый промпт
+      enhancedPrompt = userPrompt + " " + defaultBasePrompt;
+      console.log(`🆕 Создаем новую сцену с дефолтным базовым промптом`);
+    }
 
-      // Показываем индикатор загрузки
-      const originalText = sendIdeasButton.textContent;
-      sendIdeasButton.textContent = 'Генерируем...';
-      sendIdeasButton.disabled = true;
-      sendIdeasButton.style.opacity = '0.6';
-      sendIdeasButton.style.cursor = 'not-allowed';
+    // Получаем кнопки для управления состоянием
+    const addToCurrentSceneButton = document.getElementById('addToCurrentSceneButton');
+    const createNewSceneButton = document.getElementById('createNewSceneButton');
+    const activeButton = useCurrentBasePrompt ? addToCurrentSceneButton : createNewSceneButton;
 
-      try {
-        console.log('🎨 Начинаем генерацию изображения для пользовательского промпта:', userPrompt);
-        console.log('🔮 Базовый промпт:', basePrompt);
-        console.log('✨ Объединенный промпт для генерации:', enhancedPrompt);
+    // Показываем индикатор загрузки
+    const originalText = activeButton ? activeButton.textContent : '';
+    if (activeButton) {
+      activeButton.textContent = 'Генерируем...';
+    }
 
-        // Определяем URL API сервера
-        const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-          ? 'http://localhost:8002/api/generate'
-          : '/api/generate';
+    // Отключаем обе кнопки во время генерации
+    if (addToCurrentSceneButton) {
+      addToCurrentSceneButton.disabled = true;
+      addToCurrentSceneButton.style.opacity = '0.6';
+      addToCurrentSceneButton.style.cursor = 'not-allowed';
+    }
+    if (createNewSceneButton) {
+      createNewSceneButton.disabled = true;
+      createNewSceneButton.style.opacity = '0.6';
+      createNewSceneButton.style.cursor = 'not-allowed';
+    }
 
-        console.log('📡 Отправляем запрос на:', apiUrl);
-        console.log('🖼️ Генерируем новое изображение без референсного');
+    try {
+      console.log('🎨 Начинаем генерацию изображения для пользовательского промпта:', userPrompt);
+      console.log('✨ Объединенный промпт для генерации:', enhancedPrompt);
 
-        // Создаем FormData для отправки запроса (без референсного изображения)
-        const formData = new FormData();
-        formData.append('prompt', enhancedPrompt);
-        formData.append('width', '1024');
-        formData.append('height', '1024');
+      // Определяем URL API сервера
+      const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:8002/api/generate'
+        : '/api/generate';
 
-        // Генерируем изображение через API
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          body: formData
-        });
+      console.log('📡 Отправляем запрос на:', apiUrl);
+      console.log('🖼️ Генерируем новое изображение без референсного');
 
-        if (!response.ok) {
-          let errorMessage = `HTTP error! status: ${response.status}`;
-          try {
-            const errorData = await response.json();
-            errorMessage = errorData.error || errorMessage;
-          } catch (e) {
-            const responseText = await response.text();
-            errorMessage = responseText || errorMessage;
-          }
-          throw new Error(errorMessage);
-        }
+      // Создаем FormData для отправки запроса (без референсного изображения)
+      const formData = new FormData();
+      formData.append('prompt', enhancedPrompt);
+      formData.append('width', '1024');
+      formData.append('height', '1024');
 
-        let data;
+      // Генерируем изображение через API
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        let errorMessage = `HTTP error! status: ${response.status}`;
         try {
-          data = await response.json();
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorMessage;
         } catch (e) {
           const responseText = await response.text();
-          throw new Error(`Не удалось распарсить ответ сервера: ${responseText.substring(0, 100)}`);
+          errorMessage = responseText || errorMessage;
         }
-
-        if (data.success && data.image_b64) {
-          console.log('✅ Изображение сгенерировано успешно');
-
-          // Добавляем сгенерированное изображение в очередь
-          const imageData = 'data:image/png;base64,' + data.image_b64;
-          
-          // Добавляем сгенерированное изображение в очередь после текущего
-          if (window.addUserGeneratedImage) {
-            window.addUserGeneratedImage(imageData);
-            console.log('📋 Сгенерированное изображение добавлено в очередь');
-          } else {
-            console.warn('⚠️ Функция addUserGeneratedImage не найдена, изображение не добавлено в очередь');
-          }
-
-          console.log('🖼️ Изображение обновлено на странице');
-        } else {
-          throw new Error(data.error || 'Не удалось получить изображение');
-        }
-
-      } catch (error) {
-        console.error('❌ Ошибка генерации изображения:', error);
-        showNotification('❌ Ошибка: ' + error.message, 'error');
-      } finally {
-        // Восстанавливаем кнопку
-        sendIdeasButton.textContent = originalText;
-        sendIdeasButton.disabled = false;
-        sendIdeasButton.style.opacity = '1';
-        sendIdeasButton.style.cursor = 'pointer';
+        throw new Error(errorMessage);
       }
-    });
 
-    console.log('🎯 Обработчик кнопки "Отправить идеи" установлен');
+      let data;
+      try {
+        data = await response.json();
+      } catch (e) {
+        const responseText = await response.text();
+        throw new Error(`Не удалось распарсить ответ сервера: ${responseText.substring(0, 100)}`);
+      }
+
+      if (data.success && data.image_b64) {
+        console.log('✅ Изображение сгенерировано успешно');
+
+        // Добавляем сгенерированное изображение в очередь
+        const imageData = 'data:image/png;base64,' + data.image_b64;
+        
+        // Добавляем сгенерированное изображение в очередь после текущего
+        if (window.addUserGeneratedImage) {
+          window.addUserGeneratedImage(imageData);
+          console.log('📋 Сгенерированное изображение добавлено в очередь');
+        } else {
+          console.warn('⚠️ Функция addUserGeneratedImage не найдена, изображение не добавлено в очередь');
+        }
+
+        console.log('🖼️ Изображение обновлено на странице');
+      } else {
+        throw new Error(data.error || 'Не удалось получить изображение');
+      }
+
+    } catch (error) {
+      console.error('❌ Ошибка генерации изображения:', error);
+      showNotification('❌ Ошибка: ' + error.message, 'error');
+    } finally {
+      // Восстанавливаем кнопки
+      if (addToCurrentSceneButton) {
+        addToCurrentSceneButton.textContent = 'Добавить в текущую сцену';
+        addToCurrentSceneButton.disabled = false;
+        addToCurrentSceneButton.style.opacity = '1';
+        addToCurrentSceneButton.style.cursor = 'pointer';
+      }
+      if (createNewSceneButton) {
+        createNewSceneButton.textContent = 'Создать новую сцену';
+        createNewSceneButton.disabled = false;
+        createNewSceneButton.style.opacity = '1';
+        createNewSceneButton.style.cursor = 'pointer';
+      }
+    }
+  }
+
+  // Обработчик для кнопки "Добавить в текущую сцену"
+  const addToCurrentSceneButton = document.getElementById('addToCurrentSceneButton');
+  if (addToCurrentSceneButton && demoTextarea && imageElement1 && imageElement2) {
+    addToCurrentSceneButton.addEventListener('click', async function(e) {
+      e.preventDefault();
+      await generateImage(true); // Используем базовый промпт текущего изображения
+    });
+    console.log('🎯 Обработчик кнопки "Добавить в текущую сцену" установлен');
+  }
+
+  // Обработчик для кнопки "Создать новую сцену"
+  const createNewSceneButton = document.getElementById('createNewSceneButton');
+  if (createNewSceneButton && demoTextarea && imageElement1 && imageElement2) {
+    createNewSceneButton.addEventListener('click', async function(e) {
+      e.preventDefault();
+      await generateImage(false); // Используем только дефолтный базовый промпт
+    });
+    console.log('🎯 Обработчик кнопки "Создать новую сцену" установлен');
   }
 
   // Система очереди изображений
