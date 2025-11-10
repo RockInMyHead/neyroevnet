@@ -23,45 +23,26 @@ app.add_middleware(
 )
 
 # Монтируем статические файлы
-app.mount("/assets", StaticFiles(directory="assets"), name="assets")
+app.mount("/assets", StaticFiles(directory="Neuroevent 3/assets"), name="assets")
 app.mount("/generated_images", StaticFiles(directory="generated_images"), name="generated_images")
+
+def get_demo_page():
+    """Вспомогательная функция для получения demo.html"""
+    try:
+        with open("Neuroevent 3/demo.html", "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        return "<h1>Demo</h1><p>Демо страница не найдена</p>"
 
 @app.get("/", response_class=HTMLResponse)
 async def home():
-    """Главная страница"""
-    try:
-        with open("index.html", "r", encoding="utf-8") as f:
-            return f.read()
-    except FileNotFoundError:
-        return HTMLResponse("<h1>Neuroevent</h1><p>Главная страница не найдена</p>")
-
-@app.get("/demo", response_class=HTMLResponse)
-async def demo():
-    """Демо страница"""
-    try:
-        with open("demo.html", "r", encoding="utf-8") as f:
-            return f.read()
-    except FileNotFoundError:
-        return HTMLResponse("<h1>Demo</h1><p>Демо страница не найдена</p>")
+    """Главная страница - перенаправление на demo.html"""
+    return HTMLResponse(get_demo_page())
 
 @app.get("/demo.html", response_class=HTMLResponse)
 async def demo_html():
-    """Демо страница (альтернативный маршрут для совместимости)"""
-    return await demo()
-
-@app.get("/index.html", response_class=HTMLResponse)
-async def index_html():
-    """Главная страница (альтернативный маршрут для совместимости)"""
-    return await home()
-
-@app.get("/performance-test.html", response_class=HTMLResponse)
-async def performance_test():
-    """Тест производительности"""
-    try:
-        with open("performance-test.html", "r", encoding="utf-8") as f:
-            return f.read()
-    except FileNotFoundError:
-        return HTMLResponse("<h1>Performance Test</h1><p>Страница теста производительности не найдена</p>")
+    """Демо страница"""
+    return HTMLResponse(get_demo_page())
 
 @app.get("/api/test")
 async def api_test():
@@ -70,38 +51,75 @@ async def api_test():
 
 @app.post("/api/generate")
 async def api_generate(request: Request):
-    """API для генерации изображений через DALL-E 3"""
+    """API для генерации изображений через Gemini 2.5 Flash Image Preview API"""
     try:
-        data = await request.json()
-        prompt = data.get("prompt")
-        width = data.get("width", 1024)
-        height = data.get("height", 1024)
+        # Проверяем тип контента
+        content_type = request.headers.get('content-type', '')
+
+        if 'multipart/form-data' in content_type:
+            # Обработка FormData (новый алгоритм с изображениями)
+            form = await request.form()
+            prompt = form.get("prompt")
+            width = int(form.get("width", 1024)) if form.get("width") else 1024
+            height = int(form.get("height", 1024)) if form.get("height") else 1024
+            reference_image = form.get("reference_image")  # base64 референсное изображение
+            timestamp = form.get("timestamp")
+
+            print(f"🖼️ Получен запрос с референсным изображением. Timestamp: {timestamp}")
+            print(f"📝 Промпт: {prompt[:100]}...")
+            print(f"📐 Размер: {width}x{height}")
+
+        elif 'application/json' in content_type:
+            # Обработка JSON (старый формат)
+            data = await request.json()
+            prompt = data.get("prompt")
+            width = data.get("width", 1024)
+            height = data.get("height", 1024)
+            reference_image = None
+
+        else:
+            return JSONResponse({"error": "Unsupported content type"}, status_code=400)
 
         if not prompt:
             return JSONResponse({"error": "Prompt is required"}, status_code=400)
 
-        if len(prompt.strip()) < 10:
-            return JSONResponse({"error": "Prompt must be at least 10 characters long"}, status_code=400)
+        if len(prompt.strip()) < 3:
+            return JSONResponse({"error": "Prompt must be at least 3 characters long"}, status_code=400)
 
         if len(prompt.strip()) > 4000:
             return JSONResponse({"error": "Prompt must be less than 4000 characters"}, status_code=400)
 
-        # Генерируем изображение через DALL-E 3
-        result = await generate_image_async(prompt, width, height)
+        # Если есть референсное изображение, улучшаем промпт
+        if reference_image:
+            enhanced_prompt = f"Измени это изображение, добавив: {prompt}. Сохрани композицию, цветовую палитру и художественные элементы из исходного изображения, но добавь новые элементы согласно промпту."
+            print(f"🎨 Улучшенный промпт для референсного изображения: {enhanced_prompt[:150]}...")
+            print(f"📸 Референсное изображение будет отправлено в Gemini API")
+        else:
+            enhanced_prompt = prompt
+
+        # Генерируем изображение через Gemini API
+        # Передаем референсное изображение напрямую в API
+        result = await generate_image_async(enhanced_prompt, width or 1024, height or 1024, reference_image)
 
         if "error" in result:
             return JSONResponse({"error": result["error"]}, status_code=400)
 
-        return JSONResponse({
+        response_data = {
             "success": True,
             "image_b64": result["image_b64"],
             "model": result["model"],
             "generation_time": result["generation_time"],
-            "prompt": prompt
-        })
+            "prompt": prompt,
+            "enhanced_prompt": enhanced_prompt if reference_image else None,
+            "reference_image_used": reference_image is not None
+        }
+
+        print(f"✅ Изображение сгенерировано успешно. Референсное изображение использовано: {reference_image is not None}")
+
+        return JSONResponse(response_data)
 
     except Exception as e:
-        print(f"Error in API generate: {e}")
+        print(f"❌ Error in API generate: {e}")
         return JSONResponse({"error": f"Internal server error: {str(e)}"}, status_code=500)
 
 @app.post("/api/save_image")

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Background Test</title>
+    <style>
+        /* Градиентный фон через псевдо-элемент */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #030015;
+            z-index: -999999;
+            pointer-events: none;
+        }
+
+        /* Прозрачный body */
+        html, body {
+            background: transparent !important;
+            background-color: transparent !important;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Particles.js настройки */
+        #particles-js {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 10 !important;
+            pointer-events: auto !important;
+        }
+
+        #particles-js canvas {
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+
+        /* Контент поверх */
+        .content {
+            position: relative;
+            z-index: 100;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="content">
+        <h1>Neuroevent Background Test</h1>
+        <p>🎨 Градиентный фон: от темно-синего (#0a1968) к светло-синему (#1a237e)</p>
+        <p>✨ Анимированные белые частицы поверх фона</p>
+        <p>🎯 Если вы видите этот текст на фоне с градиентом и частицами - значит всё работает!</p>
+        <p>🌊 Фон должен быть синим, а не светло-голубым</p>
+    </div>
+
+    <script src="assets/vendor/particle-js/particles.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log('🚀 Тестируем particles.js...');
+
+            if (typeof particlesJS !== "undefined") {
+                console.log('✅ Particles.js найден, инициализируем...');
+
+                particlesJS("particles-js", {
+                    particles: {
+                        number: {
+                            value: 50,
+                            density: {
+                                enable: true,
+                                value_area: 800,
+                            },
+                        },
+                        color: {
+                            value: "#ffffff",
+                        },
+                        shape: {
+                            type: "circle",
+                        },
+                        opacity: {
+                            value: 0.8,
+                            random: true,
+                        },
+                        size: {
+                            value: 4,
+                            random: true,
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 120,
+                            color: "#ffffff",
+                            opacity: 0.4,
+                            width: 1,
+                        },
+                        move: {
+                            enable: true,
+                            speed: 4,
+                            direction: "none",
+                            random: true,
+                            straight: false,
+                            out_mode: "out",
+                            bounce: false,
+                        },
+                    },
+                    interactivity: {
+                        detect_on: "canvas",
+                        events: {
+                            onhover: { enable: true, mode: "grab" },
+                            onclick: { enable: true, mode: "push" },
+                            resize: true
+                        },
+                        modes: {
+                            grab: { distance: 140, line_linked: { opacity: 1 } },
+                            bubble: { distance: 400, size: 80, duration: 2, opacity: 8, speed: 3 },
+                            repulse: { distance: 200, duration: 0.4 },
+                            push: { particles_nb: 4 },
+                            remove: { particles_nb: 2 }
+                        }
+                    },
+                    retina_detect: true
+                });
+
+                console.log('🎉 Particles.js инициализирован успешно!');
+                console.log('🎨 Фон должен быть градиентным синим с белыми частицами');
+
+            } else {
+                console.error('❌ Particles.js не найден!');
+                document.querySelector('.content').innerHTML += '<p style="color: red;">❌ ОШИБКА: Particles.js не загружен!</p>';
+            }
+        });
+    </script>
+</body>
+</html>

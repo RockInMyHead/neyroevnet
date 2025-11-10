@@ -17,9 +17,10 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Конфигурация OpenAI DALL-E 3 API
-OPENAI_API_URL = "https://api.openai.com/v1/images/generations"
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") or "your_openai_api_key_here"
+# Конфигурация Google Gemini 2.5 Flash Image Preview API
+GEMINI_MODEL = "gemini-2.5-flash-image-preview"
+GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY") or "AIzaSyBfavqDJR7XH8ooLVvi0GpYvH9SV1BFzX0"
 
 # Временное отключение генерации изображений
 ENABLE_IMAGE_GENERATION = True
@@ -62,6 +63,26 @@ def add_image_metadata(filename, width, height, prompt, model, generation_time):
         'created': datetime.now().isoformat()
     }
     save_metadata(metadata)
+
+# Функции для работы с Gemini API
+def get_aspect_ratio(width, height):
+    """Определяет ближайшее допустимое соотношение сторон для Gemini API"""
+    allowed = ['1:1','2:3','3:2','3:4','4:3','4:5','5:4','9:16','16:9','21:9']
+    target = width / height
+    best = allowed[0]
+    best_diff = float('inf')
+    for ar in allowed:
+        a, b = map(int, ar.split(':'))
+        ratio = a / b
+        diff = abs(ratio - target)
+        if diff < best_diff:
+            best_diff = diff
+            best = ar
+    return best
+
+def generate_prompt_for_size(prompt: str, width: int, height: int) -> str:
+    """Генерирует расширенный промпт с указанием размера"""
+    return f"{prompt}\n\nIMPORTANT: Fill the entire frame completely. No black bars, no letterboxing, no pillarboxing. The image should extend to all edges of the canvas."
 
 # Функция для обработки черных полос в DALL-E 3 изображениях
 async def fill_black_borders(img, prompt: str) -> Image.Image:
@@ -114,35 +135,61 @@ async def fill_black_borders(img, prompt: str) -> Image.Image:
     logger.info("Возвращаем изображение без дополнительной обработки черных полос")
     return img
 
-async def generate_image_with_retry(prompt: str, max_retries: int = 3) -> str:
-    """Генерирует изображение через DALL-E 3 с повторными попытками"""
+async def generate_image_with_retry(prompt: str, width: int = 1024, height: int = 1024, reference_image: str = None, max_retries: int = 3) -> str:
+    """Генерирует изображение через Gemini API с повторными попытками"""
+    api_key = GEMINI_API_KEY
+    if not api_key:
+        raise ValueError("GEMINI_API_KEY not set")
+    
+    aspect_ratio = get_aspect_ratio(width, height)
+    enhanced_prompt = generate_prompt_for_size(prompt, width, height)
+    
     for attempt in range(max_retries):
         try:
-            logger.info(f"Generating image with DALL-E 3 (attempt {attempt + 1}/{max_retries})")
+            logger.info(f"Generating image with Gemini API (attempt {attempt + 1}/{max_retries})")
+            logger.info(f"Aspect ratio: {aspect_ratio}, Prompt: {enhanced_prompt[:100]}...")
+            logger.info(f"Reference image: {'provided' if reference_image else 'not provided'}")
 
-            # Формируем тело запроса для DALL-E 3
-            # Сначала пробуем получить изображение в base64 формате
+            # Формируем parts для запроса
+            parts = []
+            
+            # Если есть референсное изображение, добавляем его в начало
+            if reference_image:
+                parts.append({
+                    "inlineData": {
+                        "mimeType": "image/png",
+                        "data": reference_image
+                    }
+                })
+                logger.info("📸 Референсное изображение добавлено в запрос")
+            
+            # Добавляем текстовый промпт
+            parts.append({"text": enhanced_prompt})
+            
             payload = {
-                "model": "dall-e-3",
-                "prompt": prompt,
-                "n": 1,
-                "size": "1024x1024",
-                "quality": "standard",
-                "response_format": "b64_json"
+                "contents": [{
+                    "parts": parts
+                }],
+                "generationConfig": {
+                    "imageConfig": {
+                        "aspectRatio": aspect_ratio
+                    },
+                    "responseModalities": ["IMAGE"]
+                }
             }
 
             headers = {
                 "Content-Type": "application/json",
-                "Authorization": f"Bearer {OPENAI_API_KEY}"
+                "x-goog-api-key": api_key
             }
 
-            # Отправляем запрос к OpenAI API
-            async with httpx.AsyncClient(timeout=120) as client:
-                resp = await client.post(OPENAI_API_URL, headers=headers, json=payload)
+            # Отправляем запрос к Gemini API
+            async with httpx.AsyncClient(timeout=60) as client:
+                resp = await client.post(GEMINI_URL, headers=headers, json=payload)
 
             if resp.status_code == 429:
                 # Обработка rate limit
-                retry_after = 60  # DALL-E 3 имеет строгие лимиты
+                retry_after = 10
                 logger.warning(f"Rate limit exceeded, retrying in {retry_after} seconds")
                 await asyncio.sleep(retry_after)
                 continue
@@ -151,80 +198,85 @@ async def generate_image_with_retry(prompt: str, max_retries: int = 3) -> str:
                 # Обработка ошибок валидации
                 error_data = resp.json()
                 error_msg = error_data.get("error", {}).get("message", "Validation error")
-                if "content_policy" in error_msg.lower():
-                    raise Exception("Запрос нарушает политику контента OpenAI")
-                else:
-                    raise Exception(f"Validation error: {error_msg}")
+                raise Exception(f"Validation error: {error_msg}")
 
             resp.raise_for_status()
             resp_json = resp.json()
+            
+            logger.info(f"Gemini API response structure: {list(resp_json.keys())}")
 
             # Извлекаем изображение из ответа
-            if "data" in resp_json and len(resp_json["data"]) > 0:
-                image_data = resp_json["data"][0]
+            candidates = resp_json.get("candidates", [])
+            logger.info(f"Found {len(candidates)} candidates in response")
+            
+            for i, candidate in enumerate(candidates):
+                logger.info(f"Processing candidate {i+1}")
+                content = candidate.get("content", {})
+                parts = content.get("parts", [])
+                logger.info(f"Candidate {i+1} has {len(parts)} parts")
+                
+                for j, part in enumerate(parts):
+                    logger.info(f"Processing part {j+1}, keys: {list(part.keys())}")
+                    
+                    # Проверяем различные возможные форматы
+                    inline = part.get("inlineData") or part.get("inline_data")
+                    if inline:
+                        logger.info(f"Found inline data, keys: {list(inline.keys())}")
+                        if inline.get("data"):
+                            img_b64 = inline["data"]
+                            logger.info("Image generated successfully with Gemini API")
+                            return img_b64
+                        elif inline.get("mimeType") and inline.get("data"):
+                            img_b64 = inline["data"]
+                            logger.info("Image generated successfully with Gemini API (with mimeType)")
+                            return img_b64
+                    
+                    # Проверяем прямой формат
+                    if "data" in part:
+                        img_b64 = part["data"]
+                        logger.info("Image generated successfully with Gemini API (direct data)")
+                        return img_b64
 
-                # Если получили b64_json, используем его напрямую
-                if "b64_json" in image_data:
-                    image_b64 = image_data["b64_json"]
-                    logger.info("Image generated successfully with DALL-E 3 (b64_json)")
-                    return image_b64
-
-                # Если получили URL, скачиваем изображение
-                elif "url" in image_data:
-                    image_url = image_data["url"]
-                    logger.info(f"Received image URL, downloading: {image_url}")
-
-                    # Скачиваем изображение по URL с аутентификацией
-                    headers = {
-                        "Authorization": f"Bearer {OPENAI_API_KEY}"
-                    }
-                    async with httpx.AsyncClient(timeout=60, headers=headers) as client:
-                        img_resp = await client.get(image_url)
-                        img_resp.raise_for_status()
-
-                    # Конвертируем в base64
-                    image_data_bytes = img_resp.content
-                    image_b64 = base64.b64encode(image_data_bytes).decode()
-
-                    logger.info("Image generated successfully with DALL-E 3 (url)")
-                    return image_b64
-
-            raise Exception("No image data in response")
+            logger.error(f"No image found in response. Full response: {resp_json}")
+            raise Exception("No image in response")
 
         except httpx.HTTPStatusError as e:
             if e.response.status_code == 429:
                 if attempt < max_retries - 1:
-                    retry_after = 60
+                    retry_after = 10
                     logger.warning(f"Rate limit, retrying in {retry_after}s (attempt {attempt + 1})")
                     await asyncio.sleep(retry_after)
                     continue
                 else:
                     raise Exception("Rate limit exceeded, please try again later")
             else:
-                raise Exception(f"HTTP Error: {e.response.status_code} — {e.response.text}")
+                error_text = e.response.text if hasattr(e.response, 'text') else str(e.response)
+                raise Exception(f"HTTP Error: {e.response.status_code} — {error_text}")
 
         except Exception as e:
             if attempt < max_retries - 1:
-                logger.warning(f"DALL-E 3 error (attempt {attempt + 1}): {e}")
+                logger.warning(f"Gemini API error (attempt {attempt + 1}): {e}")
                 await asyncio.sleep(2 ** attempt)  # Exponential backoff
                 continue
             else:
-                raise Exception(f"DALL-E 3 generation failed after {max_retries} attempts: {str(e)}")
+                raise Exception(f"Gemini API generation failed after {max_retries} attempts: {str(e)}")
 
-async def generate_image_async(prompt: str, width: int = 1024, height: int = 1024) -> dict:
-    """Асинхронная генерация изображения через DALL-E 3"""
+async def generate_image_async(prompt: str, width: int = 1024, height: int = 1024, reference_image: str = None) -> dict:
+    """Асинхронная генерация изображения через Gemini API"""
     try:
         import time
         start_time = time.time()
 
-        logger.info(f"Starting DALL-E 3 image generation for prompt: {prompt}")
+        logger.info(f"Starting Gemini API image generation for prompt: {prompt}")
+        logger.info(f"Requested size: {width}x{height}")
+        logger.info(f"Reference image: {'provided' if reference_image else 'not provided'}")
 
         # Проверяем, включена ли генерация изображений
         if not ENABLE_IMAGE_GENERATION:
             return {"error": IMAGE_GENERATION_MESSAGE}
 
-        # Генерируем изображение через DALL-E 3
-        image_b64 = await generate_image_with_retry(prompt)
+        # Генерируем изображение через Gemini API
+        image_b64 = await generate_image_with_retry(prompt, width, height, reference_image)
 
         generation_time = time.time() - start_time
         logger.info(f"Image generated in {generation_time:.2f} seconds")
@@ -232,7 +284,7 @@ async def generate_image_async(prompt: str, width: int = 1024, height: int = 102
         return {
             "image_b64": image_b64,
             "generation_time": generation_time,
-            "model": "DALL-E 3"
+            "model": "Gemini 2.5 Flash Image Preview"
         }
 
     except Exception as e:

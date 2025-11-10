@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #030015;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .test-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .color-info {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .color-sample {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+
+        .dark-blue { background: #030015; }
+    </style>
+</head>
+<body>
+    <div class="test-box">
+        <h1>🎨 Тест цвета фона</h1>
+        <div class="color-info">
+            <span class="color-sample dark-blue"></span>
+            Основной фон сайта: #030015
+        </div>
+        <p><strong>Вопрос:</strong> Фон страницы ТЕМНО-СИНИЙ (#030015)?</p>
+        <p><em>Если да - значит наш CSS работает!</em></p>
+        <p><em>Если нет - проблема в браузере или кэше.</em></p>
+    </div>
+</body>
+</html>

@@ -109,14 +109,16 @@
                                  <li class="navbar__item nav-fade">
                                     <a href="#band">КОМАНДА</a>
                                  <li class="navbar__item nav-fade">
-                                    <a href="#demo">ДЕМО</a>       
+                                    <a href="#demo">ДЕМО</a>
                                  <li class="navbar__item nav-fade">
-                                    <a href="#plan">НАШИ ПЛАНЫ</a>  
+                                    <a href="#plan">НАШИ ПЛАНЫ</a>
+                                 <li class="navbar__item nav-fade">
+                                    <a href="#contact">КОНТАКТЫ</a>
                                                              </ul>
                            </div>
                            <div class="navbar__options">
                               <div class="navbar__mobile-options">
-   <!--                               
+   <!--
   <button class="open-cart" aria-label="selected products" title="see cart items">
                                  <i class="bi bi-bag-plus"></i>
                                  </button>
@@ -127,10 +129,7 @@
                                  <i class="bi bi-grid-3x3-gap"></i>
                                  </button>
   -->
-<div class="navbar__item nav-fade d-none d-xl-block">
-    <a href="#contact"><i class="bi bi-envelope"></i> КОНТАКТЫ</a>
-  </div>
-</a>
+
                               </div>
                               <button class="open-mobile-menu d-flex d-xl-none" aria-label="toggle mobile menu" title="open mobile menu">
                               <i class="material-symbols-outlined">
@@ -1052,6 +1051,71 @@
                      </div>
                   </section>
                   <!-- ==== gen two end ==== -->
+
+<!-- ==== interactive demo section start ==== -->
+<section class="section video-s pb-100">
+  <div class="container">
+
+    <!-- РАМКА НА ВЕСЬ БЛОК -->
+    <div class="ne-frame ne-frame-shadow">
+
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xxl-8">
+          <div class="section__header text-center">
+            <h2 class="title mt-0 title-animation">NEUROEVENT ПРЕДСТАВЛЯЕТ</h2>
+            <h3 class="footer-contactcard__title">
+  Сейчас прозвучит фрагмент из киновселенной «Гарри Поттера» в исполнении
+  <span class="text-primary"><a href="https://mainstrings.ru/concerts" target="_blank">Main Strings Orchestra</a></span>
+</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- основной ряд: слева видео, справа ввод -->
+      <div class="row align-items-start g-4 g-xl-5">
+        <!-- ЛЕВАЯ КОЛОНКА: видео -->
+        <div class="col-12 col-lg-7">
+          <div class="video-s__content">
+            <!-- соотношение сторон и резиновая ширина -->
+            <div class="ratio ne-ratio-4x3 ne-framed-item">
+              <video autoplay loop muted controls class="w-100 h-100" style="object-fit:cover"
+playsinline webkit-playsinline x5-playsinline="true">
+                <source src="assets/images/video.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+
+        <!-- ПРАВАЯ КОЛОНКА: окно ввода / генерации -->
+        <div class="col-12 col-lg-5">
+          <div class="footer-contactcard ne-sticky-right ne-framed-item">
+           <p class="fc-lead">
+ ИИ подхватит вашу мысль и превратит её в визуальный образ уже в следующем кадре. Готовы? Нажмите <span class="text-primary">«Начать»</span>. Хотите изменить сюжет — напишите пару фраз и жмите <span class="text-primary">«Отправить идеи»</span>.
+</p>
+
+            <div class="footer-contactcard__grid">
+              <div class="fc-field fc-field--full">
+                <textarea id="demoMsg" class="fc-textarea" rows="6" placeholder=" "></textarea>
+                <label for="demoMsg" class="fc-label">Расскажите, какие чувства и образы вызывает у вас данная композиция...</label>
+              </div>
+            </div>
+
+            <div class="footer-contactcard__actions">
+              <a id="demoStart" href="#" class="btn btn--outline btn--w">Начать</a>
+              <a href="#" target="_blank" rel="noopener" class="btn btn--outline btn--w">Отправить идеи</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- / основной ряд -->
+
+    </div>
+    <!-- / РАМКА -->
+
+  </div>
+</section>
+<!-- ==== interactive demo section end ==== -->
+
                   <!-- ==== pricing start ==== -->
                   <section class="section pricing pb-100 fade-wrapper" data-background="assets/images/auth-line.webp" id="plan">
                      <div class="container">
@@ -1519,6 +1583,8 @@
       <!-- particle js -->
       <script src="assets/vendor/particle-js/particles.min.js"></script>
       <!-- ==== / js dependencies end ==== -->
+      <!-- plugins js -->
+      <script src="assets/js/plugins.js"></script>
       <!-- performance manager js -->
       <script src="assets/js/performance-manager.js"></script>
       <!-- smart slider manager js -->
@@ -1529,8 +1595,6 @@
       <script src="assets/js/resource-manager.js"></script>
       <!-- adaptive manager js -->
       <script src="assets/js/adaptive-manager.js"></script>
-      <!-- plugins js -->
-      <script src="assets/js/plugins.js"></script>
       <!-- main js -->
       <script src="assets/js/main.js"></script>
 
@@ -1615,6 +1679,18 @@
   // 2) если на странице меняется хеш (переход внутри index.html)
   window.addEventListener('hashchange', jumpToHash);
 })();
+
+// Обработка кнопки "Начать" в демо-секции
+document.addEventListener('DOMContentLoaded', function() {
+  const demoStartBtn = document.getElementById('demoStart');
+  if (demoStartBtn) {
+    demoStartBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Переход на полную демо-страницу
+      window.location.href = 'demo.html';
+    });
+  }
+});
 </script>
 
    </body>

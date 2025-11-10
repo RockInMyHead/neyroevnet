@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Demo Test</title>
+    <style>
+        /* Фон страницы */
+        :root {
+          --theme-bg: transparent;
+        }
+
+        body, html {
+          background: linear-gradient(135deg, #0a1968 0%, #1a237e 100%) !important;
+          background-color: transparent !important;
+          min-height: 100vh;
+          margin: 0;
+          padding: 0;
+        }
+
+        /* Прозрачный фон для particles.js canvas */
+        #particles-js canvas {
+          background: transparent !important;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="content">
+        <h1>Neuroevent Demo</h1>
+        <p>Если вы видите градиентный фон и анимированные частицы - значит все работает!</p>
+        <p>Фон: от темно-синего (#0a1968) к светло-синему (#1a237e)</p>
+    </div>
+
+    <script src="assets/vendor/particle-js/particles.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log('🚀 Инициализация particles.js...');
+
+            if (typeof particlesJS !== "undefined") {
+                console.log('✅ Particles.js найден, инициализируем...');
+
+                particlesJS("particles-js", {
+                    particles: {
+                        number: {
+                            value: 50,
+                            density: {
+                                enable: true,
+                                value_area: 800,
+                            },
+                        },
+                        color: {
+                            value: "#ffffff",
+                        },
+                        shape: {
+                            type: "circle",
+                        },
+                        opacity: {
+                            value: 0.8,
+                            random: true,
+                        },
+                        size: {
+                            value: 4,
+                            random: true,
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 120,
+                            color: "#ffffff",
+                            opacity: 0.4,
+                            width: 1,
+                        },
+                        move: {
+                            enable: true,
+                            speed: 4,
+                            direction: "none",
+                            random: true,
+                            straight: false,
+                            out_mode: "out",
+                            bounce: false,
+                        },
+                    },
+                    interactivity: {
+                        detect_on: "canvas",
+                        events: {
+                            onhover: { enable: true, mode: "grab" },
+                            onclick: { enable: true, mode: "push" },
+                            resize: true
+                        },
+                        modes: {
+                            grab: { distance: 140, line_linked: { opacity: 1 } },
+                            bubble: { distance: 400, size: 80, duration: 2, opacity: 8, speed: 3 },
+                            repulse: { distance: 200, duration: 0.4 },
+                            push: { particles_nb: 4 },
+                            remove: { particles_nb: 2 }
+                        }
+                    },
+                    retina_detect: true
+                });
+
+                console.log('🎉 Particles.js инициализирован успешно!');
+            } else {
+                console.error('❌ Particles.js не найден!');
+                alert('Particles.js не загружен! Проверьте подключение скрипта.');
+            }
+        });
+    </script>
+</body>
+</html>

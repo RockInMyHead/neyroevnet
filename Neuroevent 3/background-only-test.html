@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Only Test</title>
+    <style>
+        /* ТОЧНО такой же CSS как в demo.html */
+        * {
+          background: transparent !important;
+          background-color: transparent !important;
+        }
+
+        :root {
+          --theme-bg: transparent !important;
+        }
+
+        html::after {
+          content: '';
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          width: 100% !important;
+          height: 100% !important;
+          background: #030015 !important;
+          z-index: 999998 !important;
+          pointer-events: none !important;
+        }
+
+        html, body {
+          min-height: 100vh !important;
+          overflow-x: hidden !important;
+        }
+
+        .content {
+          position: relative !important;
+          z-index: 1000000 !important;
+          color: white;
+          text-align: center;
+          padding: 100px 20px;
+        }
+
+        h1 {
+          font-size: 3em;
+          margin-bottom: 20px;
+          text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Тест фона без Particles.js</h1>
+        <p>Если фон СИНИЙ градиентный (от темно-синего к светло-синему), значит CSS работает!</p>
+        <p>Цвет фона должен быть: <strong>#0a1968 → #1a237e</strong></p>
+        <p>НЕ светло-голубой, а именно СИНИЙ!</p>
+    </div>
+</body>
+</html>

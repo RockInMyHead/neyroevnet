@@ -179,15 +179,45 @@
      */
     let device_width = window.innerWidth;
 
+    // Ждем загрузки всех менеджеров
+    let attempts = 0;
+    const maxAttempts = 50; // 5 секунд максимум
+    
+    while (!window.PerformanceManager && attempts < maxAttempts) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+      attempts++;
+    }
+
     // Инициализация продвинутой системы детекции производительности
-    const performanceTier = await window.PerformanceManager.init();
-    const performanceConfig = window.PerformanceManager.getConfig();
+    let performanceTier = 'medium';
+    let performanceConfig = {};
+    
+    if (window.PerformanceManager && typeof window.PerformanceManager.init === 'function') {
+      try {
+        performanceTier = await window.PerformanceManager.init();
+        performanceConfig = window.PerformanceManager.getConfig ? window.PerformanceManager.getConfig() : {};
+      } catch (error) {
+        console.warn('⚠️ PerformanceManager initialization failed:', error);
+        performanceTier = 'medium';
+        performanceConfig = {};
+      }
+    } else {
+      console.warn('⚠️ PerformanceManager not found after waiting, using default settings');
+    }
 
     // Инициализация менеджеров
-    await window.SmartSliderManager.init();
-    await window.GSAPManager.init();
-    await window.ResourceManager.init();
-    await window.AdaptiveManager.init();
+    if (window.SmartSliderManager && typeof window.SmartSliderManager.init === 'function') {
+      await window.SmartSliderManager.init();
+    }
+    if (window.GSAPManager && typeof window.GSAPManager.init === 'function') {
+      await window.GSAPManager.init();
+    }
+    if (window.ResourceManager && typeof window.ResourceManager.init === 'function') {
+      await window.ResourceManager.init();
+    }
+    if (window.AdaptiveManager && typeof window.AdaptiveManager.init === 'function') {
+      await window.AdaptiveManager.init();
+    }
 
     // Для обратной совместимости создаем переменную isLowPerformance
     const isLowPerformance = performanceTier === 'low';

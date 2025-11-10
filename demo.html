@@ -6,7 +6,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <!-- #favicon -->
-      <link rel="shortcut icon" href="assets/images/favicon.webp" type="image/x-icon">
+      <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
       <!-- #title -->
       <title>Neuroevent — интерактивные AI-шоу</title>
       <!-- #keywords -->
@@ -33,6 +33,26 @@
       <!-- ==== / css dependencies end ==== -->
       <!-- main css -->
       <link rel="stylesheet" href="assets/css/main.css">
+      <!-- Custom styles for image zoom -->
+      <style>
+        .video-s .ratio.ne-ratio-4x3 {
+          overflow: hidden !important;
+          border-radius: 10px !important;
+        }
+        .video-s .ratio .reveal-img {
+          width: 100% !important;
+          height: 100% !important;
+          overflow: hidden !important;
+          border-radius: 10px !important;
+        }
+        .video-s .ratio img {
+          transform: scale(1.3) !important;
+          transform-origin: center center !important;
+          object-fit: cover !important;
+          width: 100% !important;
+          height: 100% !important;
+        }
+      </style>
    </head>
    <body>
       <!--[if lte IE 9]>
@@ -97,22 +117,24 @@
                      <div class="col-12">
                         <nav class="navbar p-0">
                            <div class="navbar__logo">
-                              <a href="/" aria-label="home page" title="logo">
-                              <img src="assets/images/logo.webp" alt="Image">
+                              <a href="index.html" aria-label="home page" title="logo">
+                              <img src="assets/images/logo.png" alt="Image">
                               </a>
                            </div>
                            <div class="navbar__menu">
                               <ul class="navbar__list">
                                  <li class="navbar__item nav-fade">
-                                    <a href="/#about">О НАС</a></li>
+                                    <a href="index.html#about">О НАС</a></li>
                                  <li class="navbar__item nav-fade">
-                                    <a href="/#product">ПРОДУКТ</a></li>
+                                    <a href="index.html#product">ПРОДУКТ</a></li>
                                  <li class="navbar__item nav-fade">
-                                    <a href="/#band">КОМАНДА</a></li>
+                                    <a href="index.html#band">КОМАНДА</a></li>
                                  <li class="navbar__item nav-fade">
-                                    <a href="/demo">ДЕМО</a></li>
+                                    <a href="index.html#demo">ДЕМО</a></li>       
                                  <li class="navbar__item nav-fade">
-                                    <a href="/#plan">НАШИ ПЛАНЫ</a></li>
+                                    <a href="index.html#plan">НАШИ ПЛАНЫ</a></li>  
+                                 <li class="navbar__item nav-fade">
+                                    <a href="#contact">КОНТАКТЫ</a></li>
                                                              </ul>
                            </div>
                            <div class="navbar__options">
@@ -128,9 +150,7 @@
                                  <i class="bi bi-grid-3x3-gap"></i>
                                  </button>
   -->
-<div class="navbar__item nav-fade d-none d-xl-block">
-    <a href="#contact"><i class="bi bi-envelope"></i> КОНТАКТЫ</a>
-  </div>
+
                               </div>
                               <button class="open-mobile-menu d-flex d-xl-none" aria-label="toggle mobile menu" title="open mobile menu">
                               <i class="material-symbols-outlined">
@@ -148,36 +168,15 @@
                      <div class="mobile-menu__header nav-fade">
                         <div class="logo">
                            <a href="#top" aria-label="home page" title="logo">
-                           <img src="assets/images/logo.webp" alt="Image">
+                           <img src="assets/images/logo.png" alt="Image">
                            </a>
                         </div>
                         <button aria-label="close mobile menu" class="close-mobile-menu">
                         <i class="bi bi-x-lg"></i>
                         </button>
                      </div>
-                     <div class="mobile-menu__list">
-                        <ul class="navbar__list">
-                           <li class="navbar__item nav-fade">
-                              <a href="/#about">О НАС</a>
-                           </li>
-                           <li class="navbar__item nav-fade">
-                              <a href="/#product">ПРОДУКТ</a>
-                           </li>
-                           <li class="navbar__item nav-fade">
-                              <a href="/#band">КОМАНДА</a>
-                           </li>
-                           <li class="navbar__item nav-fade">
-                              <a href="/demo">ДЕМО</a>
-                           </li>
-                           <li class="navbar__item nav-fade">
-                              <a href="/#plan">НАШИ ПЛАНЫ</a>
-                           </li>
-                           <li class="navbar__item nav-fade">
-                              <a href="#contact">КОНТАКТЫ</a>
-                           </li>
-                        </ul>
-                     </div>
-                  </nav>
+                     <div class="mobile-menu__list"></div>
+                                       </nav>
                </div>
                <div class="mobile-menu__backdrop"></div>
                <!-- ==== / mobile menu end ==== -->
@@ -199,7 +198,7 @@
                   <div class="cart-item-single">
                      <div class="cart-item-thumb">
                         <a href="product-single.html">
-                        <img src="assets/images/cart.webp" alt="Image">
+                        <img src="assets/images/cart.png" alt="Image">
                         </a>
                      </div>
                      <div class="cart-item-content">
@@ -227,7 +226,7 @@
                   <div class="cart-item-single">
                      <div class="cart-item-thumb">
                         <a href="product-single.html">
-                        <img src="assets/images/cart-two.webp" alt="Image">
+                        <img src="assets/images/cart-two.png" alt="Image">
                         </a>
                      </div>
                      <div class="cart-item-content">
@@ -255,7 +254,7 @@
                   <div class="cart-item-single">
                      <div class="cart-item-thumb">
                         <a href="product-single.html">
-                        <img src="assets/images/cart.webp" alt="Image">
+                        <img src="assets/images/cart.png" alt="Image">
                         </a>
                      </div>
                      <div class="cart-item-content">
@@ -326,13 +325,13 @@
             </form>
          </div>
          <!-- ==== / search popup end ==== -->
-         <div id="particles-js"></div>
+                <div id="particles-js" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background: linear-gradient(135deg, #0a1968 0%, #1a237e 100%);"></div>
          <div id="smooth-wrapper">
             <div id="smooth-content">
                <!-- ==== main start ==== -->
                <main>
                   <!-- ==== banner start ==== -->
-                  <section class="banner-four pb-0" data-background="assets/images/banner/banner-one-bg.webp">
+                  <section class="banner-four pb-0">
                      <div class="container">
                         <div class="row justify-content-center">
                            <div class="col-12 col-sm-10 col-lg-12 col-xxl-10">
@@ -374,11 +373,10 @@
         <div class="col-12 col-lg-7">
           <div class="video-s__content">
             <!-- соотношение сторон и резиновая ширина -->
-            <div class="ratio ne-ratio-4x3 ne-framed-item">
-              <video autoplay loop muted controls class="w-100 h-100" style="object-fit:cover"
-playsinline webkit-playsinline x5-playsinline="true">
-                <source src="assets/images/video.mp4" type="video/mp4">
-              </video>
+            <div class="ratio ne-ratio-4x3 ne-framed-item" style="overflow: hidden; border-radius: 10px;">
+              <div class="reveal-img" style="width: 100%; height: 100%; overflow: hidden; border-radius: 10px;">
+                <img src="assets/images/photo_2025-10-28 02.57.15.jpeg" alt="AI Image Generation Preview" class="w-100 h-100" style="object-fit: cover; border-radius: 10px; transform: scale(1.3); transform-origin: center center; width: 100%; height: 100%;">
+              </div>
             </div>
           </div>
         </div>
@@ -393,7 +391,7 @@ playsinline webkit-playsinline x5-playsinline="true">
             <div class="footer-contactcard__grid">
               <div class="fc-field fc-field--full">
                 <textarea id="fcMsg" class="fc-textarea" rows="6" placeholder=" "></textarea>
-                <label for="fcMsg" class="fc-label">Расскажите, какие чувства и образы вызывает у вас данная композиция...</label>
+                <label for="fcMsg" class="fc-label">Введите ваш запрос...</label>
               </div>
             </div>
 
@@ -571,8 +569,8 @@ playsinline webkit-playsinline x5-playsinline="true">
                               <div class="row gaper">
                                  <div class="col-12 col-lg-4">
                                     <div class="footer__nav-logo text-center text-lg-start">
-                                       <a href="/" aria-label="home page" title="logo">
-                                       <img src="assets/images/logo.webp" alt="Image">
+                                       <a href="index.html" aria-label="home page" title="logo">
+                                       <img src="assets/images/logo.png" alt="Image">
                                        </a>
                                     </div>
                                  </div>
@@ -580,19 +578,19 @@ playsinline webkit-playsinline x5-playsinline="true">
                                     <div class="footer__nav-list">
                                        <ul class="justify-content-center justify-content-lg-end">
                                           <li>
-                                             <a href="/#about">О НАС</a>
+                                             <a href="index.html#about">О НАС</a>
                                           </li>
                                           <li>
-                                             <a href="/#product">ПРОДУКТ</a>
+                                             <a href="index.html#product">ПРОДУКТ</a>
                                           </li>
                                           <li>
-                                             <a href="/#band">КОМАНДА</a>
+                                             <a href="index.html#band">КОМАНДА</a>
                                           </li>
                                           <li>
-                                             <a href="/demo">ДЕМО</a>
+                                             <a href="index.html#demo">ДЕМО</a>
                                           </li>
                                           <li>
-                                             <a href="/#plan">НАШИ ПЛАНЫ</a>
+                                             <a href="index.html#plan">НАШИ ПЛАНЫ</a>
                                           </li>
                                        </ul>
                                     </div>
@@ -610,7 +608,7 @@ playsinline webkit-playsinline x5-playsinline="true">
                                        <p>
                                           Copyright &copy;
                                           <span id="copyrightYear"></span>
-                                          <a href="/">Neuroevent</a>
+                                          <a href="index.html">Neuroevent</a>
                                           *all rights reserved
                                        </p>
                                     </div>
@@ -660,10 +658,10 @@ playsinline webkit-playsinline x5-playsinline="true">
                      </div>
                   </div>
                   <div class="footer-thumb-one">
-                     <img src="assets/images/footer/footer-thumb-two.webp" alt="Image">
+                     <img src="assets/images/footer/footer-thumb-two.png" alt="Image">
                   </div>
                   <div class="footer-thumb-two">
-                     <img src="assets/images/footer/footer-thumb-one.webp" alt="Image">
+                     <img src="assets/images/footer/footer-thumb-one.png" alt="Image">
                   </div>
                </footer>
                <!-- ==== / footer end ==== -->
@@ -720,35 +718,20 @@ playsinline webkit-playsinline x5-playsinline="true">
       <!-- particle js -->
       <script src="assets/vendor/particle-js/particles.min.js"></script>
       <!-- ==== / js dependencies end ==== -->
-      <!-- performance manager js -->
-      <script src="assets/js/performance-manager.js"></script>
-      <!-- smart slider manager js -->
-      <script src="assets/js/smart-slider-manager.js"></script>
-      <!-- gsap manager js -->
-      <script src="assets/js/gsap-manager.js"></script>
-      <!-- resource manager js -->
-      <script src="assets/js/resource-manager.js"></script>
-      <!-- adaptive manager js -->
-      <script src="assets/js/adaptive-manager.js"></script>
       <!-- plugins js -->
-      <script src="assets/js/plugins.js"></script>
+      <script src="assets/js/plugins.js?v=1.0"></script>
+      <!-- performance manager js -->
+      <script src="assets/js/performance-manager.js?v=1.0"></script>
+      <!-- smart slider manager js -->
+      <script src="assets/js/smart-slider-manager.js?v=1.0"></script>
+      <!-- gsap manager js -->
+      <script src="assets/js/gsap-manager.js?v=1.0"></script>
+      <!-- resource manager js -->
+      <script src="assets/js/resource-manager.js?v=1.0"></script>
+      <!-- adaptive manager js -->
+      <script src="assets/js/adaptive-manager.js?v=1.0"></script>
       <!-- main js -->
       <script src="assets/js/main.js"></script>
-      <script>
-        // Принудительная установка background изображений
-        $(document).ready(function() {
-          $("[data-background]").each(function () {
-            var backgroundImages = $(this).attr("data-background").split(",");
-            var cssValue = backgroundImages
-              .map(function (image) {
-                return 'url("' + image.trim() + '")';
-              })
-              .join(",");
-
-            $(this).css("background-image", cssValue);
-          });
-        });
-      </script>
 <script>
 /* Фикс бегущей строки в .text-slider-large:
    1) возвращаем ссылкам href (но безопасный)
@@ -806,5 +789,405 @@ playsinline webkit-playsinline x5-playsinline="true">
 </script>
 
 
-   </body>
-</html>
+   <!-- Скрытый аудио элемент для предварительной загрузки -->
+   <audio id="backgroundAudio" src="assets/audio/Вселенная Гарри Поттера.mp3" preload="auto" style="display: none;"></audio>
+
+</html><script>
+// Инициализация Particles.js с оригинальными настройками из Neuroevent 3
+document.addEventListener("DOMContentLoaded", function() {
+  console.log('🎨 Инициализация Particles.js...');
+
+  // Ждем загрузки particles.js если он еще не загружен
+  function initParticles() {
+    console.log('🔍 Проверяем particlesJS:', typeof particlesJS);
+    if (typeof particlesJS !== "undefined") {
+      console.log('✅ Particles.js загружен, инициализируем...');
+      const particlesElement = document.getElementById("particles-js");
+      if (!particlesElement) {
+        console.error('❌ Элемент #particles-js не найден!');
+        return;
+      }
+
+      console.log('🎯 Элемент #particles-js найден:', particlesElement);
+      console.log('📐 Размеры элемента:', particlesElement.offsetWidth, 'x', particlesElement.offsetHeight);
+
+      try {
+        particlesJS("particles-js", {
+      particles: {
+        number: {
+          value: 50, // Уменьшим количество для тестирования
+          density: {
+            enable: true,
+            value_area: 800,
+          },
+        },
+        color: {
+          value: "#ffffff", // Белый цвет для видимости
+        },
+        shape: {
+          type: "circle",
+        },
+        opacity: {
+          value: 0.8,
+          random: true,
+        },
+        size: {
+          value: 4,
+          random: true,
+        },
+        line_linked: {
+          enable: true,
+          distance: 120,
+          color: "#ffffff",
+          opacity: 0.4,
+          width: 1,
+        },
+        move: {
+          enable: true,
+          speed: 4,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false,
+        },
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" }, resize: true },
+        modes: {
+          grab: { distance: 140, line_linked: { opacity: 1 } },
+          bubble: { distance: 400, size: 80, duration: 2, opacity: 8, speed: 3 },
+          repulse: { distance: 200, duration: 0.4 },
+          push: { particles_nb: 4 },
+          remove: { particles_nb: 2 }
+        }
+      },
+      retina_detect: true
+        });
+
+        console.log('🚀 Particles.js инициализация завершена');
+
+        // Проверяем, создался ли canvas
+        setTimeout(() => {
+          const canvas = particlesElement.querySelector('canvas');
+          if (canvas) {
+            console.log('🎉 Particles.js инициализирован успешно! Canvas создан:', canvas);
+            console.log('📊 Canvas размеры:', canvas.width, 'x', canvas.height);
+          } else {
+            console.error('❌ Canvas не создан после инициализации Particles.js');
+            console.log('📋 Содержимое particlesElement:', particlesElement.innerHTML);
+          }
+        }, 100);
+
+      } catch (error) {
+        console.error('❌ Ошибка инициализации Particles.js:', error);
+      }
+    } else {
+      console.log('⏳ Particles.js еще не загружен, ждем...');
+      setTimeout(initParticles, 100);
+    }
+  }
+
+  // Запускаем инициализацию
+  initParticles();
+
+  // Алгоритм обработки изображений и генерации для демо секции
+  const imageElement = document.querySelector('.video-s img');
+  const demoTextarea = document.querySelector('.video-s .fc-textarea');
+  const startButton = document.querySelector('.video-s .footer-contactcard__actions a:first-child');
+
+  console.log('🔍 Поиск элементов:', {
+    image: !!imageElement,
+    textarea: !!demoTextarea,
+    button: !!startButton
+  });
+
+  // Предварительно сбрасываем зум при загрузке страницы
+  if (imageElement) {
+    imageElement.style.transform = 'scale(1.3)';
+    imageElement.style.transformOrigin = 'center center';
+    console.log('🎯 Начальный зум 130% установлен при загрузке страницы');
+  }
+
+  // Используем предварительно загруженный аудио элемент
+  const audioElement = document.getElementById('backgroundAudio');
+
+  // Глобальная переменная для отслеживания состояния аудио
+  let audioStarted = false;
+  let audioUnlocked = false;
+
+  // Функция для разблокировки аудио контекста
+  function unlockAudio() {
+    if (audioUnlocked) return;
+
+    // Создаем временный аудио контекст для разблокировки
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+    // Воспроизводим пустой звук для разблокировки
+    const buffer = audioContext.createBuffer(1, 1, 22050);
+    const source = audioContext.createBufferSource();
+    source.buffer = buffer;
+    source.connect(audioContext.destination);
+    source.start();
+
+    audioUnlocked = true;
+    console.log('🔓 Аудио контекст разблокирован');
+
+    // Закрываем контекст через некоторое время
+    setTimeout(() => {
+      audioContext.close();
+    }, 100);
+  }
+
+  // Добавляем обработчик для первого клика на странице
+  document.addEventListener('click', unlockAudio, { once: true });
+
+  if (imageElement && demoTextarea && startButton) {
+    // Обработчик для кнопки "Начать"
+    startButton.addEventListener('click', async function(e) {
+      e.preventDefault();
+
+      const userInput = demoTextarea.value.trim();
+
+      // Воспроизводим песню независимо от наличия текста
+      // if (!userInput) {
+      //   return;
+      // }
+      try {
+        // Разблокируем аудио, если еще не разблокировано
+        if (!audioUnlocked) {
+          unlockAudio();
+          // Ждем немного для инициализации
+          await new Promise(resolve => setTimeout(resolve, 100));
+        }
+
+        // Проверяем, загружено ли аудио
+        if (audioElement.readyState < 2) {
+          await new Promise((resolve, reject) => {
+            const timeout = setTimeout(() => {
+              reject(new Error('Таймаут загрузки аудио'));
+            }, 10000);
+
+            audioElement.addEventListener('canplay', () => {
+              clearTimeout(timeout);
+              resolve();
+            }, { once: true });
+
+            audioElement.addEventListener('error', (e) => {
+              clearTimeout(timeout);
+              reject(new Error('Ошибка загрузки аудио'));
+            }, { once: true });
+          });
+        }
+
+        if (!audioStarted) {
+          await audioElement.play();
+          audioStarted = true;
+        } else {
+          // Если аудио уже играет, перезапускаем с начала
+          audioElement.currentTime = 0;
+          await audioElement.play();
+        }
+      } catch (error) {
+        alert('Не удалось воспроизвести аудио. Попробуйте обновить страницу и нажать где-нибудь на странице перед использованием кнопки "Начать".');
+        return;
+      }
+
+      // Анимируем зум изображения от 130% до 100% за 30 секунд
+      if (imageElement) {
+        console.log('🎬 Начинаем анимацию зума от 130% до 100%');
+        console.log('📏 Текущий масштаб изображения:', imageElement.style.transform);
+
+        // Проверяем, загружен ли GSAP
+        if (typeof gsap === 'undefined') {
+          console.error('❌ GSAP не загружен!');
+          return;
+        }
+
+        // Устанавливаем начальный масштаб напрямую
+        gsap.set(imageElement, {
+          scale: 1.3,
+          transformOrigin: 'center center',
+          force3D: true
+        });
+
+        console.log('🎯 Начальный масштаб 130% установлен через GSAP');
+
+        // Анимируем scale напрямую
+        gsap.to(imageElement, {
+          scale: 1.0, // от 1.3 до 1.0
+          duration: 30,
+          ease: "power2.out",
+          force3D: true,
+          onStart: () => console.log('▶️ Анимация GSAP началась'),
+          onComplete: () => console.log('✅ Анимация GSAP завершена - зум 100% достигнут'),
+          onUpdate: () => {
+            const currentScale = gsap.getProperty(imageElement, 'scale');
+            console.log('📊 Текущий масштаб:', (currentScale * 100).toFixed(1) + '%');
+          }
+        });
+
+        console.log('🚀 GSAP анимация scale запущена');
+      } else {
+        console.error('❌ Изображение не найдено для анимации');
+      }
+
+      // Алгоритм генерации изображения на основе пользовательского ввода
+      // generateImageFromImage(userInput); // Временно отключено - нет API
+
+      // Функционал генерации изображений временно недоступен
+      // Можно добавить позже при подключении API
+    });
+
+    // Функция генерации изображения на основе референсного изображения и текста пользователя
+    function generateImageFromImage(promptText) {
+      // Показываем индикатор загрузки
+      startButton.textContent = 'Генерируем...';
+      startButton.disabled = true;
+
+      // Проверяем, что изображение загружено
+      if (!imageElement.complete || imageElement.naturalWidth === 0) {
+        alert('Изображение еще не загружено. Пожалуйста, подождите.');
+        startButton.textContent = 'Начать';
+        startButton.disabled = false;
+        return;
+      }
+
+      try {
+        // Получаем данные референсного изображения
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = imageElement.naturalWidth || 1024;
+        canvas.height = imageElement.naturalHeight || 1024;
+
+        // Рисуем изображение на canvas
+        ctx.drawImage(imageElement, 0, 0, canvas.width, canvas.height);
+
+        // Получаем данные изображения
+        const imageData = canvas.toDataURL('image/png');
+
+        // Создаем объект для отправки на сервер
+        const formData = new FormData();
+        formData.append('prompt', promptText);
+        formData.append('reference_image', imageData);
+        formData.append('timestamp', new Date().toISOString());
+
+        // Отправляем запрос на генерацию изображения
+        fetch('/api/generate', {
+          method: 'POST',
+          body: formData
+        })
+        .then(async response => {
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(data.error || `HTTP error! status: ${response.status}`);
+          }
+          return data;
+        })
+        .then(data => {
+          if (data.success) {
+            // Показываем результат генерации
+            showGenerationResult(data);
+          } else {
+            alert('Ошибка генерации: ' + (data.error || 'Неизвестная ошибка'));
+          }
+        })
+        .catch(error => {
+          console.error('Ошибка:', error);
+          alert('Ошибка генерации: ' + (error.message || 'Произошла ошибка при генерации изображения'));
+        })
+        .finally(() => {
+          // Возвращаем кнопку в исходное состояние
+          startButton.textContent = 'Начать';
+          startButton.disabled = false;
+        });
+      } catch (error) {
+        console.error('Ошибка при обработке изображения:', error);
+        alert('Ошибка при обработке изображения: ' + error.message);
+        startButton.textContent = 'Начать';
+        startButton.disabled = false;
+      }
+    }
+
+    // Функция отображения результата генерации
+    function showGenerationResult(data) {
+      // Создаем модальное окно или уведомление с результатом
+      const resultDiv = document.createElement('div');
+      resultDiv.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        z-index: 10000;
+        max-width: 400px;
+        text-align: center;
+      `;
+
+      resultDiv.innerHTML = `
+        <h3>🎨 Изображение сгенерировано!</h3>
+        <p>Ваш промпт: "${data.prompt}"</p>
+        <p>Модель: ${data.model}</p>
+        <p>Время генерации: ${data.generation_time?.toFixed(2)} сек</p>
+        <button onclick="this.parentElement.remove()" style="margin-top: 15px; padding: 10px 20px; background: #0a1968; color: white; border: none; border-radius: 5px; cursor: pointer;">Закрыть</button>
+      `;
+
+      document.body.appendChild(resultDiv);
+
+      // Автоматически скрываем через 10 секунд
+      setTimeout(() => {
+        if (resultDiv.parentElement) {
+          resultDiv.remove();
+        }
+      }, 10000);
+    }
+
+    // Дополнительная обработка событий изображения
+    imageElement.addEventListener('load', function() {
+      console.log('🖼️ Изображение загружено - референс для генерации готов');
+    });
+
+    imageElement.addEventListener('error', function() {
+      console.error('❌ Ошибка загрузки референсного изображения');
+    });
+
+    // Синхронизация текста пользователя с изображением
+    demoTextarea.addEventListener('input', function() {
+      const text = this.value;
+      console.log('📝 Пользователь вводит:', text.substring(0, 50) + (text.length > 50 ? '...' : ''));
+
+      // Можно добавить анализ текста в реальном времени
+      if (text.length > 10) {
+        console.log('🎯 Достаточно текста для генерации изображения');
+      }
+    });
+  }
+
+  // Принудительное применение зума 130% для изображения
+  function applyImageZoom() {
+    const imageElement = document.querySelector('.video-s .ratio img');
+    if (imageElement) {
+      imageElement.style.setProperty('transform', 'scale(1.3)', 'important');
+      imageElement.style.setProperty('transform-origin', 'center center', 'important');
+      imageElement.style.setProperty('object-fit', 'cover', 'important');
+      console.log('✅ Зум 130% применен к изображению');
+    }
+  }
+
+  // Применяем зум при загрузке страницы
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyImageZoom);
+  } else {
+    applyImageZoom();
+  }
+
+  // Применяем зум после полной загрузки изображения
+  window.addEventListener('load', function() {
+    setTimeout(applyImageZoom, 100);
+  });
+});
+</script>

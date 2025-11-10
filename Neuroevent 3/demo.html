@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- required meta -->
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- #favicon -->
+      <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+      <!-- #title -->
+      <title>Neuroevent — интерактивные AI-шоу</title>
+      <!-- #keywords -->
+      <meta name="keywords" content="Artificial, Ai, Network, Html">
+      <!-- #description -->
+      <meta name="description" content="Artificial Neural Network AI HTML Template">
+      <!-- ==== css dependencies start ==== -->
+      <!-- bootstrap five css -->
+      <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+      <!-- bootstrap icons css -->
+      <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
+      <!-- material icons css -->
+      <link rel="stylesheet" href="assets/vendor/material-icons/css/materialicons.css">
+      <!-- font awesome six css -->
+      <link rel="stylesheet" href="assets/vendor/font-awesome/css/all.css">
+      <!-- magnific popup css -->
+      <link rel="stylesheet" href="assets/vendor/magnific-popup/css/magnific-popup.css">
+      <!-- jquery ui css -->
+      <link rel="stylesheet" href="assets/vendor/jquery-ui/css/jquery-ui.min.css">
+      <!-- slick css -->
+      <link rel="stylesheet" href="assets/vendor/slick/css/slick.css">
+      <!-- odometer css -->
+      <link rel="stylesheet" href="assets/vendor/odometer/css/odometer.css">
+      <!-- ==== / css dependencies end ==== -->
+      <!-- main css -->
+      <link rel="stylesheet" href="assets/css/main.css">
+      <!-- Custom styles - Updated: 2025-11-09 -->
+      <style>
+        /* РАДИКАЛЬНО переопределяем ВСЕ фоны на странице */
+        * {
+          background: transparent !important;
+          background-color: transparent !important;
+        }
+
+        /* Переопределяем переменную темы */
+        :root {
+          --theme-bg: transparent !important;
+        }
+
+        /* Используем базовый фон сайта */
+        html::after {
+          content: '';
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          width: 100% !important;
+          height: 100% !important;
+          background: #030015 !important; /* Основной фон сайта */
+          z-index: 999998 !important;
+          pointer-events: none !important;
+        }
+
+        /* Particles.js настройки - ПОВЕРХ фона */
+        #particles-js {
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          width: 100% !important;
+          height: 100% !important;
+          z-index: 999999 !important;
+          pointer-events: auto !important;
+        }
+
+        #particles-js canvas {
+          background: transparent !important;
+          background-color: transparent !important;
+        }
+
+        /* Контент поверх particles */
+        .content,
+        main,
+        section,
+        header,
+        footer,
+        .navbar,
+        .banner,
+        .video-s,
+        .text-slider-large,
+        .footer {
+          position: relative !important;
+          z-index: 1000000 !important;
+        }
+
+        /* Убеждаемся что все элементы видимы */
+        html, body {
+          min-height: 100vh !important;
+          overflow-x: hidden !important;
+        }
+
+        /* Убеждаемся что smooth-wrapper и my-app всегда видимы */
+        .my-app,
+        #smooth-wrapper,
+        #smooth-content {
+          display: block !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+        }
+
+        /* Убеждаемся что main и все секции всегда видимы */
+        main,
+        section,
+        .banner,
+        .video-s,
+        .content {
+          display: block !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+        }
+
+        /* Специально для preloader */
+        #preloader,
+        .ctn-preloader,
+        .animation-preloader,
+        .loader-section {
+          background: transparent !important;
+          z-index: -1 !important;
+        }
+      </style>
+   </head>
+   <body>
+      <!--[if lte IE 9]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+      <![endif]-->
+      <div class="my-app">
+         <!-- ==== preloader start ==== -->
+         <div id="preloader">
+            <div id="ctn-preloader" class="ctn-preloader">
+               <div class="animation-preloader">
+                  <div class="spinner"></div>
+                  <div class="txt-loading">
+                     <span data-text-preloader="N" class="letters-loading">
+                     N
+                     </span>
+                     <span data-text-preloader="E" class="letters-loading">
+                     E
+                     </span>
+                     <span data-text-preloader="U" class="letters-loading">
+                     U
+                     </span>
+                     <span data-text-preloader="R" class="letters-loading">
+                     R
+                     </span>
+                     <span data-text-preloader="O" class="letters-loading">
+                     O
+                     </span>
+                     <span data-text-preloader="E" class="letters-loading">
+                     E
+                     </span>
+                     <span data-text-preloader="V" class="letters-loading">
+                     V
+                     </span>
+                     <span data-text-preloader="E" class="letters-loading">
+                     E
+                     </span>
+                     <span data-text-preloader="N" class="letters-loading">
+                     N
+                     </span>
+                     <span data-text-preloader="T" class="letters-loading">
+                     T
+                     </span>
+
+                  </div>
+               </div>
+               <div class="loader-section section-left"></div>
+               <div class="loader-section section-right"></div>
+            </div>
+         </div>
+         <!-- ==== / preloader end ==== -->
+         <!-- ==== mouse cursor drag start ==== -->
+         <div class="mouseCursor cursor-outer"></div>
+         <div class="mouseCursor cursor-inner">
+            <span>Drag</span>
+         </div>
+         <!-- ==== / mouse cursor drag end ==== -->
+         <!-- ==== header start ==== -->
+         <header class="header">
+            <div class="primary-navbar">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-12">
+                        <nav class="navbar p-0">
+                           <div class="navbar__logo">
+                              <a href="index.html" aria-label="home page" title="logo">
+                              <img src="assets/images/logo.png" alt="Image">
+                              </a>
+                           </div>
+                           <div class="navbar__menu">
+                              <ul class="navbar__list">
+                                 <li class="navbar__item nav-fade">
+                                    <a href="index.html#about">О НАС</a></li>
+                                 <li class="navbar__item nav-fade">
+                                    <a href="index.html#product">ПРОДУКТ</a></li>
+                                 <li class="navbar__item nav-fade">
+                                    <a href="index.html#band">КОМАНДА</a></li>
+                                 <li class="navbar__item nav-fade">
+                                    <a href="index.html#demo">ДЕМО</a></li>       
+                                 <li class="navbar__item nav-fade">
+                                    <a href="index.html#plan">НАШИ ПЛАНЫ</a></li>  
+                                                             </ul>
+                           </div>
+                           <div class="navbar__options">
+                              <div class="navbar__mobile-options">
+   <!--                               
+  <button class="open-cart" aria-label="selected products" title="see cart items">
+                                 <i class="bi bi-bag-plus"></i>
+                                 </button>
+                                 <button class="open-search" aria-label="search products" title="open search box">
+                                 <i class="bi bi-search"></i>
+                                 </button>
+                                 <button class="open-offcanvas" aria-label="open offcanvas" title="open offcanvas">
+                                 <i class="bi bi-grid-3x3-gap"></i>
+                                 </button>
+  -->
+<div class="navbar__item nav-fade d-none d-xl-block">
+    <a href="#contact"><i class="bi bi-envelope"></i> КОНТАКТЫ</a>
+  </div>
+                              </div>
+                              <button class="open-mobile-menu d-flex d-xl-none" aria-label="toggle mobile menu" title="open mobile menu">
+                              <i class="material-symbols-outlined">
+                              menu_open
+                              </i>
+                              </button>
+                           </div>
+                        </nav>
+                     </div>
+                  </div>
+               </div>
+               <!-- ==== mobile menu start ==== -->
+               <div class="mobile-menu d-block d-xl-none">
+                  <nav class="mobile-menu__wrapper">
+                     <div class="mobile-menu__header nav-fade">
+                        <div class="logo">
+                           <a href="#top" aria-label="home page" title="logo">
+                           <img src="assets/images/logo.png" alt="Image">
+                           </a>
+                        </div>
+                        <button aria-label="close mobile menu" class="close-mobile-menu">
+                        <i class="bi bi-x-lg"></i>
+                        </button>
+                     </div>
+                     <div class="mobile-menu__list"></div>
+<ul class="navbar__list">
+  <li class="navbar__item nav-fade"><a href="#contact">КОНТАКТЫ</a></li>
+</ul>
+                                       </nav>
+               </div>
+               <div class="mobile-menu__backdrop"></div>
+               <!-- ==== / mobile menu end ==== -->
+            </div>
+         </header>
+         <!-- ==== / header end ==== -->
+
+         <!-- ==== offcanvas cart start ==== -->
+         <div class="sidebar-cart">
+            <div class="sidebar-cart__inner">
+               <button class="close-cart">
+               <i class="bi bi-x-lg close-icon"></i>
+               </button>
+               <h2>
+                  Shopping Bag
+                  <span class="count-item"></span>
+               </h2>
+               <div class="cart-items">
+                  <div class="cart-item-single">
+                     <div class="cart-item-thumb">
+                        <a href="product-single.html">
+                        <img src="assets/images/cart.png" alt="Image">
+                        </a>
+                     </div>
+                     <div class="cart-item-content">
+                        <h6 class="title-anim">
+                           <a href="product-single.html">Adv Prompts</a>
+                        </h6>
+                        <p class="price">
+                           $
+                           <span class="item-price">34.99</span>
+                        </p>
+                        <div class="measure">
+                           <button aria-label="decrease item" class="quantity-decrease">
+                           <i class="fa-solid fa-minus"></i>
+                           </button>
+                           <span class="item-quantity">0</span>
+                           <button aria-label="add item" class="quantity-increase">
+                           <i class="fa-solid fa-plus"></i>
+                           </button>
+                        </div>
+                     </div>
+                     <button aria-label="delete item" class="delete-item">
+                     <i class="fa-solid fa-trash"></i>
+                     </button>
+                  </div>
+                  <div class="cart-item-single">
+                     <div class="cart-item-thumb">
+                        <a href="product-single.html">
+                        <img src="assets/images/cart-two.png" alt="Image">
+                        </a>
+                     </div>
+                     <div class="cart-item-content">
+                        <h6 class="title-anim">
+                           <a href="product-single.html">Creative Design</a>
+                        </h6>
+                        <p class="price">
+                           $
+                           <span class="item-price">67.32</span>
+                        </p>
+                        <div class="measure">
+                           <button aria-label="decrease item" class="quantity-decrease">
+                           <i class="fa-solid fa-minus"></i>
+                           </button>
+                           <span class="item-quantity">0</span>
+                           <button aria-label="add item" class="quantity-increase">
+                           <i class="fa-solid fa-plus"></i>
+                           </button>
+                        </div>
+                     </div>
+                     <button aria-label="delete item" class="delete-item">
+                     <i class="fa-solid fa-trash"></i>
+                     </button>
+                  </div>
+                  <div class="cart-item-single">
+                     <div class="cart-item-thumb">
+                        <a href="product-single.html">
+                        <img src="assets/images/cart.png" alt="Image">
+                        </a>
+                     </div>
+                     <div class="cart-item-content">
+                        <h6 class="title-anim">
+                           <a href="product-single.html">Ai Prompts</a>
+                        </h6>
+                        <p class="price">
+                           $
+                           <span class="item-price">24.00</span>
+                        </p>
+                        <div class="measure">
+                           <button aria-label="decrease item" class="quantity-decrease">
+                           <i class="fa-solid fa-minus"></i>
+                           </button>
+                           <span class="item-quantity">0</span>
+                           <button aria-label="add item" class="quantity-increase">
+                           <i class="fa-solid fa-plus"></i>
+                           </button>
+                        </div>
+                     </div>
+                     <button aria-label="delete item" class="delete-item">
+                     <i class="fa-solid fa-trash"></i>
+                     </button>
+                  </div>
+               </div>
+               <div class="empty-cart">
+                  <h5>Your cart is empty</h5>
+                  <a href="shop.html">Add Products</a>
+               </div>
+               <div class="totals">
+                  <div class="subtotal">
+                     <span class="label">Subtotal:</span>
+                     <span class="amount ">
+                     $
+                     <span class="total-price">0.00</span>
+                     </span>
+                  </div>
+               </div>
+               <div class="action-buttons">
+                  <a class="view-cart-button" href="cart.html" aria-label="go to cart">Cart</a>
+                  <a class="checkout-button" href="checkout.html" aria-label="go to checkout">
+                  Checkout
+                  <i class="fa-solid fa-arrow-right-long"></i>
+                  </a>
+               </div>
+            </div>
+         </div>
+         <div class="cart-backdrop"></div>
+         <!-- ==== / offcanvas cart end ==== -->
+         <!-- ==== search popup start ==== -->
+         <div class="search-popup">
+            <button class="close-search" aria-label="close search box" title="close search box">
+            <i class="bi bi-x-lg"></i>
+            </button>
+            <form action="#" method="post">
+               <div class="search-popup__group">
+                  <input
+                     type="text"
+                     name="search-field"
+                     id="searchField"
+                     placeholder="Enter Product Name"
+                     required
+                     >
+                  <button type="submit" aria-label="search products" title="search products">
+                  <i class="bi bi-search"></i>
+                  </button>
+               </div>
+            </form>
+         </div>
+         <!-- ==== / search popup end ==== -->
+                <div id="particles-js" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"></div>
+         <div id="smooth-wrapper">
+            <div id="smooth-content">
+               <!-- ==== main start ==== -->
+               <main>
+                  <!-- ==== banner start ==== -->
+                  <section class="banner-four pb-0">
+                     <div class="container">
+                        <div class="row justify-content-center">
+                           <div class="col-12 col-sm-10 col-lg-12 col-xxl-10">
+                              <div class="banner-four__content text-center">
+                                 <h1 class="title-animation fw-7 text-white">
+                                   Приглашаем в мир, где
+                                    <span class="text-primary">фантазии</span>
+                                    превращаются в <span class="text-primary">реальность</span>
+                                 </h1>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </section>
+                  <!-- ==== / banner end ==== -->
+
+<!-- ==== video + input side-by-side start ==== -->
+<section class="section video-s pb-0">
+  <div class="container">
+
+    <!-- РАМКА НА ВЕСЬ БЛОК -->
+    <div class="ne-frame ne-frame-shadow">
+
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xxl-8">
+          <div class="section__header text-center">
+            <h2 class="title mt-0 title-animation">NEUROEVENT ПРЕДСТАВЛЯЕТ</h2>
+            <h3 class="footer-contactcard__title">
+  Сейчас прозвучит фрагмент из киновселенной «Гарри Поттера» в исполнении
+  <span class="text-primary"><a href="https://mainstrings.ru/concerts">Main Strings Orchestra</a></span>
+</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- основной ряд: слева видео, справа ввод -->
+      <div class="row align-items-start g-4 g-xl-5">
+        <!-- ЛЕВАЯ КОЛОНКА: видео -->
+        <div class="col-12 col-lg-7">
+          <div class="video-s__content">
+            <!-- соотношение сторон и резиновая ширина -->
+            <div class="ratio ne-ratio-4x3 ne-framed-item">
+              <img src="assets/images/photo_2025-10-28 02.57.15.jpeg" alt="AI Image Generation Preview" class="w-100 h-100" style="object-fit:cover">
+            </div>
+          </div>
+        </div>
+
+        <!-- ПРАВАЯ КОЛОНКА: окно ввода / генерации -->
+        <div class="col-12 col-lg-5">
+          <div class="footer-contactcard ne-sticky-right ne-framed-item">
+           <p class="fc-lead">
+ ИИ подхватит вашу мысль и превратит её в визуальный образ уже в следующем кадре. Готовы? Нажмите <span class="text-primary">«Начать»</span>. Хотите изменить сюжет — напишите пару фраз и жмите <span class="text-primary">«Отправить идеи»</span>.
+</p>
+
+            <div class="footer-contactcard__grid">
+              <div class="fc-field fc-field--full">
+                <textarea id="fcMsg" class="fc-textarea" rows="6" placeholder=" "></textarea>
+                <label for="fcMsg" class="fc-label">Расскажите, какие чувства и образы вызывает у вас данная композиция...</label>
+              </div>
+            </div>
+
+            <div class="footer-contactcard__actions">
+              <a id="fcMail" href="" class="btn btn--outline btn--w">Начать</a>
+              <a id="sendIdeasButton" href="" class="btn btn--outline btn--w">Отправить идеи</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- / основной ряд -->
+
+    </div>
+    <!-- / РАМКА -->
+
+  </div>
+</section>
+<!-- ==== / video + input side-by-side end ==== -->
+                  <!-- ==== text slider large start ==== -->
+                  <section class="text-slider-large-wrapper section pb-100">
+                     <div class="text-slider-large">
+                        <div class="text-slider__single">
+                           <h2 class="large-title">
+                              <a href="services.html">
+                              AI
+                              <span class="text-stroke" data-text="магия"> магия</span>
+                              </a>
+                           </h2>
+                        </div>
+                        <div class="text-slider__single">
+                           <h2 class="large-title">
+                              <a href="services.html">
+                              ваше
+                              <span class="text-stroke" data-text="воображение"> воображение</span>
+                              </a>
+                           </h2>
+                        </div>
+                        <div class="text-slider__single">
+                           <h2 class="large-title">
+                              <a href="services.html">
+                              AI
+                              <span class="text-stroke" data-text="магия"> магия</span>
+                              </a>
+                           </h2>
+                        </div>
+                        <div class="text-slider__single">
+                           <h2 class="large-title">
+                              <a href="services.html">
+                              ваше
+                              <span class="text-stroke" data-text="воображение"> воображение</span>
+                              </a>
+                           </h2>
+                        </div>
+                     </div>
+                  </section>
+                  <!-- ==== / text slider large end ==== -->
+                                             </main>
+               <!-- ==== / main end ==== -->
+       <!-- ==== footer start ==== -->
+               <footer class="footer">
+                  <div class="container">
+                     <div class="row justify-content-center section">
+                        <div class="col-12 col-md-9 col-lg-9 col-xl-10 col-xxl-9">
+                           <div class="footer__content text-center" id="contact">
+                              <h2 class="light-title fw-7 title-animation">
+                                 Давайте развивать ивент — индустрию
+                                 <span>Вместе</span>
+                              </h2>
+                              <div class="footer__content-cta">
+
+<!-- Контактная карточка -->
+<div class="footer-contactcard">
+  <h1 class="footer-contactcard__title">Связаться с нами</h1>
+
+  <div class="footer-contactcard__grid">
+    <!-- Имя -->
+    <div class="fc-field">
+      <input id="fcName" type="text" class="fc-input" placeholder=" ">
+      <label for="fcName" class="fc-label">Ваше имя</label>
+    </div>
+
+    <!-- Тема -->
+  <div class="fc-field">
+  <select id="fcSubject" class="fc-select" required>
+    <option value="" hidden></option> <!-- пустой скрытый placeholder -->
+    <option>Партнерство / спонсорство</option>
+    <option>Интеграция на мероприятии</option>
+    <option>Пресса / медиа</option>
+    <option>Другое</option>
+  </select>
+  <label for="fcSubject" class="fc-label">Тема</label>
+  <span class="fc-caret" aria-hidden="true">▾</span>
+</div>
+
+    <!-- Контакт -->
+    <div class="fc-field fc-field--full">
+      <input id="fcContact" type="text" class="fc-input" placeholder=" ">
+      <label for="fcContact" class="fc-label">Контакт (телефон или соц. сеть)</label>
+    </div>
+
+    <!-- Сообщение -->
+    <div class="fc-field fc-field--full">
+      <textarea id="fcMsg" class="fc-textarea" rows="4" placeholder=" "></textarea>
+      <label for="fcMsg" class="fc-label">Сообщение</label>
+    </div>
+  </div>
+
+  <div class="footer-contactcard__actions">
+    <a id="fcMail" href="mailto:neuroevent@yandex.ru" class="btn btn--outline btn--w">
+      Отправить на почту
+    </a>
+    <!-- замените your_username на ваш ник -->
+    <a href="https://t.me/alex_bigkush" target="_blank" rel="noopener" class="btn btn--outline btn--w">
+      Написать в Telegram
+    </a>
+  </div>
+</div>
+
+<!-- Формируем subject/body для mailto -->
+<script>
+(function () {
+  var name    = document.getElementById('fcName');
+  var subj    = document.getElementById('fcSubject');
+  var contact = document.getElementById('fcContact');
+  var msg     = document.getElementById('fcMsg');
+  var mail    = document.getElementById('fcMail');
+  var base    = 'mailto:neuroevent@yandex.ru';
+
+  function build() {
+    var s = (subj && subj.value && subj.value !== '') ? 'subject=' + encodeURIComponent(subj.value) : '';
+    var lines = [];
+    if (name && name.value)      lines.push('Имя: ' + name.value);
+    if (contact && contact.value)lines.push('Контакт: ' + contact.value);
+    if (msg && msg.value) {
+      if (lines.length) lines.push('');
+      lines.push(msg.value);
+    }
+    var b = lines.length ? 'body=' + encodeURIComponent(lines.join('\n')) : '';
+    var q = [s,b].filter(Boolean).join('&');
+    mail.href = q ? (base + '?' + q) : base;
+  }
+
+  ['input','change','keyup'].forEach(function(ev){
+    [name, subj, contact, msg].forEach(function(el){
+      if (el) el.addEventListener(ev, build);
+    });
+  });
+  build();
+})();
+</script>
+
+<script>
+(function () {
+  var subj = document.getElementById('fcSubject');
+  var subjLabel = document.querySelector('label[for="fcSubject"]');
+
+  if (subj && subjLabel) {
+    subjLabel.addEventListener('mousedown', function(e){
+      e.preventDefault();
+      if (typeof subj.showPicker === 'function') { subj.showPicker(); }
+      else { subj.focus(); subj.click(); }
+    });
+  }
+})();
+</script>
+                              
+
+</div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-12">
+                           <div class="footer__nav">
+                              <div class="row gaper">
+                                 <div class="col-12 col-lg-4">
+                                    <div class="footer__nav-logo text-center text-lg-start">
+                                       <a href="index.html" aria-label="home page" title="logo">
+                                       <img src="assets/images/logo.png" alt="Image">
+                                       </a>
+                                    </div>
+                                 </div>
+                                 <div class="col-12 col-lg-8">
+                                    <div class="footer__nav-list">
+                                       <ul class="justify-content-center justify-content-lg-end">
+                                          <li>
+                                             <a href="index.html#about">О НАС</a>
+                                          </li>
+                                          <li>
+                                             <a href="index.html#product">ПРОДУКТ</a>
+                                          </li>
+                                          <li>
+                                             <a href="index.html#band">КОМАНДА</a>
+                                          </li>
+                                          <li>
+                                             <a href="index.html#demo">ДЕМО</a>
+                                          </li>
+                                          <li>
+                                             <a href="index.html#plan">НАШИ ПЛАНЫ</a>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-12">
+                           <div class="footer__copyright">
+                              <div class="row gaper">
+                                 <div class="col-12 col-lg-6">
+                                    <div class="footer__copyright-content text-center text-lg-start">
+                                       <p>
+                                          Copyright &copy;
+                                          <span id="copyrightYear"></span>
+                                          <a href="index.html">Neuroevent</a>
+                                          *all rights reserved
+                                       </p>
+                                    </div>
+                                 </div>
+                          <!--   <div class="col-12 col-lg-6">
+                                    <div class="footer__copyright-social justify-content-center justify-content-lg-end">
+                                       <p class="tertiary-text d-none d-lg-block">Follow Us :</p>
+                                       <div class="social">
+                                          <a
+                                             href="https://www.facebook.com/"
+                                             target="_blank"
+                                             aria-label="share us on facebook"
+                                             title="facebook"
+                                             >
+                                          <i class="bi bi-facebook"></i>
+                                          </a>
+                                          <a
+                                             href="https://www.twitter.com/"
+                                             target="_blank"
+                                             aria-label="share us on twitter"
+                                             title="twitter"
+                                             >
+                                          <i class="bi bi-twitter"></i>
+                                          </a>
+                                          <a
+                                             href="https://www.linkedin.com/"
+                                             target="_blank"
+                                             aria-label="share us on pinterest"
+                                             title="linkedin"
+                                             >
+                                          <i class="bi bi-linkedin"></i>
+                                          </a>
+                                          <a
+                                             href="https://www.instagram.com/"
+                                             target="_blank"
+                                             aria-label="share us on instagram"
+                                             title="instagram"
+                                             >
+                                          <i class="bi bi-instagram"></i>
+                                          </a>
+                                       </div>
+                                    </div>
+                                 </div> -->
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="footer-thumb-one">
+                     <img src="assets/images/footer/footer-thumb-two.png" alt="Image">
+                  </div>
+                  <div class="footer-thumb-two">
+                     <img src="assets/images/footer/footer-thumb-one.png" alt="Image">
+                  </div>
+               </footer>
+               <!-- ==== / footer end ==== -->
+
+            </div>
+         </div>
+         <!-- ==== scroll to top start ==== -->
+         <button class="progress-wrap" aria-label="scroll indicator" title="go to top">
+            <span></span>
+            <svg
+               class="progress-circle svg-content"
+               width="100%"
+               height="100%"
+               viewBox="-1 -1 102 102"
+               >
+               <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+            </svg>
+         </button>
+         <!-- ==== / scroll to top end ==== -->
+      </div>
+      <!-- ==== js dependencies start ==== -->
+      <!-- jquery -->
+      <script src="assets/vendor/jquery/jquery-3.7.0.min.js"></script>
+      <!-- bootstrap five js -->
+      <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <!-- magnific popup js -->
+      <script src="assets/vendor/magnific-popup/js/jquery.magnific-popup.min.js"></script>
+      <!-- jquery ui js -->
+      <script src="assets/vendor/jquery-ui/js/jquery-ui.min.js"></script>
+      <!-- slick js -->
+      <script src="assets/vendor/slick/js/slick.min.js"></script>
+      <!-- odometer js -->
+      <script src="assets/vendor/odometer/js/odometer.min.js"></script>
+      <!-- image loaded js -->
+      <script src="assets/vendor/images-loaded/imagesloaded.pkgd.min.js"></script>
+      <!-- isotope js -->
+      <script src="assets/vendor/isotope/isotope.pkgd.min.js"></script>
+      <!-- packery js -->
+      <script src="assets/vendor/isotope/packery.pkgd.min.js"></script>
+      <!-- splittext js -->
+      <script src="assets/vendor/gsap/SplitText.min.js"></script>
+      <!-- scrollsmoother js -->
+      <script src="assets/vendor/gsap/ScrollSmoother.min.js"></script>
+      <!-- scrollto js -->
+      <script src="assets/vendor/gsap/ScrollToPlugin.min.js"></script>
+      <!-- scrolltrigger js -->
+      <script src="assets/vendor/gsap/ScrollTrigger.min.js"></script>
+      <!-- gsap js -->
+      <script src="assets/vendor/gsap/gsap.min.js"></script>
+      <!-- viewport js -->
+      <script src="assets/vendor/viewport/viewport.jquery.js"></script>
+      <!-- vanilla tilt js -->
+      <script src="assets/vendor/vanilla-tilt/tilt.jquery.js"></script>
+      <!-- particle js -->
+      <script src="assets/vendor/particle-js/particles.min.js"></script>
+      <!-- ==== / js dependencies end ==== -->
+      <!-- plugins js -->
+      <script src="assets/js/plugins.js"></script>
+      <!-- main js -->
+      <script src="assets/js/main.js"></script>
+<script>
+/* Фикс бегущей строки в .text-slider-large:
+   1) возвращаем ссылкам href (но безопасный)
+   2) убираем tabindex/role, чтобы не ставился фокус
+   3) мягко отменяем переход по клику/Enter/Space
+*/
+(function () {
+  const sel = '.text-slider-large a';
+
+  function fixLink(a){
+    if (!a) return;
+    // если href отсутствует или раньше сохраняли в data-href — ставим безопасный:
+    if (!a.hasAttribute('href') || a.dataset.href) {
+      a.setAttribute('href', 'javascript:void(0)');
+      delete a.dataset.href;
+    }
+    // убираем «лишние» атрибуты
+    if (a.hasAttribute('tabindex')) a.removeAttribute('tabindex');
+    if (a.getAttribute('role') === 'link') a.removeAttribute('role');
+    // подсветку/градиент даёт ваш CSS, оставляем класс и сам <a>
+  }
+
+  function scan(root = document){
+    root.querySelectorAll(sel).forEach(fixLink);
+  }
+
+  // первичный проход
+  scan();
+
+  // если слайды пересобираются — подхватим заново
+  const obs = new MutationObserver(muts => {
+    for (const m of muts) {
+      m.addedNodes.forEach(node => {
+        if (node.nodeType !== 1) return;
+        if (node.matches?.(sel)) fixLink(node);
+        const scope = node.closest?.('.text-slider-large') || (node.matches?.('.text-slider-large') ? node : null);
+        if (scope) scan(scope);
+      });
+    }
+  });
+  document.querySelectorAll('.text-slider-large').forEach(el => {
+    obs.observe(el, { childList: true, subtree: true });
+  });
+
+  // мягко глушим навигацию (не трогаем hover-анимации)
+  document.addEventListener('click', e => {
+    const a = e.target.closest?.(sel);
+    if (a) { e.preventDefault(); a.blur(); }
+  }, false);
+  document.addEventListener('keydown', e => {
+    const a = e.target.closest?.(sel);
+    if (a && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); a.blur(); }
+  }, false);
+})();
+</script>
+
+
+   <!-- Скрытый аудио элемент для предварительной загрузки -->
+   <audio id="backgroundAudio" src="assets/audio/Вселенная Гарри Поттера.mp3" preload="auto" style="display: none;"></audio>
+</html><script>
+// Защита от скрытия контента - предотвращаем скрытие smooth-wrapper, my-app, main и секций
+(function() {
+  function ensureContentVisible() {
+    const myApp = document.querySelector('.my-app');
+    const smoothWrapper = document.querySelector('#smooth-wrapper');
+    const smoothContent = document.querySelector('#smooth-content');
+    const main = document.querySelector('main');
+    const sections = document.querySelectorAll('section');
+    const banner = document.querySelector('.banner');
+    const videoS = document.querySelector('.video-s');
+    const content = document.querySelector('.content');
+    const body = document.body;
+    const html = document.documentElement;
+    
+    // Защищаем основные контейнеры
+    [myApp, smoothWrapper, smoothContent, main, banner, videoS, content, body, html].forEach(el => {
+      if (el) {
+        el.style.display = el === body || el === html ? '' : 'block';
+        el.style.visibility = 'visible';
+        el.style.opacity = '1';
+      }
+    });
+    
+    // Защищаем все секции
+    sections.forEach(section => {
+      if (section) {
+        section.style.display = 'block';
+        section.style.visibility = 'visible';
+        section.style.opacity = '1';
+      }
+    });
+    
+    // Защищаем все элементы с классом content
+    const allContent = document.querySelectorAll('.content');
+    allContent.forEach(el => {
+      if (el) {
+        el.style.display = 'block';
+        el.style.visibility = 'visible';
+        el.style.opacity = '1';
+      }
+    });
+  }
+  
+  // Проверяем и восстанавливаем видимость контента каждые 50ms (более часто)
+  setInterval(ensureContentVisible, 50);
+  
+  // Также проверяем при загрузке страницы
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ensureContentVisible);
+  } else {
+    ensureContentVisible();
+  }
+  
+  // Дополнительная проверка через разные интервалы (когда контент может исчезнуть)
+  setTimeout(ensureContentVisible, 500);
+  setTimeout(ensureContentVisible, 1000);
+  setTimeout(ensureContentVisible, 1500);
+  setTimeout(ensureContentVisible, 2000);
+  setTimeout(ensureContentVisible, 2500);
+  setTimeout(ensureContentVisible, 3000);
+  
+  // Агрессивная защита - проверяем каждые 200ms в течение первых 5 секунд
+  let aggressiveCheckCount = 0;
+  const aggressiveCheckInterval = setInterval(() => {
+    ensureContentVisible();
+    aggressiveCheckCount++;
+    if (aggressiveCheckCount >= 25) { // 25 * 200ms = 5 секунд
+      clearInterval(aggressiveCheckInterval);
+    }
+  }, 200);
+})();
+
+// Инициализация Particles.js с оригинальными настройками из Neuroevent 3
+document.addEventListener("DOMContentLoaded", function() {
+  console.log('🎨 Инициализация Particles.js...');
+
+  // Ждем загрузки particles.js если он еще не загружен
+  function initParticles() {
+    console.log('🔍 Проверяем particlesJS:', typeof particlesJS);
+    if (typeof particlesJS !== "undefined") {
+      console.log('✅ Particles.js загружен, инициализируем...');
+      const particlesElement = document.getElementById("particles-js");
+      if (!particlesElement) {
+        console.error('❌ Элемент #particles-js не найден!');
+        return;
+      }
+
+      console.log('🎯 Элемент #particles-js найден:', particlesElement);
+      console.log('📐 Размеры элемента:', particlesElement.offsetWidth, 'x', particlesElement.offsetHeight);
+
+      try {
+        particlesJS("particles-js", {
+      particles: {
+        number: {
+          value: 50, // Уменьшим количество для тестирования
+          density: {
+            enable: true,
+            value_area: 800,
+          },
+        },
+        color: {
+          value: "#ffffff", // Белый цвет для видимости
+        },
+        shape: {
+          type: "circle",
+        },
+        opacity: {
+          value: 0.8,
+          random: true,
+        },
+        size: {
+          value: 4,
+          random: true,
+        },
+        line_linked: {
+          enable: true,
+          distance: 120,
+          color: "#ffffff",
+          opacity: 0.4,
+          width: 1,
+        },
+        move: {
+          enable: true,
+          speed: 4,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false,
+        },
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" }, resize: true },
+        modes: {
+          grab: { distance: 140, line_linked: { opacity: 1 } },
+          bubble: { distance: 400, size: 80, duration: 2, opacity: 8, speed: 3 },
+          repulse: { distance: 200, duration: 0.4 },
+          push: { particles_nb: 4 },
+          remove: { particles_nb: 2 }
+        }
+      },
+      retina_detect: true
+        });
+
+        console.log('🚀 Particles.js инициализация завершена');
+
+        // Проверяем, создался ли canvas
+        setTimeout(() => {
+          const canvas = particlesElement.querySelector('canvas');
+          if (canvas) {
+            console.log('🎉 Particles.js инициализирован успешно! Canvas создан:', canvas);
+            console.log('📊 Canvas размеры:', canvas.width, 'x', canvas.height);
+          } else {
+            console.error('❌ Canvas не создан после инициализации Particles.js');
+            console.log('📋 Содержимое particlesElement:', particlesElement.innerHTML);
+          }
+        }, 100);
+
+      } catch (error) {
+        console.error('❌ Ошибка инициализации Particles.js:', error);
+      }
+    } else {
+      console.log('⏳ Particles.js еще не загружен, ждем...');
+      setTimeout(initParticles, 100);
+    }
+  }
+
+  // Запускаем инициализацию
+  initParticles();
+
+  // Алгоритм обработки изображений и генерации для демо секции
+  const imageElement = document.querySelector('.video-s img');
+  const demoTextarea = document.querySelector('.video-s .fc-textarea');
+  const startButton = document.querySelector('.video-s .footer-contactcard__actions a:first-child');
+
+  console.log('🔍 Поиск элементов:', {
+    image: !!imageElement,
+    textarea: !!demoTextarea,
+    button: !!startButton
+  });
+
+  // Система очереди изображений
+  if (imageElement) {
+    imageElement.style.transform = 'scale(1.0)';
+    imageElement.style.transformOrigin = 'center center';
+    imageElement.style.opacity = '1';
+    imageElement.style.transition = 'opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1)';
+    console.log('🎯 Начальный зум 100% установлен при загрузке страницы');
+    
+    // Дефолтные изображения (показываются 30 секунд)
+    const defaultImages = [
+      'assets/images/photo_2025-10-28 02.57.15.jpeg',
+      'assets/images/photo_2025-10-28 02.57.19.jpeg',
+      'assets/images/photo_2025-10-28 02.57.22.jpeg',
+      'assets/images/photo_2025-10-28 02.57.25.jpeg',
+      'assets/images/photo_2025-10-28 02.57.27.jpeg',
+      'assets/images/photo_2025-10-28 02.57.35.jpeg',
+      'assets/images/photo_2025-10-28 02.57.38.jpeg',
+      'assets/images/photo_2025-10-28 02.57.43.jpeg'
+    ];
+    
+    // Очередь изображений: {src: string, isUserGenerated: boolean, displayTime: number}
+    let imageQueue = defaultImages.map(src => ({
+      src: src,
+      isUserGenerated: false,
+      displayTime: 30000 // 30 секунд для дефолтных
+    }));
+    
+    // Индекс текущего изображения в очереди
+    let currentImageIndex = 0;
+    
+    // Таймер для автоматической смены изображений
+    let imageChangeTimer = null;
+    
+    // Флаг для отслеживания, идет ли сейчас смена изображения
+    let isChangingImage = false;
+    
+    // Функция для плавной замены изображения без зума
+    function replaceImageWithZoom(newImageSrc, isUserGenerated = false) {
+      if (isChangingImage) {
+        console.log('⚠️ Смена изображения уже идет, пропускаем');
+        return;
+      }
+      
+      isChangingImage = true;
+      console.log(`🔄 Начинаем плавную замену изображения: ${newImageSrc}`);
+      
+      // Устанавливаем transition только для opacity (без зума)
+      imageElement.style.transition = 'opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+      
+      // Fade out текущего изображения
+      imageElement.style.opacity = '0';
+      
+      // После fade out заменяем изображение и делаем fade in
+      setTimeout(() => {
+        // Создаем обработчик для fade in после загрузки изображения
+        const onImageLoad = () => {
+          // Небольшая задержка перед fade in для более плавного перехода
+          setTimeout(() => {
+            // Fade in нового изображения (только opacity, без зума)
+            imageElement.style.transition = 'opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            imageElement.style.opacity = '1';
+            
+            // После fade in запускаем авто-зум для показа изображения
+            setTimeout(() => {
+              // Устанавливаем начальный зум 100%
+              imageElement.style.transform = 'scale(1.0)';
+              imageElement.style.transformOrigin = 'center center';
+              imageElement.style.transition = 'opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1)';
+              
+              // Запускаем анимацию зума для показа изображения
+              setTimeout(() => {
+                console.log('🎨 Запускаем анимацию зума для изображения (100% -> 130%)');
+                
+                // Создаем эффект "оживления" - плавное приближение от 100% до 130%
+                imageElement.style.transition = 'transform 30s ease-in-out';
+                imageElement.style.transform = 'scale(1.3)';
+                
+                // Добавляем легкое свечение
+                imageElement.style.filter = 'brightness(1.1) contrast(1.1)';
+                
+                console.log('🔄 Анимация зума завершена (достигнут зум 130%)');
+              }, 2000);
+              
+              // Завершаем смену изображения
+              isChangingImage = false;
+              console.log('✅ Плавная замена изображения завершена');
+            }, 100);
+          }, 100);
+        };
+        
+        // Добавляем обработчик загрузки изображения
+        imageElement.addEventListener('load', onImageLoad);
+        
+        // Заменяем источник изображения
+        imageElement.src = newImageSrc;
+        
+        // Если изображение уже загружено (из кеша), сразу вызываем fade in
+        if (imageElement.complete) {
+          onImageLoad();
+        }
+      }, 1500); // Ждем завершения fade out
+    }
+    
+    // Функция для перехода к следующему изображению в очереди
+    function showNextImage() {
+      if (imageQueue.length === 0) {
+        console.log('⚠️ Очередь изображений пуста');
+        return;
+      }
+      
+      // Получаем текущее изображение из очереди
+      const currentImage = imageQueue[currentImageIndex];
+      const displayTime = currentImage.displayTime;
+      const isUserGenerated = currentImage.isUserGenerated;
+      
+      console.log(`📸 Показываем изображение ${currentImageIndex + 1}/${imageQueue.length}: ${currentImage.src.substring(0, 50)}...`);
+      console.log(`⏱️ Время показа: ${displayTime / 1000} секунд (${isUserGenerated ? 'сгенерированное' : 'дефолтное'})`);
+      
+      // Заменяем изображение
+      replaceImageWithZoom(currentImage.src, isUserGenerated);
+      
+      // Устанавливаем таймер для следующей смены (используем displayTime текущего изображения)
+      if (imageChangeTimer) {
+        clearTimeout(imageChangeTimer);
+      }
+      
+      imageChangeTimer = setTimeout(() => {
+        // Переходим к следующему изображению в очереди
+        currentImageIndex = (currentImageIndex + 1) % imageQueue.length;
+        showNextImage();
+      }, displayTime);
+    }
+    
+    // Функция для добавления сгенерированного изображения в очередь и немедленного показа
+    function addUserGeneratedImage(imageData) {
+      const imageItem = {
+        src: imageData,
+        isUserGenerated: true,
+        displayTime: 15000 // 15 секунд для сгенерированных
+      };
+      
+      console.log(`✅ Сгенерированное изображение получено, добавляем в очередь`);
+      
+      // Сбрасываем текущий таймер
+      if (imageChangeTimer) {
+        clearTimeout(imageChangeTimer);
+        imageChangeTimer = null;
+      }
+      
+      // Сбрасываем флаг смены изображения, чтобы можно было сразу показать новое
+      isChangingImage = false;
+      
+      // Вставляем сгенерированное изображение сразу после текущего
+      const insertIndex = currentImageIndex + 1;
+      imageQueue.splice(insertIndex, 0, imageItem);
+      
+      console.log(`✅ Сгенерированное изображение добавлено в очередь на позицию ${insertIndex + 1}`);
+      console.log(`📋 Текущая очередь: ${imageQueue.length} изображений`);
+      
+      // Устанавливаем индекс на сгенерированное изображение
+      currentImageIndex = insertIndex;
+      console.log(`🚀 Немедленно показываем сгенерированное изображение (индекс ${currentImageIndex})`);
+      
+      // Показываем сгенерированное изображение сразу
+      showNextImage();
+    }
+    
+    // Экспортируем функцию для добавления сгенерированных изображений
+    window.addUserGeneratedImage = addUserGeneratedImage;
+    
+    // Функция для остановки визуализации изображений
+    function stopImageVisualization() {
+      console.log('🛑 Останавливаем визуализацию изображений');
+      
+      // Останавливаем таймер смены изображений
+      if (imageChangeTimer) {
+        clearTimeout(imageChangeTimer);
+        imageChangeTimer = null;
+      }
+      
+      // Останавливаем очередь изображений
+      imageQueue = [];
+      
+      // Плавно скрываем изображение
+      if (imageElement) {
+        imageElement.style.transition = 'opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        imageElement.style.opacity = '0';
+        
+        // После fade out скрываем контейнер
+        setTimeout(() => {
+          const videoS = document.querySelector('.video-s');
+          if (videoS) {
+            videoS.style.display = 'none';
+            videoS.style.visibility = 'hidden';
+            videoS.style.opacity = '0';
+            console.log('👋 Контейнер изображения скрыт');
+          }
+        }, 1500);
+      }
+      
+      console.log('✅ Визуализация изображений остановлена');
+    }
+    
+    // Экспортируем функцию для остановки визуализации
+    window.stopImageVisualization = stopImageVisualization;
+    
+    // Запускаем автоматическую смену изображений
+    // Первое изображение показывается 30 секунд
+    imageChangeTimer = setTimeout(() => {
+      showNextImage();
+    }, 30000);
+    
+    console.log('🎬 Система очереди изображений запущена');
+  }
+
+  // Используем предварительно загруженный аудио элемент
+  const audioElement = document.getElementById('backgroundAudio');
+
+  // Глобальная переменная для отслеживания состояния аудио
+  let audioStarted = false;
+  let audioUnlocked = false;
+
+  // Функция для разблокировки аудио контекста
+  function unlockAudio() {
+    if (audioUnlocked) return;
+
+    // Создаем временный аудио контекст для разблокировки
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+    // Воспроизводим пустой звук для разблокировки
+    const buffer = audioContext.createBuffer(1, 1, 22050);
+    const source = audioContext.createBufferSource();
+    source.buffer = buffer;
+    source.connect(audioContext.destination);
+    source.start();
+
+    audioUnlocked = true;
+    console.log('🔓 Аудио контекст разблокирован');
+
+    // Закрываем контекст через некоторое время
+    setTimeout(() => {
+      audioContext.close();
+    }, 100);
+  }
+
+  // Добавляем обработчик для первого клика на странице
+  document.addEventListener('click', unlockAudio, { once: true });
+
+  // Обработчик окончания музыки - останавливаем визуализацию и скрываем изображение
+  if (audioElement) {
+    audioElement.addEventListener('ended', function() {
+      console.log('🎵 Музыка закончилась, останавливаем визуализацию изображений');
+      
+      // Вызываем функцию остановки визуализации, если она доступна
+      if (window.stopImageVisualization) {
+        window.stopImageVisualization();
+      } else {
+        console.warn('⚠️ Функция stopImageVisualization не найдена');
+        
+        // Если функция не найдена, скрываем изображение напрямую
+        const videoS = document.querySelector('.video-s');
+        const img = document.querySelector('.video-s img');
+        
+        if (img) {
+          img.style.transition = 'opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+          img.style.opacity = '0';
+        }
+        
+        if (videoS) {
+          setTimeout(() => {
+            videoS.style.display = 'none';
+            videoS.style.visibility = 'hidden';
+            videoS.style.opacity = '0';
+          }, 1500);
+        }
+      }
+    });
+    console.log('🎵 Обработчик окончания музыки установлен');
+  }
+
+  if (imageElement && demoTextarea && startButton) {
+    // Обработчик для кнопки "Начать"
+    startButton.addEventListener('click', async function(e) {
+      e.preventDefault();
+
+      const userInput = demoTextarea.value.trim();
+
+      // Воспроизводим песню независимо от наличия текста
+      // if (!userInput) {
+      //   return;
+      // }
+      try {
+        // Разблокируем аудио, если еще не разблокировано
+        if (!audioUnlocked) {
+          unlockAudio();
+          // Ждем немного для инициализации
+          await new Promise(resolve => setTimeout(resolve, 100));
+        }
+
+        // Проверяем, загружено ли аудио
+        if (audioElement.readyState < 2) {
+          await new Promise((resolve, reject) => {
+            const timeout = setTimeout(() => {
+              reject(new Error('Таймаут загрузки аудио'));
+            }, 10000);
+
+            audioElement.addEventListener('canplay', () => {
+              clearTimeout(timeout);
+              resolve();
+            }, { once: true });
+
+            audioElement.addEventListener('error', (e) => {
+              clearTimeout(timeout);
+              reject(new Error('Ошибка загрузки аудио'));
+            }, { once: true });
+          });
+        }
+
+        if (!audioStarted) {
+          await audioElement.play();
+          audioStarted = true;
+        } else {
+          // Если аудио уже играет, перезапускаем с начала
+          audioElement.currentTime = 0;
+          await audioElement.play();
+        }
+      } catch (error) {
+        alert('Не удалось воспроизвести аудио. Попробуйте обновить страницу и нажать где-нибудь на странице перед использованием кнопки "Начать".');
+        return;
+      }
+
+      console.log('🎵 Аудио запущено!');
+
+      // Создаем красивую анимацию для изображения
+      if (imageElement) {
+        console.log('🎨 Запускаем анимацию изображения');
+
+        // Устанавливаем начальный зум 100%
+        imageElement.style.transform = 'scale(1.0)';
+        imageElement.style.transformOrigin = 'center center';
+        imageElement.style.transition = 'opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1)';
+
+        // Запускаем анимацию зума через небольшую задержку
+        setTimeout(() => {
+          // Создаем эффект "оживления" - плавное приближение от 100% до 130%
+          imageElement.style.transition = 'transform 30s ease-in-out';
+          imageElement.style.transform = 'scale(1.3)'; // Плавно приближаемся от 100% до 130%
+
+          // Добавляем легкое свечение
+          imageElement.style.filter = 'brightness(1.1) contrast(1.1)';
+
+          console.log('🔄 Анимация зума завершена (достигнут зум 130%)');
+        }, 2000);
+      }
+
+      // Показываем сообщение пользователю
+      const message = userInput ?
+        `🎭 Отлично! Мы запустили музыкальную композицию "${userInput}". Наслаждайтесь атмосферой!` :
+        '🎵 Музыка запущена! Наслаждайтесь атмосферой "Вселенной Гарри Поттера"!';
+
+      // Создаем всплывающее уведомление
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #0a1968 0%, #1a237e 100%);
+        color: white;
+        padding: 20px 25px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        z-index: 10000;
+        font-family: 'Inter', sans-serif;
+        font-size: 16px;
+        max-width: 350px;
+        animation: slideInRight 0.5s ease-out;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.2);
+      `;
+      notification.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 24px;">🎵</span>
+          <div>
+            <div style="font-weight: 600; margin-bottom: 5px;">Музыка запущена!</div>
+            <div style="font-size: 14px; opacity: 0.9;">${message}</div>
+          </div>
+        </div>
+      `;
+
+      // Добавляем анимацию появления
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes slideInRight {
+          from {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+
+      document.body.appendChild(notification);
+
+      // Автоматически удаляем уведомление через 5 секунд
+      setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.5s ease-in forwards';
+
+        const outStyle = document.createElement('style');
+        outStyle.textContent = `
+          @keyframes slideOutRight {
+            from {
+              transform: translateX(0);
+              opacity: 1;
+            }
+            to {
+              transform: translateX(100%);
+              opacity: 0;
+            }
+          }
+        `;
+        document.head.appendChild(outStyle);
+
+        setTimeout(() => {
+          notification.remove();
+        }, 500);
+      }, 5000);
+
+      console.log('✅ Демо функция выполнена успешно');
+
+    });
+
+    console.log('🎯 Обработчик кнопки "Начать" установлен');
+  } else {
+    console.log('⚠️ Некоторые элементы не найдены, демо функционал может не работать');
+  }
+
+  // Обработчик для кнопки "Отправить идеи" - генерация изображения
+  const sendIdeasButton = document.getElementById('sendIdeasButton');
+  if (sendIdeasButton && demoTextarea && imageElement) {
+    sendIdeasButton.addEventListener('click', async function(e) {
+      e.preventDefault();
+
+      const userPrompt = demoTextarea.value.trim();
+
+      if (!userPrompt) {
+        alert('Пожалуйста, введите ваш промпт перед отправкой идей.');
+        return;
+      }
+
+      // Используем только пользовательский промпт
+      const enhancedPrompt = userPrompt;
+
+      // Показываем индикатор загрузки
+      const originalText = sendIdeasButton.textContent;
+      sendIdeasButton.textContent = 'Генерируем...';
+      sendIdeasButton.disabled = true;
+      sendIdeasButton.style.opacity = '0.6';
+      sendIdeasButton.style.cursor = 'not-allowed';
+
+      try {
+        console.log('🎨 Начинаем генерацию изображения для промпта:', userPrompt);
+        console.log('✨ Промпт для генерации:', enhancedPrompt);
+
+        // Функция для конвертации изображения в base64
+        function imageToBase64(img) {
+          return new Promise((resolve, reject) => {
+            // Проверяем, что изображение загружено
+            if (!img.complete) {
+              img.onload = () => {
+                try {
+                  const canvas = document.createElement('canvas');
+                  const ctx = canvas.getContext('2d');
+                  
+                  // Устанавливаем размеры canvas равными размерам изображения
+                  canvas.width = img.naturalWidth || img.width || 1024;
+                  canvas.height = img.naturalHeight || img.height || 1024;
+                  
+                  // Рисуем изображение на canvas
+                  ctx.drawImage(img, 0, 0);
+                  
+                  // Конвертируем в base64
+                  const base64 = canvas.toDataURL('image/png').split(',')[1]; // Убираем префикс data:image/png;base64,
+                  resolve(base64);
+                } catch (error) {
+                  reject(error);
+                }
+              };
+              img.onerror = () => reject(new Error('Ошибка загрузки изображения'));
+            } else {
+              try {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                // Устанавливаем размеры canvas равными размерам изображения
+                canvas.width = img.naturalWidth || img.width || 1024;
+                canvas.height = img.naturalHeight || img.height || 1024;
+                
+                // Рисуем изображение на canvas
+                ctx.drawImage(img, 0, 0);
+                
+                // Конвертируем в base64
+                const base64 = canvas.toDataURL('image/png').split(',')[1]; // Убираем префикс data:image/png;base64,
+                resolve(base64);
+              } catch (error) {
+                reject(error);
+              }
+            }
+          });
+        }
+
+        // Получаем текущее изображение в base64
+        let referenceImageBase64 = null;
+        if (imageElement && imageElement.src) {
+          if (imageElement.src.startsWith('data:image/png;base64,')) {
+            // Если изображение уже в base64, извлекаем его
+            referenceImageBase64 = imageElement.src.split(',')[1];
+            console.log('📸 Текущее изображение уже в base64, извлекаем его');
+          } else {
+            // Если изображение загружено из файла, конвертируем его
+            try {
+              referenceImageBase64 = await imageToBase64(imageElement);
+              console.log('📸 Текущее изображение конвертировано в base64');
+            } catch (error) {
+              console.warn('⚠️ Не удалось конвертировать текущее изображение:', error);
+              console.log('📸 Продолжаем без референсного изображения');
+            }
+          }
+        }
+
+        // Определяем URL API сервера
+        const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+          ? 'http://localhost:8002/api/generate'
+          : '/api/generate';
+
+        console.log('📡 Отправляем запрос на:', apiUrl);
+        console.log('🖼️ Референсное изображение:', referenceImageBase64 ? 'отправляется' : 'не используется');
+
+        // Создаем FormData для отправки изображения
+        const formData = new FormData();
+        formData.append('prompt', enhancedPrompt);
+        formData.append('width', '1024');
+        formData.append('height', '1024');
+        if (referenceImageBase64) {
+          formData.append('reference_image', referenceImageBase64);
+          formData.append('timestamp', Date.now().toString());
+        }
+
+        // Генерируем изображение через API
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!response.ok) {
+          let errorMessage = `HTTP error! status: ${response.status}`;
+          try {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } catch (e) {
+            const errorText = await response.text();
+            errorMessage = errorText || errorMessage;
+          }
+          throw new Error(errorMessage);
+        }
+
+        let data;
+        try {
+          data = await response.json();
+        } catch (e) {
+          const responseText = await response.text();
+          throw new Error(`Не удалось распарсить ответ сервера: ${responseText.substring(0, 100)}`);
+        }
+
+        if (data.success && data.image_b64) {
+          console.log('✅ Изображение сгенерировано успешно');
+
+          // Добавляем сгенерированное изображение в очередь
+          const imageData = 'data:image/png;base64,' + data.image_b64;
+          
+          // Добавляем сгенерированное изображение в очередь после текущего
+          if (window.addUserGeneratedImage) {
+            window.addUserGeneratedImage(imageData);
+            console.log('📋 Сгенерированное изображение добавлено в очередь');
+          } else {
+            console.warn('⚠️ Функция addUserGeneratedImage не найдена, изображение не добавлено в очередь');
+          }
+
+          // Показываем уведомление об успехе
+          showNotification('🎨 Изображение сгенерировано успешно!', 'success');
+
+          console.log('🖼️ Изображение обновлено на странице');
+        } else {
+          throw new Error(data.error || 'Не удалось получить изображение');
+        }
+
+      } catch (error) {
+        console.error('❌ Ошибка генерации изображения:', error);
+        showNotification('❌ Ошибка: ' + error.message, 'error');
+      } finally {
+        // Восстанавливаем кнопку
+        sendIdeasButton.textContent = originalText;
+        sendIdeasButton.disabled = false;
+        sendIdeasButton.style.opacity = '1';
+        sendIdeasButton.style.cursor = 'pointer';
+      }
+    });
+
+    console.log('🎯 Обработчик кнопки "Отправить идеи" установлен');
+  }
+
+  // Функция для показа уведомлений
+  function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    const bgColor = type === 'success' 
+      ? 'linear-gradient(135deg, #40cc28 0%, #199bfd 100%)'
+      : type === 'error'
+      ? 'linear-gradient(135deg, #e91e63 0%, #f44336 100%)'
+      : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: ${bgColor};
+      color: white;
+      padding: 20px 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      z-index: 10000;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      max-width: 350px;
+      animation: slideInRight 0.5s ease-out;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+    `;
+    notification.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 24px;">${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</span>
+        <div>
+          <div style="font-weight: 600; margin-bottom: 5px;">${type === 'success' ? 'Успех!' : type === 'error' ? 'Ошибка' : 'Информация'}</div>
+          <div style="font-size: 14px; opacity: 0.9;">${message}</div>
+        </div>
+      </div>
+    `;
+
+    // Добавляем анимацию появления
+    if (!document.getElementById('notification-styles')) {
+      const style = document.createElement('style');
+      style.id = 'notification-styles';
+      style.textContent = `
+        @keyframes slideInRight {
+          from {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+        @keyframes slideOutRight {
+          from {
+            transform: translateX(0);
+            opacity: 1;
+          }
+          to {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    document.body.appendChild(notification);
+
+    // Автоматически удаляем уведомление через 5 секунд
+    setTimeout(() => {
+      notification.style.animation = 'slideOutRight 0.5s ease-in forwards';
+      setTimeout(() => {
+        notification.remove();
+      }, 500);
+    }, 5000);
+  }
+});
+</script>
+   </body>
+</html>
