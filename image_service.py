@@ -20,7 +20,9 @@ logger = logging.getLogger(__name__)
 # Конфигурация Google Gemini 2.5 Flash Image Preview API
 GEMINI_MODEL = "gemini-2.5-flash-image-preview"
 GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY") or "AIzaSyBfavqDJR7XH8ooLVvi0GpYvH9SV1BFzX0"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+if not GEMINI_API_KEY:
+    raise ValueError("GEMINI_API_KEY environment variable is required. Please set it in .env file or environment variables.")
 
 # Временное отключение генерации изображений
 ENABLE_IMAGE_GENERATION = True
