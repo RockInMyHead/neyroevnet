@@ -1271,7 +1271,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <div style="display: flex; align-items: center; gap: 10px;">
         <span style="font-size: 24px;">${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</span>
           <div>
-          <div style="font-weight: 600; margin-bottom: 5px;">${type === 'success' ? 'Успех!' : type === 'error' ? 'Ошибка' : 'Информация'}</div>
+          <div style="font-weight: 600; margin-bottom: 5px;">${type === 'error' ? 'Ошибка' : ''}</div>
             <div style="font-size: 14px; opacity: 0.9;">${message}</div>
           </div>
         </div>
