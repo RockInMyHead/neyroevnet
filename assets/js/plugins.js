@@ -356,7 +356,7 @@
      * ======================================
      */
     $(".text-slider-large").not(".slick-initialized").slick({
-      slidesToShow: 2,
+      slidesToShow: 1,
       slidesToScroll: 1,
       autoplay: autoplayEnabled,
       autoplaySpeed: slickConfig.autoplaySpeed || 3000,
@@ -365,8 +365,9 @@
       dots: false,
       pauseOnHover: false,
       draggable: slickConfig.draggable !== false,
-      variableWidth: true,
+      variableWidth: false,
       cssEase: "linear",
+      centerMode: false,
     });
 
     $(".text-slider-large-rtl").not(".slick-initialized").slick({
