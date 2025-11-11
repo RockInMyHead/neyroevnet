@@ -22,7 +22,7 @@ GEMINI_MODEL = "gemini-2.5-flash-image-preview"
 GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
-    raise ValueError("GEMINI_API_KEY environment variable is required. Please set it in .env file or environment variables.")
+    logger.warning("GEMINI_API_KEY not set. Image generation will be disabled. Please set GEMINI_API_KEY in .env file.")
 
 # Временное отключение генерации изображений
 ENABLE_IMAGE_GENERATION = True
@@ -141,7 +141,7 @@ async def generate_image_with_retry(prompt: str, width: int = 1024, height: int 
     """Генерирует изображение через Gemini API с повторными попытками"""
     api_key = GEMINI_API_KEY
     if not api_key:
-        raise ValueError("GEMINI_API_KEY not set")
+        raise ValueError("GEMINI_API_KEY not set. Please set GEMINI_API_KEY in .env file to enable image generation.")
     
     aspect_ratio = get_aspect_ratio(width, height)
     enhanced_prompt = generate_prompt_for_size(prompt, width, height)
