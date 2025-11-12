@@ -14,25 +14,37 @@
       <!-- #description -->
       <meta name="description" content="Artificial Neural Network AI HTML Template">
       <!-- ==== css dependencies start ==== -->
+      <!-- Critical CSS -->
+      <link rel="preload" href="assets/css/main.css" as="style">
+      <link rel="stylesheet" href="assets/css/main.css">
       <!-- bootstrap five css -->
+      <link rel="preload" href="assets/vendor/bootstrap/css/bootstrap.min.css" as="style">
       <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
       <!-- bootstrap icons css -->
-      <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
+      <link rel="preload" href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css" as="style">
+      <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css" media="print" onload="this.media='all'">
       <!-- material icons css -->
-      <link rel="stylesheet" href="assets/vendor/material-icons/css/materialicons.css">
-      <!-- font awesome six css -->
-      <link rel="stylesheet" href="assets/vendor/font-awesome/css/all.css">
-      <!-- magnific popup css -->
-      <link rel="stylesheet" href="assets/vendor/magnific-popup/css/magnific-popup.css">
-      <!-- jquery ui css -->
-      <link rel="stylesheet" href="assets/vendor/jquery-ui/css/jquery-ui.min.css">
+      <link rel="stylesheet" href="assets/vendor/material-icons/css/materialicons.css" media="print" onload="this.media='all'">
+      <!-- font awesome six css - defer non-critical -->
+      <link rel="stylesheet" href="assets/vendor/font-awesome/css/all.css" media="print" onload="this.media='all'">
+      <!-- magnific popup css - defer -->
+      <link rel="stylesheet" href="assets/vendor/magnific-popup/css/magnific-popup.css" media="print" onload="this.media='all'">
+      <!-- jquery ui css - defer -->
+      <link rel="stylesheet" href="assets/vendor/jquery-ui/css/jquery-ui.min.css" media="print" onload="this.media='all'">
       <!-- slick css -->
-      <link rel="stylesheet" href="assets/vendor/slick/css/slick.css">
-      <!-- odometer css -->
-      <link rel="stylesheet" href="assets/vendor/odometer/css/odometer.css">
+      <link rel="stylesheet" href="assets/vendor/slick/css/slick.css" media="print" onload="this.media='all'">
+      <!-- odometer css - defer -->
+      <link rel="stylesheet" href="assets/vendor/odometer/css/odometer.css" media="print" onload="this.media='all'">
       <!-- ==== / css dependencies end ==== -->
-      <!-- main css -->
-      <link rel="stylesheet" href="assets/css/main.css">
+      <noscript>
+         <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css">
+         <link rel="stylesheet" href="assets/vendor/material-icons/css/materialicons.css">
+         <link rel="stylesheet" href="assets/vendor/font-awesome/css/all.css">
+         <link rel="stylesheet" href="assets/vendor/magnific-popup/css/magnific-popup.css">
+         <link rel="stylesheet" href="assets/vendor/jquery-ui/css/jquery-ui.min.css">
+         <link rel="stylesheet" href="assets/vendor/slick/css/slick.css">
+         <link rel="stylesheet" href="assets/vendor/odometer/css/odometer.css">
+      </noscript>
    </head>
    <body>
       <!--[if lte IE 9]>
@@ -103,15 +115,15 @@
                            <div class="navbar__menu">
                               <ul class="navbar__list">
                                  <li class="navbar__item nav-fade">
-                                    <a href="#about">О НАС</a></li>
+                                    <a href="#about">О НАС</a>
                                  <li class="navbar__item nav-fade">
-                                    <a href="#product">ПРОДУКТ</a></li>
+                                    <a href="#product">ПРОДУКТ</a>
                                  <li class="navbar__item nav-fade">
-                                    <a href="#band">КОМАНДА</a></li>
+                                    <a href="#band">КОМАНДА</a>
                                  <li class="navbar__item nav-fade">
-                                    <a href="#demo">ДЕМО</a></li>       
+                                    <a href="#demo">ДЕМО</a>       
                                  <li class="navbar__item nav-fade">
-                                    <a href="#plan">НАШИ ПЛАНЫ</a></li>  
+                                    <a href="#plan">НАШИ ПЛАНЫ</a>  
                                                              </ul>
                            </div>
                            <div class="navbar__options">
@@ -130,6 +142,7 @@
 <div class="navbar__item nav-fade d-none d-xl-block">
     <a href="#contact"><i class="bi bi-envelope"></i> КОНТАКТЫ</a>
   </div>
+</a>
                               </div>
                               <button class="open-mobile-menu d-flex d-xl-none" aria-label="toggle mobile menu" title="open mobile menu">
                               <i class="material-symbols-outlined">
@@ -155,9 +168,40 @@
                         </button>
                      </div>
                      <div class="mobile-menu__list"></div>
-                   <ul class="navbar__list">
-  <li class="navbar__item nav-fade"><a href="#contact">КОНТАКТЫ</a></li>
-</ul>
+                     <div class="mobile-menu__social social nav-fade">
+                        <a
+                           href="https://www.facebook.com/"
+                           target="_blank"
+                           aria-label="share us on facebook"
+                           title="facebook"
+                           >
+                        <i class="bi bi-facebook"></i>
+                        </a>
+                        <a
+                           href="https://www.twitter.com/"
+                           target="_blank"
+                           aria-label="share us on twitter"
+                           title="twitter"
+                           >
+                        <i class="bi bi-twitter"></i>
+                        </a>
+                        <a
+                           href="https://www.linkedin.com/"
+                           target="_blank"
+                           aria-label="share us on pinterest"
+                           title="linkedin"
+                           >
+                        <i class="bi bi-linkedin"></i>
+                        </a>
+                        <a
+                           href="https://www.instagram.com/"
+                           target="_blank"
+                           aria-label="share us on instagram"
+                           title="instagram"
+                           >
+                        <i class="bi bi-instagram"></i>
+                        </a>
+                     </div>
                   </nav>
                </div>
                <div class="mobile-menu__backdrop"></div>
@@ -306,7 +350,95 @@
             </form>
          </div>
          <!-- ==== / search popup end ==== -->
-                 <div id="smooth-wrapper">
+         <!-- ==== offcanvas info start ==== -->
+         <div class="offcanvas-info">
+            <div class="offcanvas-info__inner">
+               <div class="offcanvas-info__intro">
+                  <div class="offcanvas-info__logo">
+                     <a href="index.html">
+                     <img src="assets/images/offcanvas-logo.png" alt="Image">
+                     </a>
+                  </div>
+                  <h4>Intelligent Conversations Made Simple</h4>
+               </div>
+               <div class="offcanvas-info__content">
+                  <h5>Contact Us</h5>
+                  <ul>
+                     <li>
+                        <a href="mailto:Aikeu@example.com">Aikeu@example.com</a>
+                     </li>
+                     <li>
+                        <a href="tel:1880-480-555-0103">+1 880 (480) 555-0103</a>
+                     </li>
+                     <li>
+                        <a href="https://www.google.com/maps/place/Kentucky,+USA/@37.8172108,-87.087054,8z/data=!3m1!4b1!4m6!3m5!1s0x8842734c8b1953c9:0x771f6f4ec5ccdffc!8m2!3d37.8393332!4d-84.2700179!16zL20vMDQ5OHk?entry=ttu" target="_blank">4517 Washington Ave. Manchester, Kentucky 39495</a>
+                     </li>
+                  </ul>
+               </div>
+               <div class="offcanvas-info__form">
+                  <h5>Subscribe to newsletter</h5>
+                  <form action="#" method="post" autocomplete="off">
+                     <div class="subscribe-form">
+                        <input
+                           type="email"
+                           name="subscribe-newsletter"
+                           id="subscribeNewsletter"
+                           placeholder="Email"
+                           required
+                           >
+                        <button type="submit" aria-label="subscribe newsletter" title="subscribe newsletter">
+                        <i class="material-symbols-outlined">
+                        send
+                        </i>
+                        </button>
+                     </div>
+                  </form>
+               </div>
+               <div class="offcanvas-info__footer">
+                  <p class="tertiary-text">Follow Us :</p>
+                  <div class="social">
+                     <a
+                        href="https://www.facebook.com/"
+                        target="_blank"
+                        aria-label="share us on facebook"
+                        title="facebook"
+                        >
+                     <i class="bi bi-facebook"></i>
+                     </a>
+                     <a
+                        href="https://www.twitter.com/"
+                        target="_blank"
+                        aria-label="share us on twitter"
+                        title="twitter"
+                        >
+                     <i class="bi bi-twitter"></i>
+                     </a>
+                     <a
+                        href="https://www.linkedin.com/"
+                        target="_blank"
+                        aria-label="share us on pinterest"
+                        title="linkedin"
+                        >
+                     <i class="bi bi-linkedin"></i>
+                     </a>
+                     <a
+                        href="https://www.instagram.com/"
+                        target="_blank"
+                        aria-label="share us on instagram"
+                        title="instagram"
+                        >
+                     <i class="bi bi-instagram"></i>
+                     </a>
+                  </div>
+               </div>
+            </div>
+            <button class="close-offcanvas-info" aria-label="close offcanvas info">
+            <i class="bi bi-x-lg"></i>
+            </button>
+         </div>
+         <div class="offcanvas-info-backdrop"></div>
+         <!-- ==== / offcanvas info end ==== -->
+         <div id="smooth-wrapper">
             <div id="smooth-content">
                <!-- ==== main start ==== -->
                <main>
@@ -328,81 +460,81 @@
                      </div>
                      <div class="banner__large-slider">
                         <div class="banner__large-slider__single">
-                           <img src="assets/images/banner/large-slider/one.png" alt="Image">
+                           <img src="assets/images/banner/large-slider/one.png" alt="Image" loading="eager">
                         </div>
                         <div class="banner__large-slider__single">
-                           <img src="assets/images/banner/large-slider/two.png" alt="Image">
+                           <img src="assets/images/banner/large-slider/two.png" alt="Image" loading="lazy">
                         </div>
                         <div class="banner__large-slider__single">
-                           <img src="assets/images/banner/large-slider/three.png" alt="Image">
+                           <img src="assets/images/banner/large-slider/three.png" alt="Image" loading="lazy">
                         </div>
                         <div class="banner__large-slider__single">
-                           <img src="assets/images/banner/large-slider/four.png" alt="Image">
+                           <img src="assets/images/banner/large-slider/four.png" alt="Image" loading="lazy">
                         </div>
                         <div class="banner__large-slider__single">
-                           <img src="assets/images/banner/large-slider/five.png" alt="Image">
+                           <img src="assets/images/banner/large-slider/five.png" alt="Image" loading="lazy">
                         </div>
                         <div class="banner__large-slider__single">
-                           <img src="assets/images/banner/large-slider/six.png" alt="Image">
+                           <img src="assets/images/banner/large-slider/six.png" alt="Image" loading="lazy">
                         </div>
                         <div class="banner__large-slider__single">
-                           <img src="assets/images/banner/large-slider/one.png" alt="Image">
+                           <img src="assets/images/banner/large-slider/one.png" alt="Image" loading="lazy">
                         </div>
                         <div class="banner__large-slider__single">
-                           <img src="assets/images/banner/large-slider/two.png" alt="Image">
+                           <img src="assets/images/banner/large-slider/two.png" alt="Image" loading="lazy">
                         </div>
                         <div class="banner__large-slider__single">
-                           <img src="assets/images/banner/large-slider/three.png" alt="Image">
+                           <img src="assets/images/banner/large-slider/three.png" alt="Image" loading="lazy">
                         </div>
                         <div class="banner__large-slider__single">
-                           <img src="assets/images/banner/large-slider/four.png" alt="Image">
+                           <img src="assets/images/banner/large-slider/four.png" alt="Image" loading="lazy">
                         </div>
                         <div class="banner__large-slider__single">
-                           <img src="assets/images/banner/large-slider/five.png" alt="Image">
+                           <img src="assets/images/banner/large-slider/five.png" alt="Image" loading="lazy">
                         </div>
                         <div class="banner__large-slider__single">
-                           <img src="assets/images/banner/large-slider/six.png" alt="Image">
+                           <img src="assets/images/banner/large-slider/six.png" alt="Image" loading="lazy">
                         </div>
                      </div>
                      <div dir="rtl">
                         <div class="banner__small-slider">
                            <div class="banner__small-slider__single">
-                              <img src="assets/images/banner/small-slider/one.png" alt="Image">
+                              <img src="assets/images/banner/small-slider/one.png" alt="Image" loading="lazy">
                            </div>
                            <div class="banner__small-slider__single">
-                              <img src="assets/images/banner/small-slider/two.png" alt="Image">
+                              <img src="assets/images/banner/small-slider/two.png" alt="Image" loading="lazy">
                            </div>
                            <div class="banner__small-slider__single">
-                              <img src="assets/images/banner/small-slider/three.png" alt="Image">
+                              <img src="assets/images/banner/small-slider/three.png" alt="Image" loading="lazy">
                            </div>
                            <div class="banner__small-slider__single">
-                              <img src="assets/images/banner/small-slider/four.png" alt="Image">
+                              <img src="assets/images/banner/small-slider/four.png" alt="Image" loading="lazy">
                            </div>
                            <div class="banner__small-slider__single">
-                              <img src="assets/images/banner/small-slider/five.png" alt="Image">
+                              <img src="assets/images/banner/small-slider/five.png" alt="Image" loading="lazy">
                            </div>
                            <div class="banner__small-slider__single">
-                              <img src="assets/images/banner/small-slider/one.png" alt="Image">
+                              <img src="assets/images/banner/small-slider/one.png" alt="Image" loading="lazy">
                            </div>
                            <div class="banner__small-slider__single">
-                              <img src="assets/images/banner/small-slider/two.png" alt="Image">
+                              <img src="assets/images/banner/small-slider/two.png" alt="Image" loading="lazy">
                            </div>
                            <div class="banner__small-slider__single">
-                              <img src="assets/images/banner/small-slider/three.png" alt="Image">
+                              <img src="assets/images/banner/small-slider/three.png" alt="Image" loading="lazy">
                            </div>
                            <div class="banner__small-slider__single">
-                              <img src="assets/images/banner/small-slider/four.png" alt="Image">
+                              <img src="assets/images/banner/small-slider/four.png" alt="Image" loading="lazy">
                            </div>
                            <div class="banner__small-slider__single">
-                              <img src="assets/images/banner/small-slider/five.png" alt="Image">
+                              <img src="assets/images/banner/small-slider/five.png" alt="Image" loading="lazy">
                            </div>
                         </div>
                      </div>
                      <div class="banner-thumb-one">
-                        <img src="assets/images/banner/banner-thumb-one.png" alt="Image">
+                        <img src="assets/images/banner/banner-thumb-one.png" alt="Image" loading="lazy">
                      </div>
                      <a class="scroll-position-btn" href="#about">
-                     <img src="assets/images/frame-one.png" alt="Image">
+                     <img src="assets/images/frame-one.png" alt="Image" loading="lazy">
                      <i class="bi bi-arrow-down"></i>
                      </a>
                   </section>
@@ -416,13 +548,13 @@
                               AI
                               </a>
                            </h2>
-                           <img src="assets/images/star.png" alt="Image">
+                           <img src="assets/images/star.png" alt="Image" loading="lazy">
                            <h2 class="light-title">
                               <a href="services.html" class="text-stroke" data-text="Neuroevent">
                               Neuroevent
                               </a>
                            </h2>
-                           <img src="assets/images/star.png" alt="Image">
+                           <img src="assets/images/star.png" alt="Image" loading="lazy">
                         </div>
                         <div class="text-slider__single">
                            <h2 class="light-title">
@@ -430,13 +562,13 @@
                               AI
                               </a>
                            </h2>
-                           <img src="assets/images/star.png" alt="Image">
+                           <img src="assets/images/star.png" alt="Image" loading="lazy">
                            <h2 class="light-title">
                               <a href="services.html" class="text-stroke" data-text="Neuroevent">
                               Neuroevent
                               </a>
                            </h2>
-                           <img src="assets/images/star.png" alt="Image">
+                           <img src="assets/images/star.png" alt="Image" loading="lazy">
                         </div>
                         <div class="text-slider__single">
                            <h2 class="light-title">
@@ -444,13 +576,13 @@
                               AI
                               </a>
                            </h2>
-                           <img src="assets/images/star.png" alt="Image">
+                           <img src="assets/images/star.png" alt="Image" loading="lazy">
                            <h2 class="light-title">
                               <a href="services.html" class="text-stroke" data-text="Neuroevent">
                               Neuroevent
                               </a>
                            </h2>
-                           <img src="assets/images/star.png" alt="Image">
+                           <img src="assets/images/star.png" alt="Image" loading="lazy">
                         </div>
                         <div class="text-slider__single">
                            <h2 class="light-title">
@@ -458,13 +590,13 @@
                               AI
                               </a>
                            </h2>
-                           <img src="assets/images/star.png" alt="Image">
+                           <img src="assets/images/star.png" alt="Image" loading="lazy">
                            <h2 class="light-title">
                               <a href="services.html" class="text-stroke" data-text="Neuroevent">
                               Neuroevent
                               </a>
                            </h2>
-                           <img src="assets/images/star.png" alt="Image">
+                           <img src="assets/images/star.png" alt="Image" loading="lazy">
                         </div>
                         <div class="text-slider__single">
                            <h2 class="light-title">
@@ -472,13 +604,13 @@
                               AI
                               </a>
                            </h2>
-                           <img src="assets/images/star.png" alt="Image">
+                           <img src="assets/images/star.png" alt="Image" loading="lazy">
                            <h2 class="light-title">
                               <a href="services.html" class="text-stroke" data-text="Neuroevent">
                               Neuroevent
                               </a>
                            </h2>
-                           <img src="assets/images/star.png" alt="Image">
+                           <img src="assets/images/star.png" alt="Image" loading="lazy">
                         </div>
                         <div class="text-slider__single">
                            <h2 class="light-title">
@@ -486,13 +618,13 @@
                               AI
                               </a>
                            </h2>
-                           <img src="assets/images/star.png" alt="Image">
+                           <img src="assets/images/star.png" alt="Image" loading="lazy">
                            <h2 class="light-title">
                               <a href="services.html" class="text-stroke" data-text="Neuroevent">
                               Neuroevent
                               </a>
                            </h2>
-                           <img src="assets/images/star.png" alt="Image">
+                           <img src="assets/images/star.png" alt="Image" loading="lazy">
                         </div>
                         <div class="text-slider__single">
                            <h2 class="light-title">
@@ -500,13 +632,13 @@
                               AI
                               </a>
                            </h2>
-                           <img src="assets/images/star.png" alt="Image">
+                           <img src="assets/images/star.png" alt="Image" loading="lazy">
                            <h2 class="light-title">
                               <a href="services.html" class="text-stroke" data-text="Neuroevent">
                               Neuroevent
                               </a>
                            </h2>
-                           <img src="assets/images/star.png" alt="Image">
+                           <img src="assets/images/star.png" alt="Image" loading="lazy">
                         </div>
                      </div>
                   </section>
@@ -530,7 +662,7 @@
                            <div class="col-12 col-lg-6 col-xxl-7">
                               <div class="craft__thumb text-start text-lg-end">
                                  <div class="reveal-img parallax-img">
-                                    <img src="assets/images/craft-thumb.png" alt="Image">
+                                    <img src="assets/images/craft-thumb.png" alt="Image" loading="lazy">
                                  </div>
                               </div>
                            </div>
@@ -613,7 +745,7 @@
                                  КАК ЭТО РАБОТАЕТ
                                  </span>
                                  <h2 class="title title-animation">Вам понадобится только смартфон</h2>
-                                 <p>Neuroevent принимает запросы зрителей через ТГ-бота и в реальном времени генерирует DCI 2K визуал на экранах. Встроенная модель уровня GPT собирает впечатления и идеи, что дает детальную обратную связь и глубокий кастдев для улучшения технологии и самого ивента. Скоро — переход на потоковую видео-генерацию, UGC-интерактив и другие возможности.</p>
+                                 <p>Neuroevent принимает запросы зрителей через ТГ-бота и в реальном времени генерирует DCI 2K визуал на экранах. Встроенная модель уровня GPT собирает впечатления и идеи, что дает детальную обратную связь и глубокий кастдев для улучшения технологии и самого ивента. Скоро — адаптация репертуара, саунд-дизайн и управление светом во время шоу.</p>
                               </div>
                            </div>
                            <div class="col-12 col-lg-7 col-xxl-7 offset-xxl-1">
@@ -649,9 +781,8 @@
                                              loop
                                              muted
                                              controls
-playsinline
-  webkit-playsinline
-  x5-playsinline="true"
+                                             preload="metadata"
+                                             playsinline
                                              >
                                              <source src="assets/images/video.mp4" type="video/mp4">
                                           </video>
@@ -1065,7 +1196,7 @@ playsinline
                                           <i class="material-symbols-outlined">
                                           check_circle
                                           </i>
-                                          Кратный рост выручки
+                                          Увеличение оборота на 40%
                                        </li>
                                    </ul>
                                  </div>
@@ -1367,45 +1498,45 @@ playsinline
          <!-- ==== / scroll to top end ==== -->
       </div>
       <!-- ==== js dependencies start ==== -->
-      <!-- jquery -->
+      <!-- jquery - critical, load first -->
       <script src="assets/vendor/jquery/jquery-3.7.0.min.js"></script>
       <!-- bootstrap five js -->
-      <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
       <!-- magnific popup js -->
-      <script src="assets/vendor/magnific-popup/js/jquery.magnific-popup.min.js"></script>
+      <script src="assets/vendor/magnific-popup/js/jquery.magnific-popup.min.js" defer></script>
       <!-- jquery ui js -->
-      <script src="assets/vendor/jquery-ui/js/jquery-ui.min.js"></script>
+      <script src="assets/vendor/jquery-ui/js/jquery-ui.min.js" defer></script>
       <!-- slick js -->
-      <script src="assets/vendor/slick/js/slick.min.js"></script>
+      <script src="assets/vendor/slick/js/slick.min.js" defer></script>
       <!-- odometer js -->
-      <script src="assets/vendor/odometer/js/odometer.min.js"></script>
+      <script src="assets/vendor/odometer/js/odometer.min.js" defer></script>
       <!-- image loaded js -->
-      <script src="assets/vendor/images-loaded/imagesloaded.pkgd.min.js"></script>
+      <script src="assets/vendor/images-loaded/imagesloaded.pkgd.min.js" defer></script>
       <!-- isotope js -->
-      <script src="assets/vendor/isotope/isotope.pkgd.min.js"></script>
+      <script src="assets/vendor/isotope/isotope.pkgd.min.js" defer></script>
       <!-- packery js -->
-      <script src="assets/vendor/isotope/packery.pkgd.min.js"></script>
+      <script src="assets/vendor/isotope/packery.pkgd.min.js" defer></script>
+      <!-- gsap js - load before plugins that depend on it -->
+      <script src="assets/vendor/gsap/gsap.min.js" defer></script>
       <!-- splittext js -->
-      <script src="assets/vendor/gsap/SplitText.min.js"></script>
+      <script src="assets/vendor/gsap/SplitText.min.js" defer></script>
       <!-- scrollsmoother js -->
-      <script src="assets/vendor/gsap/ScrollSmoother.min.js"></script>
+      <script src="assets/vendor/gsap/ScrollSmoother.min.js" defer></script>
       <!-- scrollto js -->
-      <script src="assets/vendor/gsap/ScrollToPlugin.min.js"></script>
+      <script src="assets/vendor/gsap/ScrollToPlugin.min.js" defer></script>
       <!-- scrolltrigger js -->
-      <script src="assets/vendor/gsap/ScrollTrigger.min.js"></script>
-      <!-- gsap js -->
-      <script src="assets/vendor/gsap/gsap.min.js"></script>
+      <script src="assets/vendor/gsap/ScrollTrigger.min.js" defer></script>
       <!-- viewport js -->
-      <script src="assets/vendor/viewport/viewport.jquery.js"></script>
+      <script src="assets/vendor/viewport/viewport.jquery.js" defer></script>
       <!-- vanilla tilt js -->
-      <script src="assets/vendor/vanilla-tilt/tilt.jquery.js"></script>
+      <script src="assets/vendor/vanilla-tilt/tilt.jquery.js" defer></script>
       <!-- particle js -->
-      <script src="assets/vendor/particle-js/particles.min.js"></script>
+      <script src="assets/vendor/particle-js/particles.min.js" defer></script>
       <!-- ==== / js dependencies end ==== -->
       <!-- plugins js -->
-      <script src="assets/js/plugins.js"></script>
+      <script src="assets/js/plugins.js" defer></script>
       <!-- main js -->
-      <script src="assets/js/main.js"></script>
+      <script src="assets/js/main.js" defer></script>
 
 <script>
 /* Блокируем переход по ссылкам, но не мешаем работе слайдера */
