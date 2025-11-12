@@ -60,7 +60,8 @@ class PerformanceMonitor {
     this.alerts = [];
     this.lastAlertTime = 0;
 
-    this.init();
+    // Отключаем автоматическую инициализацию для предотвращения зависаний
+    // this.init();
   }
 
   /**

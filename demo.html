@@ -1130,10 +1130,10 @@ document.addEventListener("DOMContentLoaded", function() {
           force3D: true
         });
 
-        // Анимируем scale напрямую
+        // Анимируем scale напрямую (уменьшенная длительность для снижения нагрузки)
         gsap.to(currentImage, {
-          scale: 1.3, // от 1.0 до 1.3
-          duration: 22,
+          scale: 1.2, // от 1.0 до 1.2 (меньше зум)
+          duration: 15, // уменьшено с 22 до 15 секунд
           ease: "power2.out",
           force3D: true,
           onComplete: () => {
@@ -1141,7 +1141,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!imageChangeTimer) {
               imageChangeTimer = setTimeout(() => {
                 showNextImage();
-              }, 20000);
+              }, 15000); // уменьшено с 20000 до 15000 мс
             }
           }
         });
@@ -1701,7 +1701,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let imageQueue = defaultImages.map(src => ({
       src: src,
       isUserGenerated: false,
-      displayTime: 20000 // 20 секунд для дефолтных
+      displayTime: 15000 // 15 секунд для дефолтных (уменьшено для снижения нагрузки)
     }));
 
     // Индекс текущего изображения в очереди
@@ -1869,7 +1869,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const newImageItem = {
         src: imageData,
         isUserGenerated: true,
-        displayTime: 20000 // 20 секунд для сгенерированных
+        displayTime: 15000 // 15 секунд для сгенерированных (уменьшено для снижения нагрузки)
       };
 
       if (replaceCurrent) {
@@ -1885,8 +1885,15 @@ document.addEventListener("DOMContentLoaded", function() {
           console.log(`✅ Создана новая очередь с сгенерированным изображением`);
         }
       } else {
-        // "Создать новую сцену" - добавляем новое изображение в очередь
+        // "Создать новую сцену" - добавляем новое изображение в очередь, но ограничиваем до 10 изображений
         imageQueue.push(newImageItem);
+
+        // Ограничиваем очередь до 10 изображений для предотвращения утечек памяти
+        if (imageQueue.length > 10) {
+          imageQueue = imageQueue.slice(-10); // Оставляем последние 10
+          console.log('🧹 Очередь изображений очищена, оставлено 10 последних');
+        }
+
         // Переходим к новому изображению
         currentImageIndex = imageQueue.length - 1;
         console.log(`✅ Новое изображение добавлено в очередь (индекс ${currentImageIndex}, всего: ${imageQueue.length})`);
@@ -2003,27 +2010,19 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  // Ждем инициализации менеджеров и переинициализируем зум
-  let managerCheckInterval = setInterval(() => {
-    // Проверяем, инициализированы ли менеджеры
-    const managersReady = window.GSAPManager?.initialized && 
-                         window.ResourceManager?.initialized && 
-                         window.AdaptiveManager?.initialized;
-    
-    if (managersReady) {
-      clearInterval(managerCheckInterval);
-      // Небольшая задержка для завершения инициализации
-      setTimeout(() => {
-        reinitializeZoom();
-        console.log('✅ Зум переинициализирован после инициализации всех менеджеров');
-      }, 200);
-    }
-  }, 100);
-
-  // Очищаем интервал через 10 секунд, если менеджеры не инициализировались
+  // Проверяем инициализацию менеджеров только один раз через 5 секунд
   setTimeout(() => {
-    clearInterval(managerCheckInterval);
-  }, 10000);
+    const managersReady = window.GSAPManager?.initialized &&
+                         window.ResourceManager?.initialized &&
+                         window.AdaptiveManager?.initialized;
+
+    if (managersReady) {
+      reinitializeZoom();
+      console.log('✅ Зум переинициализирован после инициализации всех менеджеров');
+    } else {
+      console.log('⚠️ Не все менеджеры инициализированы, зум не переинициализирован');
+    }
+  }, 5000);
 
   // Зум применяется через CSS #imageElement правило
 });
